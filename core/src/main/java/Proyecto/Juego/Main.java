@@ -20,7 +20,7 @@ public class Main extends Game {
         font = new BitmapFont();  // Use default font
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
-        this.setScreen(new MainScreen(this));  // Set the first screen
+        this.setScreen(new Mapa(this));  // Set the first screen
     }
 
     @Override

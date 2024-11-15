@@ -6,18 +6,24 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class MainScreen implements Screen {
+public class Mapa implements Screen {
 
     private Main game;
     private SpriteBatch batch;
     private BitmapFont font;
     private Texture mapa;
+    private Texture imgPalmera = new Texture("Palmera.png");
+    private Sprite palmera;
+    private Texture imgNotificacion = new Texture("Campana.png");
+    private Sprite notificaciones;
+    private Sprite sugerencias;
     private int height;
     private int width;
 
-    public MainScreen(Main game) {
+    public Mapa(Main game) {
         this.game = game;
     }
 
@@ -26,6 +32,8 @@ public class MainScreen implements Screen {
         batch = game.batch;
         font = game.font;
         mapa = new Texture( "mapa.png");
+        palmera = new Sprite(imgPalmera);
+        notificaciones = new  Sprite(imgNotificacion);
         height = game.height;
         width = game.width;
     }
@@ -40,6 +48,8 @@ public class MainScreen implements Screen {
         batch.begin();
         
         batch.draw(mapa, 0, 0, width, height);
+        palmera.setPosition(-203, 400);
+        palmera.draw(batch);
         batch.end();
         
         // Handle screen transitions or input events (optional)
