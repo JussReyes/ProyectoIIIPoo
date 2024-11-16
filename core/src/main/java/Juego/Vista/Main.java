@@ -1,4 +1,4 @@
-package Proyecto.Juego;
+package Juego.Vista;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
