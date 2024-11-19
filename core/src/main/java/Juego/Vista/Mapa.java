@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import java.util.HashMap;
+import java.util.Hashtable;
 
 public class Mapa implements Screen {
 
@@ -48,6 +50,8 @@ public class Mapa implements Screen {
     private Nivel nivel5;
     private Nivel nivel6;
     
+    private HashMap<Integer, Nivel> niveles;
+    
     private int height;
     private int width;
 
@@ -72,12 +76,21 @@ public class Mapa implements Screen {
         LFlecha = new Sprite(imgLFlecha);
         RFlecha = new Sprite(imgRflecha);
         
+        niveles = new HashMap<>();
+        
         nivel1 = new Nivel("1");
+        niveles.put(1, nivel1);
         nivel2 = new Nivel("2");
+        niveles.put(2, nivel2);
         nivel3 = new Nivel("3");
+        niveles.put(3, nivel3);
         nivel4 = new Nivel("4");
+        niveles.put(4, nivel4);
         nivel5 = new Nivel("5");
+        niveles.put(5, nivel5);
         nivel6 = new Nivel("6");
+        niveles.put(6, nivel6);
+        
         height = game.height;
         width = game.width;
     }
@@ -121,19 +134,19 @@ public class Mapa implements Screen {
         nivel2.draw(batch);
         
         nivel3.setPosition(mapa.getX() + 870, 30);
-        nivel3.setEstado(EstadoNivel.COMPLETADO);
+        nivel3.setEstado(EstadoNivel.ACTUAL);
         nivel3.draw(batch);
         
         nivel4.setPosition(mapa.getX() + 1172, 72);
-        nivel4.setEstado(EstadoNivel.COMPLETADO);
+        nivel4.setEstado(EstadoNivel.BLOQUEADO);
         nivel4.draw(batch);
         
         nivel5.setPosition(mapa.getX() + 1550, 25);
-        nivel5.setEstado(EstadoNivel.COMPLETADO);
+        nivel5.setEstado(EstadoNivel.BLOQUEADO);
         nivel5.draw(batch);
         
         nivel6.setPosition(mapa.getX() + 1930, 45);
-        nivel6.setEstado(EstadoNivel.COMPLETADO);
+        nivel6.setEstado(EstadoNivel.BLOQUEADO);
         nivel6.draw(batch);
         
         
@@ -148,21 +161,6 @@ public class Mapa implements Screen {
         }
     }
     
-    public float getX(){
-        return xMap;
-    }
-    
-    public float getY(){
-        return xMap;
-    }
-    
-    public void setX(float x){
-        xMap = x;
-    }
-    
-    public void setY(float y){
-        yMap = y;
-    }
     
     public void setNotification(boolean tieneNotificacion){
         if (tieneNotificacion){
@@ -172,7 +170,11 @@ public class Mapa implements Screen {
             imgNotificacion = campanaEmpty;
         }
     }
-
+    
+    public Nivel getNivel(int nivel){
+        return niveles.get(nivel);
+    }
+    
     @Override
     public void resize(int width, int height) {
         // Handle resizing if needed

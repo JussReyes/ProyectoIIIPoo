@@ -35,7 +35,7 @@ public class Nivel extends Sprite{
         
         switch (estado) {
             case BLOQUEADO :
-                textura =  new Texture("Uncumpleted.png");
+                textura =  new Texture("Uncompleted.png");
                 break;
             case ACTUAL :
                 textura = new Texture("Current.png");
