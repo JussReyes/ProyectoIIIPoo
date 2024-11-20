@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Random;
 
 public class PantallaJuego implements Screen {
 
@@ -71,6 +73,29 @@ public class PantallaJuego implements Screen {
     private float widthAbajo;
     private float yAbajo;
     
+    private Texture imgBotella = new Texture("Bottle.png");
+    private Texture imgLata = new Texture("Can.png");
+    private Texture imgHoja = new Texture("Leaf.png");
+    private Texture imgCopa = new Texture("Glass.png");
+    private Texture imgPalto = new Texture("Plate.png");
+    private Texture imgJeringa = new Texture("Syringe.png");
+    private Texture imgBolaPapel = new Texture("Paper.png");
+    
+    private ArrayList<Texture> texturasDesechos = new ArrayList<>();
+    private LinkedList<Sprite> desechos = new LinkedList<>();
+    
+    private ArrayList<Sprite> desechosUp = new ArrayList<>();
+    private ArrayList<Sprite> desechosMid = new ArrayList<>();
+    private ArrayList<Sprite> desechosDown = new ArrayList<>();
+    
+    private int dificultad = 25;
+    
+    private double time;
+    private double spawnTime = 2;
+    private double lastSpawnTime = 0;
+    
+    private Random random = new Random();
+
     public PantallaJuego(Main game) {
         this.game = game;
     }
@@ -109,6 +134,30 @@ public class PantallaJuego implements Screen {
         basureros.add(general);
         
         pausa = new Sprite(imgPausa);
+        
+        texturasDesechos.add(imgBotella);
+        texturasDesechos.add(imgBolaPapel);
+        texturasDesechos.add(imgLata);
+        
+        for (int i = 0; i < dificultad; i++) {
+            int indice = random.nextInt(texturasDesechos.size());
+            Texture textura = texturasDesechos.get(indice);
+            Sprite desecho = new Sprite(textura);
+            float yPos;
+            switch (random.nextInt(3)) {
+                case 0:
+                    yPos = 200;
+                    break;
+                case 1:
+                    yPos = 120;
+                    break;
+                default:
+                    yPos = 40;
+            }
+            desecho.setPosition(1200, yPos);
+            desechos.add(desecho);
+        }
+        
     }
 
     @Override
@@ -116,24 +165,12 @@ public class PantallaJuego implements Screen {
         // Clear the screen with a color
         Gdx.gl.glClearColor(1, 0.996f, 0.632f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        time += Gdx.graphics.getDeltaTime();
+        lastSpawnTime += Gdx.graphics.getDeltaTime();
 
         // Start drawing with SpriteBatch
         batch.begin();
         
-        XBOceano =  (XBOceano - 5) % 1540;
-        OceanoBack.setPosition(XBOceano, YBOceano);
-        OceanoBack.draw(batch);
-        
-        XMOceano =  (XMOceano - 3) % 1573;
-        OceanoMid.setPosition(XMOceano, YMOceano);
-        OceanoMid.draw(batch);
-        
-        XFOceano =  (XFOceano - 2) % 1512;
-        OceanoFront.setPosition(XFOceano, YFOceano);
-        OceanoFront.draw(batch);
-        
-        isla.setPosition(0, 0);
-        isla.draw(batch);
         
         pausa.setPosition(110, 573);
         pausa.draw(batch);
@@ -160,6 +197,88 @@ public class PantallaJuego implements Screen {
                 basurero.setPosition(444 + 121*(i -3) + (355 - widthAbajo) / 2, yAbajo);
             }
             basurero.draw(batch);
+        }
+        
+        XBOceano =  (XBOceano - 5) % 1540;
+        OceanoBack.setPosition(XBOceano, YBOceano);
+        OceanoBack.draw(batch);
+        
+        for (Sprite desecho : desechosUp){
+            float xPos = desecho.getX();
+            float yPos = desecho.getY();
+            
+            if (xPos < 230){
+                /// termina con fail
+                yPos = 500;
+                xPos = 230;
+            }
+            yPos = yPos + (float) Math.sin(time * 3);
+            xPos -= 3;
+            desecho.setPosition(xPos, yPos);
+            desecho.draw(batch);
+        }
+        
+        XMOceano =  (XMOceano - 3) % 1573;
+        OceanoMid.setPosition(XMOceano, YMOceano);
+        OceanoMid.draw(batch);
+        
+        for (Sprite desecho : desechosMid){
+            float xPos = desecho.getX();
+            float yPos = desecho.getY();
+            
+            if (xPos < 230){
+                /// termina con fail
+                yPos = 500;
+                xPos = 230;
+            }
+            yPos = yPos + (float) Math.sin(time * 3);
+            xPos -= 3;
+            desecho.setPosition(xPos, yPos);
+            desecho.draw(batch);
+        }
+        
+        XFOceano =  (XFOceano - 2) % 1512;
+        OceanoFront.setPosition(XFOceano, YFOceano);
+        OceanoFront.draw(batch);
+        
+        for (Sprite desecho : desechosDown){
+            float xPos = desecho.getX();
+            float yPos = desecho.getY();
+            
+            if (xPos < 230){
+                /// termina con fail
+                yPos = 500;
+                xPos = 230;
+            }
+            yPos = yPos + (float) Math.sin(time * 3);
+            xPos -= 3;
+            desecho.setPosition(xPos, yPos);
+            desecho.draw(batch);
+        }   
+
+        isla.setPosition(0, 0);
+        isla.draw(batch);
+        
+        if(desechos.isEmpty()){
+            // termina
+        }
+        else{
+            if (lastSpawnTime > spawnTime) {
+                Sprite desecho = desechos.removeLast();
+                float yPos = desecho.getY();
+                
+                switch (Math.round(yPos)) {
+                    case 200:
+                        desechosUp.add(desecho);
+                        break;
+                    case 120:
+                        desechosMid.add(desecho);
+                        break;
+                    default:
+                        desechosDown.add(desecho);
+                }
+                lastSpawnTime = 0;
+            }
         }
         
         batch.end();
