@@ -260,7 +260,7 @@ public class PantallaJuego implements Screen {
         isla.draw(batch);
         
         if(desechos.isEmpty()){
-            // termina
+            // terminacon win
         }
         else{
             if (lastSpawnTime > spawnTime) {
