@@ -8,9 +8,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import java.util.ArrayList;
@@ -28,7 +34,12 @@ public class Recomendaciones implements Screen {
     private Stage stage;
     private Skin skin;
     private SelectBox<String> selectBox;
+    private TextField nombre;
+    private TextField descripcion;
+    private ImageButton imagen;
     
+    private Texture pintura;
+    private Texture fondo;
 
     public Recomendaciones(Main game) {
         this.game = game;
@@ -43,14 +54,36 @@ public class Recomendaciones implements Screen {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         
-        skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
+        skin = new Skin(Gdx.files.internal("CustumUI/UIRec.json"));
         
         selectBox = new SelectBox<>(skin);
         selectBox.setItems("Plástico", "Metal", "Papel", "Biológico", "Orgánico", "Vidrio", "General");
         
-        selectBox.setSize(100, 20);
-        selectBox.setPosition(20, 500);
+        selectBox.setSize(215, 30);
+        selectBox.setAlignment(1);
+        selectBox.setPosition(130, 314);
+        
+        pintura =  new Texture(Gdx.files.internal("BigPaint.png"));
+        fondo = new Texture (Gdx.files.internal("BGRecomendaciones.png"));
+        
+        Texture image = new Texture(Gdx.files.internal("ImageButton.png"));
+        imagen = new ImageButton(new TextureRegionDrawable(new TextureRegion(image)));
+        imagen.setPosition(404, 314);
+        imagen.setSize(134, 134);
+        
+        nombre = new TextField("", skin);
+        nombre.setPosition(130, 420);
+        nombre.setSize(215, 30);
+        
+        descripcion = new TextArea("GGG", skin);
+        descripcion.setPosition(130, 147);
+        descripcion.setSize(409, 100);
+        
         stage.addActor(selectBox);
+        stage.addActor(imagen);
+        stage.addActor(nombre);
+        stage.addActor(descripcion);
+        
     }
         
     @Override
@@ -60,11 +93,11 @@ public class Recomendaciones implements Screen {
 
         // Start drawing with SpriteBatch
         batch.begin();
-        
+        batch.draw(fondo, 72, 66);
+        batch.draw(pintura, 718, 192);
+        batch.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
-        
-        batch.end();
         
         // Handle screen transitions or input events (optional)
         if (Gdx.input.isTouched()) {
