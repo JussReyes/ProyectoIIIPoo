@@ -1,0 +1,37 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Juego.Modelo;
+
+/**
+ *
+ * @author Diego
+ */
+public class Notificacion {
+    private TipoNotificacion tipo;
+    private String texto;
+    private boolean leida;
+
+    public Notificacion(TipoNotificacion tipo, String texto) {
+        this.tipo = tipo;
+        this.texto = texto;
+        this.leida = false; 
+    }
+    public TipoNotificacion getTipo() {
+        return tipo;
+    }
+
+    public String getTexto() {
+        return texto;
+    }
+
+    public boolean isLeida() {
+        return leida;
+    }
+
+    public void marcarComoLeida() {
+        this.leida = true;
+    }
+
+}
