@@ -37,6 +37,7 @@ public class Mapa implements Screen {
     private final Texture imgSugerencias = new Texture("RecomendacionS.png");
     private Sprite sugerencias;
     
+    
     private final Texture imgRflecha = new Texture("RFlecha.png");
     private Sprite RFlecha;
     
@@ -72,6 +73,9 @@ public class Mapa implements Screen {
         palmera = new Sprite(imgPalmera);
         notificaciones = new  Sprite(imgNotificacion);
         sugerencias = new Sprite(imgSugerencias);
+       //ImageButtons??;
+        
+       
         
         LFlecha = new Sprite(imgLFlecha);
         RFlecha = new Sprite(imgRflecha);
