@@ -44,6 +44,26 @@ com.badlogic.gdx.graphics.Color: {
 		b: 1
 		a: 1
 	}
+        grisEspecifico: {
+                r: 0.851
+		g: 0.851
+		b: 0.851
+		a: 1      
+        }
+        azulOscuro: {
+                r: 0.051
+		g: 0.357
+		b: 0.576
+		a: 1      
+        }
+        celeste: {
+                r: 0.094
+                g: 0.600
+                b: 0.996
+                a: 1.0
+        }
+        
+        
 }
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	round-dark-gray: {
@@ -145,12 +165,16 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
-		font: font
+		font: BalooBhaina2-Bold
 		fontColor: black
 	}
 	title: {
-		font: title
-		fontColor: black
+		font: BalooBhaina2-Bold
+		fontColor: celeste
+	}
+        extra: {
+		font: BalooBhaina2-Regular5
+		fontColor: white
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
@@ -242,6 +266,15 @@ com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 		cursor: cursor
 		selection: selection
 	}
+        alternative: {
+		font: BalooBhaina2-Regular5
+		fontColor: azulOscuro
+		background: BackList
+		cursor: cursor
+		selection: selection
+	}
+        
+        
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 	default: {
