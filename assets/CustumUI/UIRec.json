@@ -1,12 +1,12 @@
 {
 com.badlogic.gdx.graphics.g2d.BitmapFont: {
-	BalooBhaina2-Bold: {
+	Bold: {
 		file: BalooBhaina2-Bold.fnt
 		scaledSize: -1
 		markupEnabled: false
 		flip: false
 	}
-	BalooBhaina2-Regular5: {
+	regular: {
 		file: BalooBhaina2-Regular(5).fnt
 		scaledSize: -1
 		markupEnabled: false
@@ -18,8 +18,8 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 		markupEnabled: false
 		flip: false
 	}
-	title: {
-		file: font-title-export.fnt
+	Titulos: {
+		file: BalooBhaina2-Bold(1).fnt
 		scaledSize: -1
 		markupEnabled: false
 		flip: false
@@ -38,32 +38,18 @@ com.badlogic.gdx.graphics.Color: {
 		b: 0.68333334
 		a: 1
 	}
+	Azul: {
+		r: 0.050980393
+		g: 0.35686275
+		b: 0.5764706
+		a: 1
+	}
 	white: {
 		r: 1
 		g: 1
 		b: 1
 		a: 1
 	}
-        grisEspecifico: {
-                r: 0.851
-		g: 0.851
-		b: 0.851
-		a: 1      
-        }
-        azulOscuro: {
-                r: 0.051
-		g: 0.357
-		b: 0.576
-		a: 1      
-        }
-        celeste: {
-                r: 0.094
-                g: 0.600
-                b: 0.996
-                a: 1.0
-        }
-        
-        
 }
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	round-dark-gray: {
@@ -148,7 +134,7 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {
-		font: BalooBhaina2-Bold
+		font: Bold
 		up: Button
 		down: SButton
 		over: SButton
@@ -165,21 +151,13 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
-		font: BalooBhaina2-Bold
+		font: font
 		fontColor: black
-	}
-	title: {
-		font: BalooBhaina2-Bold
-		fontColor: celeste
-	}
-        extra: {
-		font: BalooBhaina2-Regular5
-		fontColor: white
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
 	default: {
-		font: BalooBhaina2-Regular5
+		font: regular
 		fontColorSelected: white
 		fontColorUnselected: white
 		selection: selection
@@ -207,7 +185,7 @@ com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
 	default: {
-		font: BalooBhaina2-Regular5
+		font: regular
 		fontColor: white
 		background: selectbox
 		scrollStyle: default
@@ -250,31 +228,18 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		checked: round-dark-gray
 		checkedOver: round-light-gray
 	}
-	special: {
-		font: title
-		fontColor: black
-		up: round-gray
-		down: round-dark-gray
-		over: round-light-gray
-	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 	default: {
-		font: BalooBhaina2-Regular5
+		font: regular
 		fontColor: white
-		background: BackList
-		cursor: cursor
+		background: TextBox
+		focusedBackground: SelectedText
+		cursor: progress-bar-fill
 		selection: selection
+		messageFont: regular
+		messageFontColor: white
 	}
-        alternative: {
-		font: BalooBhaina2-Regular5
-		fontColor: azulOscuro
-		background: BackList
-		cursor: cursor
-		selection: selection
-	}
-        
-        
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 	default: {
