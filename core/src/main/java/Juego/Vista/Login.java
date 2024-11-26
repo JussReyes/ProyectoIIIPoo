@@ -69,7 +69,7 @@ public class Login implements Screen, Fuentes{
         render = new ShapeRenderer();
         
         titulo = new Label("Iniciar Sesión", Fuentes.titulos);
-        titulo.setPosition(345, 600);
+        titulo.setPosition(260, 600);
         
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -100,10 +100,10 @@ public class Login implements Screen, Fuentes{
                 }
                  else{
                     if(!contra.getText().equals("123") && usuario.getText().equals("Admin")){
-                    tortuga =  new Texture(Gdx.files.internal("TortugaContraIncorrecta.png"));    
+                    tortuga =  new Texture(Gdx.files.internal("TortugaError.png"));    
                     }
                  }
-                //Poner demás casos :0
+                
                 
             }
         });
