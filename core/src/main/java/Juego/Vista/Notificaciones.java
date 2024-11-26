@@ -1,5 +1,6 @@
 package Juego.Vista;
 
+import Juego.Controlador.Controlador;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -41,7 +42,7 @@ public class Notificaciones implements Screen, Fuentes {
     private ScrollPane scroll;
     
 
-    public Notificaciones(Main game) {
+    public Notificaciones(Main game, Controlador cont) {
         this.game = game;
     }
 

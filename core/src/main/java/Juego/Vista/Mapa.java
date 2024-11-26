@@ -109,7 +109,7 @@ public class Mapa implements Screen {
             
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                   game.setScreen(new Notificaciones(game));
+                   game.setScreen(new Notificaciones(game, controlador));
                    //Añadir controlador
                     
             }
@@ -218,7 +218,7 @@ public class Mapa implements Screen {
         palmera.setPosition(-203, 400);
         palmera.draw(batch);
         
-        //Hace falta que esté en el render?
+        
         cantidadNotificaciones.setPosition(notificaciones.getX()+27 -(4*(cantidadNotificaciones.getText().length()-1)) , notificaciones.getY()+32);
                
         nivel1.setPosition(mapa.getX() + 100, 40);

@@ -41,6 +41,10 @@ public class Usuario implements Serializable{
     }
     
     public int getCantNotificaciones() {
+        
+        if(notificaciones == null){
+            return 0;
+        }
         return notificaciones.size();
     }
     
