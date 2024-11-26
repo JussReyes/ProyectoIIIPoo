@@ -86,7 +86,7 @@ public class Login implements Screen, Fuentes{
             
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                    game.setScreen(new CrearCuenta(game));
+                    game.setScreen(new CrearCuenta(game, controlador));
             }
         });
        

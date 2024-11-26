@@ -1,5 +1,6 @@
 package Juego.Vista;
 
+import Juego.Controlador.Controlador;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -20,7 +21,7 @@ public class Main extends Game {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         camara = new OrthographicCamera(width, height);
-        this.setScreen(new CrearCuenta(this));  // Set the first screen
+        this.setScreen(new Recomendaciones(this, new Controlador()));  // Set the first screen
     }
 
     @Override

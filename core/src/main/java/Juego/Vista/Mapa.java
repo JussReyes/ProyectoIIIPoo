@@ -1,5 +1,6 @@
 package Juego.Vista;
 
+import Juego.Controlador.Controlador;
 import Juego.Modelo.EstadoNivel;
 import Juego.Modelo.Nivel;
 import com.badlogic.gdx.Screen;
@@ -21,6 +22,8 @@ import java.util.HashMap;
 import java.util.Hashtable;
 
 public class Mapa implements Screen {
+    
+    private Controlador controlador;
 
     private Main game;
     
@@ -67,8 +70,9 @@ public class Mapa implements Screen {
     float xMap = 0;
     float yMap = 0;
     
-    public Mapa(Main game) {
+    public Mapa(Main game, Controlador cont) {
         this.game = game;
+        controlador=cont;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package Juego.Vista;
 
+import Juego.Controlador.Controlador;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -13,6 +14,8 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class PantallaJuego implements Screen {
+    
+    private Controlador controlador;
 
     private Main game;
     
@@ -96,8 +99,9 @@ public class PantallaJuego implements Screen {
     
     private Random random = new Random();
 
-    public PantallaJuego(Main game) {
+    public PantallaJuego(Main game, Controlador cont) {
         this.game = game;
+        controlador=cont;
     }
 
     @Override

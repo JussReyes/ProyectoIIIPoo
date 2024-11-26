@@ -41,6 +41,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
  */
 public class CrearCuenta implements Screen, Fuentes {
     
+    private Controlador controlador;
+    
     private Main game;
     
     private Camera camara;
@@ -63,8 +65,9 @@ public class CrearCuenta implements Screen, Fuentes {
     private Texture tortuga;
     private Texture fondo;
 
-    public CrearCuenta(Main game) {
+    public CrearCuenta(Main game, Controlador cont) {
         this.game = game;
+        controlador=cont;
     }
 
     @Override
@@ -119,9 +122,7 @@ public class CrearCuenta implements Screen, Fuentes {
                 String us = usuario.getText();
                 String pass = contra.getText();
                 Usuario newUser = new Usuario(us,pass);
-                
-                Controlador cont = new Controlador();
-                cont.añadirUsuario(newUser);
+                controlador.añadirUsuario(newUser);
                         
             }
         });

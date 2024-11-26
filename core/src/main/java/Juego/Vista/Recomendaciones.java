@@ -1,5 +1,6 @@
 package Juego.Vista;
 
+import Juego.Controlador.Controlador;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -21,6 +22,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class Recomendaciones implements Screen, Fuentes {
+    
+    private Controlador controlador;
 
     private Main game;
     
@@ -42,8 +45,9 @@ public class Recomendaciones implements Screen, Fuentes {
     
     private Label titulo;
 
-    public Recomendaciones(Main game) {
+    public Recomendaciones(Main game, Controlador cont) {
         this.game = game;
+        controlador=cont;
     }
 
     @Override

@@ -4,6 +4,7 @@
  */
 package Juego.Vista;
 
+import Juego.Controlador.Controlador;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -23,6 +24,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
  * @author Thomas
  */
 public class GameOver implements Screen, Fuentes{
+    
+    private Controlador controlador;
     
     private Main game;
     private boolean win;
@@ -48,9 +51,10 @@ public class GameOver implements Screen, Fuentes{
     private Texture sombra;
     private Texture tortuga;
     
-    public GameOver(Main game, boolean win) {
+    public GameOver(Main game, Controlador ct, boolean win) {
         this.game = game;
         this.win = win;
+        controlador=ct;
     }
 
     @Override
