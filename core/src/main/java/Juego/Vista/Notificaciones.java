@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -33,9 +34,10 @@ public class Notificaciones implements Screen, Fuentes {
     private Stage stage; 
     private Skin skin;
     
+    private Label titulo;
+    
     private VerticalGroup grupo;
-    private Texture fondoNotif = new Texture (Gdx.files.internal("BGREcomendaciones.png"));
-    private ImageButton boton;
+    private Texture campana = new Texture (Gdx.files.internal("NotifBell.png"));
     private ScrollPane scroll;
     
 
@@ -53,6 +55,10 @@ public class Notificaciones implements Screen, Fuentes {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         skin = new Skin(Gdx.files.internal("CustumUI/UIRec.json"));
+        
+        titulo = new Label("NOTIFICACIONES", Fuentes.titulos);
+        titulo.setPosition(295, 600);
+        
         ImageTextButton boton1 = new ImageTextButton("MIT descubre nuevo material que podría destronar\n"
                                                                                         + "al plástico como material de preferencia por las\n"
                                                                                         + "grandes compañias...  Seguir leyendo", skin, "noticia");
@@ -66,8 +72,8 @@ public class Notificaciones implements Screen, Fuentes {
                                                                                         + "al plástico como material de preferencia por las\n"
                                                                                         + "grandes compañias...  Seguir leyendo", skin, "noticia");
         
-        ImageTextButton boton5 = new ImageTextButton("otro texto", skin, "noticia");
-        ImageTextButton boton6 = new ImageTextButton("el último", skin, "noticia");
+        ImageTextButton boton5 = new ImageTextButton("¡Tu diseño ha sido aceptado!", skin, "solicitud");
+        ImageTextButton boton6 = new ImageTextButton("¡Tu diseño ha sido aceptado!", skin, "solicitud");
         grupo = new VerticalGroup();
         grupo.space(20);
         grupo.addActor(boton1);
@@ -77,8 +83,10 @@ public class Notificaciones implements Screen, Fuentes {
         grupo.addActor(boton5);
         grupo.addActor(boton6);
         scroll = new ScrollPane(grupo, skin, "notificaciones");
-        scroll.setPosition(100, 100);
-        scroll.setSize(500, 500);
+        scroll.setPosition(75, 67);
+        scroll.setSize(550, 492);
+        
+        stage.addActor(titulo);
         stage.addActor(scroll);
         
     }
@@ -90,6 +98,7 @@ public class Notificaciones implements Screen, Fuentes {
 
         // Start drawing with SpriteBatch
         batch.begin();
+        batch.draw(campana, 692, 109);
         batch.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();

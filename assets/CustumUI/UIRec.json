@@ -165,6 +165,17 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 		over: NoticiaOver
 		checked: NoticiaDown
 	}
+	solicitud: {
+		font: notifications
+		fontColor: white
+		downFontColor: Azul
+		overFontColor: white
+		checkedFontColor: Azul
+		up: SolicitudUp
+		down: SolicitudDown
+		over: SolicitudOver
+		checked: SolicitudDown
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
