@@ -91,6 +91,8 @@ public class Login implements Screen, Fuentes{
         });
        
         tortuga =  new Texture(Gdx.files.internal("Tortuga Normal 1.png"));
+        mensajeError = new Label("", Fuentes.error); 
+        mensajeError.setPosition(775, 455);
         fondo = new Texture (Gdx.files.internal("BGLogin.png"));
         
         ingresar = new ImageTextButton("Ingresar", skin);
@@ -100,9 +102,36 @@ public class Login implements Screen, Fuentes{
             
             @Override
             public void changed(ChangeListener.ChangeEvent ce, Actor actor) {
-               
-                tortuga =  new Texture(Gdx.files.internal("TortugaError.png"));    
-                mensajeError.setText("¡Las contraseñas no coinciden!");
+               String us = usuario.getText();
+               String pass = contra.getText();
+               String inicio =" ";
+               try {
+                   if (us.isBlank())
+                    throw new IllegalArgumentException("        "+"Ingrese el usuario");
+                
+                if (pass.isBlank())
+                    throw new IllegalArgumentException("      Ingrese la contraseña");
+
+                if(pass.length()<8)
+                    throw new IllegalArgumentException(" Ingrese una contraseña válida");
+                
+                int result = controlador.iniciarSesion(us, pass);
+                switch (result) {
+                    case (0): {
+                        game.setScreen(new Mapa(game, controlador));
+                    }
+                    case (1): {
+                        throw new IllegalArgumentException("     La contraseña ingresada\n            no es correcta!");
+                    }
+                    case (2): {
+                        throw new IllegalArgumentException("        El usuario ingresado\n                 no existe!");
+                    }
+                }
+               }
+               catch (IllegalArgumentException ex){
+                    tortuga =  new Texture(Gdx.files.internal("TortugaError.png"));
+                    mensajeError.setText(ex.getMessage());
+               }
             }
         });
         
@@ -124,7 +153,7 @@ public class Login implements Screen, Fuentes{
         stage.addActor(ingresar);
         stage.addActor(titulo);
         stage.addActor(crearCuenta);
-        
+        stage.addActor(mensajeError);
         
     }
 
