@@ -72,7 +72,7 @@ public class CrearCuenta implements Screen, Fuentes {
         render = new ShapeRenderer();
         
         titulo = new Label("Crear Cuenta", Fuentes.titulos);
-        titulo.setPosition(345, 600);
+        titulo.setPosition(260, 600);
         
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -139,7 +139,6 @@ public class CrearCuenta implements Screen, Fuentes {
         usuario.setColor(0.851f, 0.851f, 0.851f, 1);
         contra.setColor(0.851f, 0.851f, 0.851f, 1);
 
-        // Start drawing with SpriteBatch
         batch.begin();
 
         batch.draw(fondo, 150, 50);
