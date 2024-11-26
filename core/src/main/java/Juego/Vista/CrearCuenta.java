@@ -107,22 +107,26 @@ public class CrearCuenta implements Screen, Fuentes {
         crear.addListener(new ChangeListener(){
             //Accion 
             @Override
-            public void changed(ChangeListener.ChangeEvent ce, Actor actor) {         
-                tortuga =  new Texture(Gdx.files.internal("TortugaError.png"));    
-                mensajeError.setText("¡El usuario no está disponible!");//Recorrer lista usuarios
-                if(!contra.getText().equals(confirmarContra.getText())){
-                    mensajeError.setText("¡Las contraseñas no coinciden!");
+            public void changed(ChangeListener.ChangeEvent ce, Actor actor) {
+                String pass = contra.getText();
+                try{
+                
+                if(!pass.equals(confirmarContra.getText())){
+                    throw new IllegalArgumentException("¡Las contraseñas no coinciden!");
                 }
                 else{
-                    if(contra.getText().length()<8)
-                    mensajeError.setText("  "+"¡La contraseña debe tener"+'\n'+"  "+"al menos 8 caracteres!");
+                    if(pass.length()<8)
+                    throw new IllegalArgumentException("  "+"¡La contraseña debe tener"+'\n'+"  "+"al menos 8 caracteres!");
                 }
                 
-                System.out.println("JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
                 String us = usuario.getText();
-                String pass = contra.getText();
                 Usuario newUser = new Usuario(us,pass);
                 controlador.añadirUsuario(newUser);
+                }
+                catch (IllegalArgumentException ex) {
+                    tortuga =  new Texture(Gdx.files.internal("TortugaError.png"));
+                    mensajeError.setText(ex.getMessage());//Recorrer lista usuarios
+                }
                         
             }
         });

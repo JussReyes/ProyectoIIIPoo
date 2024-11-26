@@ -22,16 +22,12 @@ public class Controlador {
         
     }
     
-    public void añadirUsuario(Usuario user) {
+    public void añadirUsuario(Usuario usuario) throws IllegalArgumentException {
         ManejadorArchivoUsuarios MAU = new ManejadorArchivoUsuarios();
-//        try {
-//            usuarios=MAU.cargarArchivoUsuarios();
-//        }
-//        catch(IOException ex){
-//        }
-//        if (usuarios==null)
-//            usuarios=new ArrayList<>();
-        usuarios.add(user);
+      for (Usuario user: usuarios) 
+          if (user.getNombre().equals(usuario.getNombre()))
+                  throw new IllegalArgumentException("¡El usuario no está disponible!");
+        usuarios.add(usuario);
         MAU.escribirArchivo(usuarios);
     }
     
