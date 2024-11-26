@@ -4,11 +4,13 @@
  */
 package Juego.Modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Diego
  */
-public class Notificacion {
+public class Notificacion implements Serializable{
     private TipoNotificacion tipo;
     private String texto;
     private boolean leida;

@@ -151,7 +151,7 @@ public class CrearCuenta implements Screen, Fuentes {
         
         render.begin(ShapeRenderer.ShapeType.Filled);
         render.setColor(Color.WHITE);
-        render.rect(300, 120, 112, 1);
+        render.rect(361, 93, 70, 1);
         
         render.end();
         

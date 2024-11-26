@@ -4,13 +4,14 @@
  */
 package Juego.Modelo;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 /**
  *
  * @author Diego
  */
-public class Usuario {
+public class Usuario implements Serializable{
     private String nombre;
     private String contrasena;
     private int nivel;
