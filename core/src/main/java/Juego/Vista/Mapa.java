@@ -13,9 +13,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import java.util.HashMap;
@@ -97,11 +99,28 @@ public class Mapa implements Screen {
         LFlecha = new ImageButton(LEstilo);
         LFlecha.setPosition(50, 335);
         
+        LFlecha.addListener(new ClickListener(){
+            
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                    xMap=0;
+            }
+        });
+        
         ImageButtonStyle REstilo = new ImageButtonStyle();
         REstilo.up = new TextureRegionDrawable(imgRflecha);
         REstilo.over = new TextureRegionDrawable(imgRSflecha);
         RFlecha = new ImageButton(REstilo);
         RFlecha.setPosition(991, 335);
+        
+        RFlecha.addListener(new ClickListener(){
+            
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                    System.out.println("ji");
+                    xMap=-1105;
+            }
+        });
         
         niveles = new HashMap<>();
         
@@ -134,9 +153,9 @@ public class Mapa implements Screen {
         // Start drawing with SpriteBatch
         batch.begin();
         
-        if (xMap > -1105){
-            xMap -= 1;
-        }
+//        if (xMap > -1105){
+//            xMap -= 1;
+//        }
         mapa.setPosition(xMap, yMap);
         mapa.draw(batch);
         
