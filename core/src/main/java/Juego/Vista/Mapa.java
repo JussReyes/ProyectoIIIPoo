@@ -97,6 +97,10 @@ public class Mapa implements Screen {
         if(cantNotificaciones.length()>=2){
             cantNotificaciones = "+9";
         }
+        setNotification(!cantNotificaciones.equals("0"));
+        if(cantNotificaciones.equals("0")){
+            cantNotificaciones = "";
+        }
         cantidadNotificaciones = new Label(cantNotificaciones , Fuentes.bold); 
         
         //Notificaciones
@@ -152,6 +156,7 @@ public class Mapa implements Screen {
         
         ImageButtonStyle REstilo = new ImageButtonStyle();
         REstilo.up = new TextureRegionDrawable(imgRflecha);
+        REstilo.over = new TextureRegionDrawable(imgRSflecha);
         RFlecha = new ImageButton(REstilo);
         RFlecha.setPosition(991, 335);
         
@@ -184,8 +189,8 @@ public class Mapa implements Screen {
         
         stage.addActor(RFlecha);
         stage.addActor(LFlecha);
-        stage.addActor(cantidadNotificaciones);
         stage.addActor(notificaciones);
+        stage.addActor(cantidadNotificaciones);
         stage.addActor(sugerencias);
 
     }
@@ -219,8 +224,8 @@ public class Mapa implements Screen {
         palmera.draw(batch);
         
         
-        cantidadNotificaciones.setPosition(notificaciones.getX()+27 -(4*(cantidadNotificaciones.getText().length()-1)) , notificaciones.getY()+32);
-               
+        cantidadNotificaciones.setPosition(notificaciones.getX()+27 -(4*(cantidadNotificaciones.getText().length()-1)) , notificaciones.getY()+32);    
+        
         nivel1.setPosition(mapa.getX() + 100, 40);
         nivel1.setEstado(EstadoNivel.COMPLETADO);
         nivel1.draw(batch);
@@ -249,6 +254,7 @@ public class Mapa implements Screen {
         batch.end();
         
         stage.act(Gdx.graphics.getDeltaTime());
+        
         stage.draw();
         
         // Handle screen transitions or input events (optional)
