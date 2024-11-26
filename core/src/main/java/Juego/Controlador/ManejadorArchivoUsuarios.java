@@ -22,44 +22,7 @@ public class ManejadorArchivoUsuarios {
 
     public ManejadorArchivoUsuarios() {
     }
-    public int escribirArchivo(List lista) {
-        String nombreArchivo = "usuarios.dat";
-        FileOutputStream archivoEscritura = null;
-        ObjectOutputStream manejadorEscritura = null;
-        try {
-            // apertura del archivo
-            manejadorEscritura  = new ObjectOutputStream(new FileOutputStream (nombreArchivo));
-            
-            //procesamiento
-            for (int i = 0; i < lista.size(); i++) {
-                manejadorEscritura.writeObject(lista.get(i));
-            }
-            
-            //cierre
-            //System.out.println("todo bien");
-            return 0;//IConstantes.EXITO;
-
-        } catch (FileNotFoundException ex) {
-            //System.out.println("No se pudo crear el archivo " + nombreArchivo);
-            return 1;//IConstantes.ERROR_ARCHIVO;
-        } catch (IOException ex) {
-            //System.out.println("Tengo problemas para escribir el archivo " + nombreArchivo);
-            return 1;//IConstantes.ERROR_ARCHIVO;
-        } 
-        finally {
-            try {
-                if (manejadorEscritura != null){
-                    manejadorEscritura.flush();  // asegurarse que todos los datos abandonen el stream
-                    manejadorEscritura.close();
-                    //System.out.println("cerré todo bien");
-
-                }
-            } catch (IOException ex) {
-                return 1;//IConstantes.ERROR_ARCHIVO;
-            }
-        }
-    }
-    
+  
     public int escribirArchivo(ArrayList<Usuario> lista) {
         
         String nombreArchivo = "usuarios.dat";
@@ -71,7 +34,7 @@ public class ManejadorArchivoUsuarios {
             
             //procesamiento
             for (int i = 0; i < lista.size(); i++) {
-                System.out.println(i);
+                System.out.println("Escribiendo al usuario número "+i);
                 manejadorEscritura.writeObject(lista.get(i));
             }
             
@@ -100,11 +63,11 @@ public class ManejadorArchivoUsuarios {
         }
     }
     
-    public ArrayList<Usuario> cargarArchivoUsuarios() throws FileNotFoundException{
+    public ArrayList<Usuario> cargarArchivoUsuarios() {
         
         String nombreArchivo = "usuarios.dat";
         ObjectInputStream manejadorLectura = null;
-        ArrayList<Usuario> lista = null;
+        ArrayList<Usuario> lista = new ArrayList<Usuario>();
         
         try {
             // apertura del archivo
@@ -123,10 +86,7 @@ public class ManejadorArchivoUsuarios {
 
         } catch (ClassNotFoundException ex) {
             //System.out.println("No se pudo cargar el registro del archivo " + nombreArchivo);
-            return null;
-        } catch (FileNotFoundException ex) {
-            //System.out.println("No se pudo cargar el archivo " + nombreArchivo);
-            return null;
+            return new ArrayList<Usuario>();
         } catch (IOException ex) {
             //System.out.println("fin del archivo" + nombreArchivo);
             return lista;
@@ -136,9 +96,9 @@ public class ManejadorArchivoUsuarios {
                 if (manejadorLectura != null)
                     manejadorLectura.close();
             } catch (IOException ex) {
-                return null;
+                return new ArrayList<Usuario>();
             }
         }
     } 
-    
+
 }

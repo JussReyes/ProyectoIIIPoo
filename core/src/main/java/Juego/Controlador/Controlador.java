@@ -13,31 +13,40 @@ import java.util.ArrayList;
  * @author xande
  */
 public class Controlador {
-    ArrayList<Usuario> usuarios;
+    private ArrayList<Usuario> usuarios;
+    private Usuario usuarioActual;
     
     public Controlador(){
         ManejadorArchivoUsuarios MAU = new ManejadorArchivoUsuarios();
+        usuarios=MAU.cargarArchivoUsuarios();
         
-        try {
-            usuarios=MAU.cargarArchivoUsuarios();
-        }
-        catch(IOException ex){
-            usuarios=new ArrayList<>();
-        }
-        if (usuarios==null)
-            usuarios=new ArrayList<>();
     }
     
     public void añadirUsuario(Usuario user) {
         ManejadorArchivoUsuarios MAU = new ManejadorArchivoUsuarios();
-        try {
-            usuarios=MAU.cargarArchivoUsuarios();
-        }
-        catch(IOException ex){
-        }
-        if (usuarios==null)
-            usuarios=new ArrayList<>();
+//        try {
+//            usuarios=MAU.cargarArchivoUsuarios();
+//        }
+//        catch(IOException ex){
+//        }
+//        if (usuarios==null)
+//            usuarios=new ArrayList<>();
         usuarios.add(user);
         MAU.escribirArchivo(usuarios);
     }
+    
+    public int iniciarSesion(String nombreUsuario, String pass) {
+        for (Usuario user: usuarios) {
+            if (nombreUsuario.equals(user.getNombre()))
+                if (user.validarContrasena(pass)) {
+                    usuarioActual=user;
+                    return 0;
+                }
+                else
+                    return 1;
+        }
+        return 2;
+    }
+    
+    
 }

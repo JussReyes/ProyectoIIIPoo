@@ -31,13 +31,10 @@ public class Pruebas {
     
     public static void pr2(){
         ManejadorArchivoUsuarios MAU = new ManejadorArchivoUsuarios();
-        try{
-            ArrayList<Usuario> lista=MAU.cargarArchivoUsuarios();
-            System.out.println(lista.toString());
-        }
-        catch(IOException ex) {
-                System.out.println("ERRORRRRRRR");
-        }
+        
+        ArrayList<Usuario> lista=MAU.cargarArchivoUsuarios();
+        System.out.println(lista.toString());
+        
     }
     
     
