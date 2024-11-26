@@ -104,7 +104,6 @@ public class Login implements Screen, Fuentes{
             public void changed(ChangeListener.ChangeEvent ce, Actor actor) {
                String us = usuario.getText();
                String pass = contra.getText();
-               String inicio =" ";
                try {
                    if (us.isBlank())
                     throw new IllegalArgumentException("        "+"Ingrese el usuario");
