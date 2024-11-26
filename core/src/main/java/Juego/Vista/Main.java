@@ -20,7 +20,7 @@ public class Main extends Game {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         camara = new OrthographicCamera(width, height);
-        this.setScreen(new Mapa(this));  // Set the first screen
+        this.setScreen(new CrearCuenta(this));  // Set the first screen
     }
 
     @Override
