@@ -12,6 +12,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import java.util.HashMap;
 import java.util.Hashtable;
 
@@ -22,6 +27,7 @@ public class Mapa implements Screen {
     private Camera camara;
     private SpriteBatch batch;
     private BitmapFont font;
+    private Stage stage;
     
     private final Texture imgMapa = new Texture( "mapa.jpg");
     private Sprite mapa;
@@ -38,11 +44,13 @@ public class Mapa implements Screen {
     private Sprite sugerencias;
     
     
+    private ImageButton RFlecha;
     private final Texture imgRflecha = new Texture("RFlecha.png");
-    private Sprite RFlecha;
+    private final Texture imgRSflecha = new Texture("SelectedRight.png");
     
+    private ImageButton LFlecha;
     private final Texture imgLFlecha = new Texture("LFlecha.png");
-    private Sprite LFlecha;
+    private final Texture imgLSFlecha = new Texture("SelectedLeft.png");
     
     private Nivel nivel1;
     private Nivel nivel2;
@@ -69,6 +77,9 @@ public class Mapa implements Screen {
         batch = game.batch;
         font = game.font;
         
+        stage = new Stage(new ScreenViewport());
+        Gdx.input.setInputProcessor(stage);
+        
         mapa = new Sprite(imgMapa);
         palmera = new Sprite(imgPalmera);
         notificaciones = new  Sprite(imgNotificacion);
@@ -76,9 +87,17 @@ public class Mapa implements Screen {
        //ImageButtons??;
         
        
+        ImageButtonStyle LEstilo = new ImageButtonStyle();
+        LEstilo.up = new TextureRegionDrawable(imgLFlecha);
+        LEstilo.over = new TextureRegionDrawable(imgLSFlecha);
+        LFlecha = new ImageButton(LEstilo);
+        LFlecha.setPosition(50, 335);
         
-        LFlecha = new Sprite(imgLFlecha);
-        RFlecha = new Sprite(imgRflecha);
+        ImageButtonStyle REstilo = new ImageButtonStyle();
+        REstilo.up = new TextureRegionDrawable(imgRflecha);
+        REstilo.over = new TextureRegionDrawable(imgRSflecha);
+        RFlecha = new ImageButton(REstilo);
+        RFlecha.setPosition(991, 335);
         
         niveles = new HashMap<>();
         
@@ -97,6 +116,9 @@ public class Mapa implements Screen {
         
         height = game.height;
         width = game.width;
+        
+        stage.addActor(RFlecha);
+        stage.addActor(LFlecha);
     }
 
     @Override
@@ -122,12 +144,6 @@ public class Mapa implements Screen {
         
         sugerencias.setPosition(85, 618);
         sugerencias.draw(batch);
-        
-        RFlecha.setPosition(991, 335);
-        RFlecha.draw(batch);
-        
-        LFlecha.setPosition(50, 335);
-        LFlecha.draw(batch);
         
         nivel1.setPosition(mapa.getX() + 100, 40);
         nivel1.setEstado(EstadoNivel.COMPLETADO);
@@ -155,6 +171,9 @@ public class Mapa implements Screen {
         
         
         batch.end();
+        
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
         
         // Handle screen transitions or input events (optional)
         if (Gdx.input.isTouched()) {
@@ -212,5 +231,7 @@ public class Mapa implements Screen {
         imgNotificacion.dispose();
         imgLFlecha.dispose();
         imgRflecha.dispose();
+        imgRSflecha.dispose();
+        imgLSFlecha.dispose();
     }
 }
