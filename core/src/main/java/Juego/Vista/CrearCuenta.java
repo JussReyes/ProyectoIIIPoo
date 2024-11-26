@@ -173,7 +173,7 @@ public class CrearCuenta implements Screen, Fuentes {
 
     @Override
     public void render(float f) {
-         Gdx.gl.glClearColor(0.851f, 0.851f, 0.851f,1);
+        Gdx.gl.glClearColor(0.851f, 0.851f, 0.851f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
