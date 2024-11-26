@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -45,10 +46,11 @@ public class Mapa implements Screen {
     private final Texture campanaEmpty = new Texture("NotificacionEmpty.png");
     private final Texture campanaFull = new Texture("NotificacionFull.png");
     private Texture imgNotificacion = campanaEmpty;
-    private Sprite notificaciones;
+    private ImageButton notificaciones;
+    private Label cantidadNotificaciones;
     
     private final Texture imgSugerencias = new Texture("RecomendacionS.png");
-    private Sprite sugerencias;
+    private ImageButton sugerencias;
     
     
     private ImageButton RFlecha;
@@ -90,8 +92,45 @@ public class Mapa implements Screen {
         
         mapa = new Sprite(imgMapa);
         palmera = new Sprite(imgPalmera);
-        notificaciones = new  Sprite(imgNotificacion);
-        sugerencias = new Sprite(imgSugerencias);
+        
+        String cantNotificaciones = String.valueOf((controlador.getUsuarioActual()).getCantNotificaciones());
+        if(cantNotificaciones.length()>=2){
+            cantNotificaciones = "+9";
+        }
+        cantidadNotificaciones = new Label(cantNotificaciones , Fuentes.bold); 
+        
+        //Notificaciones
+        ImageButtonStyle notificacionesEstilo = new ImageButtonStyle();
+        notificacionesEstilo.up = new TextureRegionDrawable(imgNotificacion);
+        notificaciones = new ImageButton(notificacionesEstilo);
+        notificaciones.setPosition(154, 595);
+        
+        notificaciones.addListener(new ClickListener(){
+            
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                   game.setScreen(new Notificaciones(game));
+                   //Añadir controlador
+                    
+            }
+        });
+        
+        //Sugerencias
+        ImageButtonStyle sugerenciasEstilo = new ImageButtonStyle();
+        sugerenciasEstilo.up = new TextureRegionDrawable(imgSugerencias);
+        sugerencias = new ImageButton(sugerenciasEstilo);
+        sugerencias.setPosition(85, 618);
+        
+        sugerencias.addListener(new ClickListener(){
+            
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                   game.setScreen(new Recomendaciones(game,controlador));
+                    //Por que controlador??
+            }
+        });
+        
+        
        //ImageButtons??;
         
        
@@ -106,12 +145,13 @@ public class Mapa implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                     giroL=true;
+                    giroD = false;
+                    
             }
         });
         
         ImageButtonStyle REstilo = new ImageButtonStyle();
         REstilo.up = new TextureRegionDrawable(imgRflecha);
-        REstilo.over = new TextureRegionDrawable(imgRSflecha);
         RFlecha = new ImageButton(REstilo);
         RFlecha.setPosition(991, 335);
         
@@ -120,6 +160,7 @@ public class Mapa implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                     giroD=true;
+                    giroL=false;
             }
         });
         
@@ -143,6 +184,10 @@ public class Mapa implements Screen {
         
         stage.addActor(RFlecha);
         stage.addActor(LFlecha);
+        stage.addActor(cantidadNotificaciones);
+        stage.addActor(notificaciones);
+        stage.addActor(sugerencias);
+
     }
 
     @Override
@@ -173,12 +218,9 @@ public class Mapa implements Screen {
         palmera.setPosition(-203, 400);
         palmera.draw(batch);
         
-        notificaciones.setPosition(154, 595);
-        notificaciones.draw(batch);
-        
-        sugerencias.setPosition(85, 618);
-        sugerencias.draw(batch);
-        
+        //Hace falta que esté en el render?
+        cantidadNotificaciones.setPosition(notificaciones.getX()+27 -(4*(cantidadNotificaciones.getText().length()-1)) , notificaciones.getY()+32);
+               
         nivel1.setPosition(mapa.getX() + 100, 40);
         nivel1.setEstado(EstadoNivel.COMPLETADO);
         nivel1.draw(batch);

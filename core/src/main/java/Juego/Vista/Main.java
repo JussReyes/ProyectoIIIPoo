@@ -17,11 +17,11 @@ public class Main extends Game {
     @Override
     public void create() {
         batch = new SpriteBatch();
-        font = new BitmapFont();  // Use default font
+        font = new BitmapFont();  
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         camara = new OrthographicCamera(width, height);
-        this.setScreen(new Notificaciones(this));  // Set the first screen
+        this.setScreen(new Login(this));  // Set the first screen
     }
 
     @Override
