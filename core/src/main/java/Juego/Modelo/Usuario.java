@@ -5,6 +5,7 @@
 package Juego.Modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -15,7 +16,7 @@ public class Usuario implements Serializable{
     private String nombre;
     private String contrasena;
     private int nivel;
-    private Collection<Notificacion>notificaciones;
+    private ArrayList<Notificacion>notificaciones = new ArrayList<>();
 
     public Usuario(String nombre, String contrasena) {
         this.nombre = nombre;
@@ -38,4 +39,14 @@ public class Usuario implements Serializable{
     public String getNombre() {
         return nombre;
     }
+    
+    public int getCantNotificaciones() {
+        
+        if(notificaciones == null){
+            return 0;
+        }
+        return notificaciones.size();
+    }
+    
+    
 }

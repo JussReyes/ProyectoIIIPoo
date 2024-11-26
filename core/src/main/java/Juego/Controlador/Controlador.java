@@ -43,6 +43,12 @@ public class Controlador {
         }
         return 2;
     }
+
+    public Usuario getUsuarioActual() {
+        return usuarioActual;
+    }
+    
+    
     
     
 }

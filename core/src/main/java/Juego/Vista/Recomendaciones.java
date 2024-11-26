@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -18,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -40,10 +43,13 @@ public class Recomendaciones implements Screen, Fuentes {
     private ImageButton imagen;
     private ImageTextButton enviar;
     
+    private ShapeRenderer render;
+    
     private Texture pintura;
     private Texture fondo;
     
     private Label titulo;
+    private Label volver;
 
     public Recomendaciones(Main game, Controlador cont) {
         this.game = game;
@@ -55,6 +61,8 @@ public class Recomendaciones implements Screen, Fuentes {
         camara = game.camara;
         batch = game.batch;
         font = game.font;
+        
+        render = new ShapeRenderer();
 
         
         stage = new Stage(new ScreenViewport());
@@ -93,12 +101,23 @@ public class Recomendaciones implements Screen, Fuentes {
         enviar.setPosition(740, 86);
         enviar.setSize(230, 68);
         
+        volver = new Label("regresar", Fuentes.normales); 
+        volver.setPosition(290, 100);
+        volver.addListener(new ClickListener(){
+            
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                    game.setScreen(new Mapa(game, controlador));
+            }
+        });
+        
         stage.addActor(titulo);
         stage.addActor(selectBox);
         stage.addActor(imagen);
         stage.addActor(nombre);
         stage.addActor(descripcion);
         stage.addActor(enviar);
+        stage.addActor(volver);
         
     }
         
@@ -114,6 +133,12 @@ public class Recomendaciones implements Screen, Fuentes {
         batch.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
+        
+        render.begin(ShapeRenderer.ShapeType.Filled);
+        render.setColor(Color.WHITE);
+        render.rect(289, 97, 75, 1);
+        
+        render.end();
         
         // Handle screen transitions or input events (optional)
         if (Gdx.input.isTouched()) {
