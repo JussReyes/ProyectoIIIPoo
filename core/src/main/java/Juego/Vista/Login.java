@@ -4,6 +4,7 @@
  */
 package Juego.Vista;
 
+import Juego.Controlador.Controlador;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -38,6 +39,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
  */
 public class Login implements Screen, Fuentes{
     
+    private Controlador controlador;
+    
     private Main game;
     
     private Camera camara;
@@ -59,6 +62,7 @@ public class Login implements Screen, Fuentes{
     
     public Login(Main game) {
         this.game = game;
+        controlador=new Controlador();
     }
 
     @Override

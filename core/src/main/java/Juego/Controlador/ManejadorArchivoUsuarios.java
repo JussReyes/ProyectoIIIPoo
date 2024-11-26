@@ -26,11 +26,11 @@ public class ManejadorArchivoUsuarios {
     public int escribirArchivo(ArrayList<Usuario> lista) {
         
         String nombreArchivo = "usuarios.dat";
-        FileOutputStream archivoEscritura = new FileOutputStream (nombreArchivo);
-        
+        FileOutputStream archivoEscritura = null;
+        ObjectOutputStream manejadorEscritura = null;
         try {
             // apertura del archivo
-            ObjectOutputStream manejadorEscritura  = new ObjectOutputStream(archivoEscritura);
+            manejadorEscritura  = new ObjectOutputStream(new FileOutputStream (nombreArchivo));
             
             //procesamiento
             for (int i = 0; i < lista.size(); i++) {
@@ -96,52 +96,9 @@ public class ManejadorArchivoUsuarios {
                 if (manejadorLectura != null)
                     manejadorLectura.close();
             } catch (IOException ex) {
-                return new ArrayList<Usuario>();;
+                return new ArrayList<Usuario>();
             }
         }
     } 
-    
-    
-    
-    
-    
-    
-        public int escribirArchivo(List lista) {
-        String nombreArchivo = "usuarios.dat";
-        FileOutputStream archivoEscritura = null;
-        ObjectOutputStream manejadorEscritura = null;
-        try {
-            // apertura del archivo
-            manejadorEscritura  = new ObjectOutputStream(new FileOutputStream (nombreArchivo));
-            
-            //procesamiento
-            for (int i = 0; i < lista.size(); i++) {
-                manejadorEscritura.writeObject(lista.get(i));
-            }
-            
-            //cierre
-            //System.out.println("todo bien");
-            return 0;//IConstantes.EXITO;
 
-        } catch (FileNotFoundException ex) {
-            //System.out.println("No se pudo crear el archivo " + nombreArchivo);
-            return 1;//IConstantes.ERROR_ARCHIVO;
-        } catch (IOException ex) {
-            //System.out.println("Tengo problemas para escribir el archivo " + nombreArchivo);
-            return 1;//IConstantes.ERROR_ARCHIVO;
-        } 
-        finally {
-            try {
-                if (manejadorEscritura != null){
-                    manejadorEscritura.flush();  // asegurarse que todos los datos abandonen el stream
-                    manejadorEscritura.close();
-                    //System.out.println("cerré todo bien");
-
-                }
-            } catch (IOException ex) {
-                return 1;//IConstantes.ERROR_ARCHIVO;
-            }
-        }
-    }
-  
 }

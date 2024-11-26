@@ -18,15 +18,8 @@ public class Controlador {
     
     public Controlador(){
         ManejadorArchivoUsuarios MAU = new ManejadorArchivoUsuarios();
+        usuarios=MAU.cargarArchivoUsuarios();
         
-        try {
-            usuarios=MAU.cargarArchivoUsuarios();
-        }
-        catch(IOException ex){
-            usuarios=new ArrayList<>();
-        }
-        if (usuarios==null)
-            usuarios=new ArrayList<>();
     }
     
     public void añadirUsuario(Usuario user) {
