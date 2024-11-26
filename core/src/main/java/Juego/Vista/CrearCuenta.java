@@ -75,7 +75,7 @@ public class CrearCuenta implements Screen, Fuentes {
         render = new ShapeRenderer();
         
         titulo = new Label("Crear Cuenta", Fuentes.titulos);
-        titulo.setPosition(260, 600);
+        titulo.setPosition(200, 600);
         
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -91,8 +91,11 @@ public class CrearCuenta implements Screen, Fuentes {
             }
         });
         
+        
        
         tortuga =  new Texture(Gdx.files.internal("Tortuga Normal 1.png"));
+        mensajeError = new Label("", Fuentes.error); 
+        mensajeError.setPosition(800, 470);
         fondo = new Texture (Gdx.files.internal("BGRegistro.png"));
         
         crear = new ImageTextButton("Crear", skin);
@@ -102,6 +105,9 @@ public class CrearCuenta implements Screen, Fuentes {
             //Accion 
             @Override
             public void changed(ChangeListener.ChangeEvent ce, Actor actor) {         
+                tortuga =  new Texture(Gdx.files.internal("TortugaError.png"));    
+                mensajeError.setText("Errorrrr");
+                
                 System.out.println("JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
                 String us = usuario.getText();
                 String pass = contra.getText();
@@ -115,7 +121,6 @@ public class CrearCuenta implements Screen, Fuentes {
         
         
         usuario = new TextField("", skin);
-        usuario.setColor(0.851f, 0.851f, 0.851f, 1.0f);
         usuario.setPosition(218, 440);
         usuario.setSize(360, 42);
         usuario.setMaxLength(20);
@@ -140,14 +145,13 @@ public class CrearCuenta implements Screen, Fuentes {
         stage.addActor(crear);
         stage.addActor(titulo);
         stage.addActor(volver);
+        stage.addActor(mensajeError);
     }
 
     @Override
     public void render(float f) {
          Gdx.gl.glClearColor(0.851f, 0.851f, 0.851f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        usuario.setColor(0.851f, 0.851f, 0.851f, 1);
-        contra.setColor(0.851f, 0.851f, 0.851f, 1);
 
         batch.begin();
 

@@ -24,4 +24,8 @@ public interface Fuentes {
     LabelStyle bold = new LabelStyle(new BitmapFont(Gdx.files.internal("Fuentes/Bold.fnt")), 
                                                             Color.WHITE);
     
+    LabelStyle error = new LabelStyle(new BitmapFont(Gdx.files.internal("Fuentes/Bold.fnt")), 
+                                                            new Color((float)13/255, (float)91/255, (float)147/255, 1f));
+
+    LabelStyle bold2 = new LabelStyle();                                                        
 }

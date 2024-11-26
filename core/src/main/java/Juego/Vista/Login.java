@@ -69,7 +69,7 @@ public class Login implements Screen, Fuentes{
         render = new ShapeRenderer();
         
         titulo = new Label("Iniciar Sesión", Fuentes.titulos);
-        titulo.setPosition(260, 600);
+        titulo.setPosition(200, 600);
         
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -110,7 +110,6 @@ public class Login implements Screen, Fuentes{
         
         
         usuario = new TextField("", skin);
-        usuario.setColor(0.851f, 0.851f, 0.851f, 1.0f);
         usuario.setPosition(218, 395);
         usuario.setSize(360, 42);
         usuario.setMaxLength(20);
@@ -135,8 +134,7 @@ public class Login implements Screen, Fuentes{
     public void render(float f) {
         Gdx.gl.glClearColor(0.851f, 0.851f, 0.851f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        usuario.setColor(0.851f, 0.851f, 0.851f, 1);
-        contra.setColor(0.851f, 0.851f, 0.851f, 1);
+
 
         // Start drawing with SpriteBatch
         batch.begin();
