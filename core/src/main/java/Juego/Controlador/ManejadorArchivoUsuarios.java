@@ -26,11 +26,11 @@ public class ManejadorArchivoUsuarios {
     public int escribirArchivo(ArrayList<Usuario> lista) {
         
         String nombreArchivo = "usuarios.dat";
-        FileOutputStream archivoEscritura = null;
-        ObjectOutputStream manejadorEscritura = null;
+        FileOutputStream archivoEscritura = new FileOutputStream (nombreArchivo);
+        
         try {
             // apertura del archivo
-            manejadorEscritura  = new ObjectOutputStream(new FileOutputStream (nombreArchivo));
+            ObjectOutputStream manejadorEscritura  = new ObjectOutputStream(archivoEscritura);
             
             //procesamiento
             for (int i = 0; i < lista.size(); i++) {
