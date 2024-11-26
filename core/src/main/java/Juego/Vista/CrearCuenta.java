@@ -95,7 +95,7 @@ public class CrearCuenta implements Screen, Fuentes {
        
         tortuga =  new Texture(Gdx.files.internal("Tortuga Normal 1.png"));
         mensajeError = new Label("", Fuentes.error); 
-        mensajeError.setPosition(800, 470);
+        mensajeError.setPosition(775, 455);
         fondo = new Texture (Gdx.files.internal("BGRegistro.png"));
         
         crear = new ImageTextButton("Crear", skin);
@@ -106,7 +106,14 @@ public class CrearCuenta implements Screen, Fuentes {
             @Override
             public void changed(ChangeListener.ChangeEvent ce, Actor actor) {         
                 tortuga =  new Texture(Gdx.files.internal("TortugaError.png"));    
-                mensajeError.setText("Errorrrr");
+                mensajeError.setText("¡El usuario no está disponible!");//Recorrer lista usuarios
+                if(!contra.getText().equals(confirmarContra.getText())){
+                    mensajeError.setText("¡Las contraseñas no coinciden!");
+                }
+                else{
+                    if(contra.getText().length()<8)
+                    mensajeError.setText("  "+"¡La contraseña debe tener"+'\n'+"  "+"al menos 8 caracteres!");
+                }
                 
                 System.out.println("JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
                 String us = usuario.getText();

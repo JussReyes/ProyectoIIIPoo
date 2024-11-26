@@ -49,6 +49,7 @@ public class Login implements Screen, Fuentes{
     private Skin skin;
     private Label crearCuenta;
     private Label titulo;
+    private Label mensajeError;
     
     private TextField usuario;
     private TextField contra; 
@@ -95,16 +96,9 @@ public class Login implements Screen, Fuentes{
             
             @Override
             public void changed(ChangeListener.ChangeEvent ce, Actor actor) {
-                if((usuario.getText()).equals("Admin") && (contra.getText()).equals("123")){
-                    game.setScreen(new Mapa(game));//Pruebilla humilde
-                }
-                 else{
-                    if(!contra.getText().equals("123") && usuario.getText().equals("Admin")){
-                    tortuga =  new Texture(Gdx.files.internal("TortugaError.png"));    
-                    }
-                 }
-                
-                
+               
+                tortuga =  new Texture(Gdx.files.internal("TortugaError.png"));    
+                mensajeError.setText("¡Las contraseñas no coinciden!");
             }
         });
         
