@@ -5,17 +5,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import java.util.ArrayList;
 
-public class Notificaciones implements Screen, Fuentes {
+public class NotifAdmin implements Screen, Fuentes {
 
     private Main game;
     
@@ -27,11 +33,23 @@ public class Notificaciones implements Screen, Fuentes {
     private Label titulo;
     
     private VerticalGroup grupo;
-    private final Texture campana = new Texture (Gdx.files.internal("NotifBell.png"));
     private ScrollPane scroll;
     
+    
+    private final Texture fondoSugerencia = new Texture(Gdx.files.internal("AdminRecBG.png"));
+    
+    private TextField descripcion;
+    
+    private ImageButton aceptar;
+    private final Texture upAceptar = new Texture(Gdx.files.internal("AcceptBtn.png"));
+    private final Texture overAceptar = new Texture(Gdx.files.internal("AcceptOver.png"));
+    
+    private ImageButton eliminar;
+    private ImageButton salir;
+    private final Texture upCancelar = new Texture(Gdx.files.internal("CancelBtn.png"));
+    private final Texture overCancelar = new Texture(Gdx.files.internal("CancelOver.png"));
 
-    public Notificaciones(Main game) {
+    public NotifAdmin(Main game) {
         this.game = game;
     }
 
@@ -74,8 +92,34 @@ public class Notificaciones implements Screen, Fuentes {
         scroll.setPosition(75, 67);
         scroll.setSize(550, 492);
         
+        
+        ImageButtonStyle aceptarEstilo = new ImageButtonStyle();
+        aceptarEstilo.up = new TextureRegionDrawable (upAceptar);
+        aceptarEstilo.over = new TextureRegionDrawable(overAceptar);
+        aceptar = new ImageButton(aceptarEstilo);
+        aceptar.setPosition(863, 89);
+        
+        ImageButtonStyle cancelarEstilo = new ImageButtonStyle();
+        cancelarEstilo.up = new TextureRegionDrawable (upCancelar);
+        cancelarEstilo.over = new TextureRegionDrawable(overCancelar);
+        eliminar = new ImageButton(cancelarEstilo);
+        eliminar.setPosition(806, 89);
+        
+        salir = new ImageButton(cancelarEstilo);
+        salir.setPosition(994, 633);
+        
+        descripcion = new TextArea("Esto es una prueba de la descripción que el usuario va a poner como la descripción del objeto", skin);
+        descripcion.setSize(290, 90);
+        ScrollPane descripcionScroll = new ScrollPane(descripcion);
+        descripcionScroll.setPosition(708, 146);
+        descripcionScroll.setSize(303, 100);
+        
         stage.addActor(titulo);
         stage.addActor(scroll);
+        stage.addActor(aceptar);
+        stage.addActor(eliminar);
+        stage.addActor(descripcionScroll);
+        stage.addActor(salir);
         
     }
         
@@ -86,7 +130,7 @@ public class Notificaciones implements Screen, Fuentes {
 
         // Start drawing with SpriteBatch
         batch.begin();
-        batch.draw(campana, 692, 109);
+        batch.draw(fondoSugerencia, 680, 61);
         batch.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
@@ -122,7 +166,10 @@ public class Notificaciones implements Screen, Fuentes {
     @Override
     public void dispose() {
         batch.dispose();
-        campana.dispose();
+        upAceptar.dispose();
+        overAceptar.dispose();
+        upCancelar.dispose();
+        overCancelar.dispose();
         Fuentes.titulos.font.dispose();
     }
 }
