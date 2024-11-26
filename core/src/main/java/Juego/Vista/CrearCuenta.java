@@ -108,20 +108,31 @@ public class CrearCuenta implements Screen, Fuentes {
             //Accion 
             @Override
             public void changed(ChangeListener.ChangeEvent ce, Actor actor) {
+                String us = usuario.getText();
                 String pass = contra.getText();
+                String inicio ="            ";
                 try{
                 
-                if(!pass.equals(confirmarContra.getText())){
-                    throw new IllegalArgumentException("¡Las contraseñas no coinciden!");
-                }
-                else{
-                    if(pass.length()<8)
-                    throw new IllegalArgumentException("  "+"¡La contraseña debe tener"+'\n'+"  "+"al menos 8 caracteres!");
-                }
+                if (us.isBlank())
+                    throw new IllegalArgumentException(inicio+"El usuario no puede \n"+inicio+"estar vacío!");
                 
-                String us = usuario.getText();
+                if (pass.isBlank())
+                    throw new IllegalArgumentException(inicio+"La contraseña no\n"+inicio+"puede estar vacía!");
+
+                if(!pass.equals(confirmarContra.getText()))
+                    throw new IllegalArgumentException("¡Las contraseñas no coinciden!");
+                
+                if(pass.length()<8)
+                    throw new IllegalArgumentException("    "+"¡La contraseña debe tener\n"+"    "+"al menos 8 caracteres!");
+                
+//                public String textoMostrar(String ) {
+//                    
+//                }
+
                 Usuario newUser = new Usuario(us,pass);
                 controlador.añadirUsuario(newUser);
+                tortuga =  new Texture(Gdx.files.internal("TortugaError.png"));
+                mensajeError.setText("   "+"Bienvenid@ "+us+"! \n  Te registraste exitosamente");//Recorrer lista usuarios
                 }
                 catch (IllegalArgumentException ex) {
                     tortuga =  new Texture(Gdx.files.internal("TortugaError.png"));
@@ -135,7 +146,7 @@ public class CrearCuenta implements Screen, Fuentes {
         usuario = new TextField("", skin);
         usuario.setPosition(218, 440);
         usuario.setSize(360, 42);
-        usuario.setMaxLength(20);
+        usuario.setMaxLength(10);
         
         contra = new TextField("", skin);
         contra.setPasswordMode(true);
