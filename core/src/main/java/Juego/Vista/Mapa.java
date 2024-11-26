@@ -26,6 +26,8 @@ import java.util.Hashtable;
 public class Mapa implements Screen {
     
     private Controlador controlador;
+    private boolean giroD=false;
+    private boolean giroL=false;
 
     private Main game;
     
@@ -103,7 +105,7 @@ public class Mapa implements Screen {
             
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                    xMap=0;
+                    giroL=true;
             }
         });
         
@@ -117,8 +119,7 @@ public class Mapa implements Screen {
             
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                    System.out.println("ji");
-                    xMap=-1105;
+                    giroD=true;
             }
         });
         
@@ -153,9 +154,19 @@ public class Mapa implements Screen {
         // Start drawing with SpriteBatch
         batch.begin();
         
-//        if (xMap > -1105){
-//            xMap -= 1;
-//        }
+        if (giroD) {
+            if (xMap > -1100){
+                xMap -= 10;
+            }
+            if (xMap==-1100)
+                giroD=false;
+        }
+        if (giroL) {
+            if (xMap<0)
+                xMap +=10;
+            if (xMap==0)
+                giroL=false;
+        }
         mapa.setPosition(xMap, yMap);
         mapa.draw(batch);
         
