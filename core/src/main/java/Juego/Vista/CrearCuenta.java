@@ -4,6 +4,9 @@
  */
 package Juego.Vista;
 
+import Juego.Controlador.Controlador;
+import Juego.Modelo.Usuario;
+
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -99,7 +102,14 @@ public class CrearCuenta implements Screen, Fuentes {
             //Accion 
             @Override
             public void changed(ChangeListener.ChangeEvent ce, Actor actor) {         
-                    
+                System.out.println("JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ");
+                String us = usuario.getText();
+                String pass = contra.getText();
+                Usuario newUser = new Usuario(us,pass);
+                
+                Controlador cont = new Controlador();
+                cont.añadirUsuario(newUser);
+                        
             }
         });
         
