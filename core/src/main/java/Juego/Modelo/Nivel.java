@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 /**
  *
  * @author reyes
@@ -21,6 +23,11 @@ public class Nivel extends Sprite{
     private Texture textura;
     private BitmapFont fuente =  new BitmapFont(Gdx.files.internal("levelFont.fnt"));
     private String numero;
+    
+    /*ImageButton.ImageButtonStyle notificacionesEstilo = new ImageButton.ImageButtonStyle();
+        notificacionesEstilo.up = new TextureRegionDrawable(imgNotificacion);
+        notificaciones = new ImageButton(notificacionesEstilo);
+        notificaciones.setPosition(154, 595);*/
     
     public Nivel(String numero) {
         super(new Texture("Uncompleted.png"));
@@ -47,6 +54,12 @@ public class Nivel extends Sprite{
         this.setRegion(textura);
     }
 
+    public EstadoNivel getEstado() {
+        return estado;
+    }
+   
+   
+
     @Override
     public void draw(Batch batch) {
         super.draw(batch);
@@ -64,4 +77,6 @@ public class Nivel extends Sprite{
         fuente.dispose();
         textura.dispose();
     }
+    
+    
 }

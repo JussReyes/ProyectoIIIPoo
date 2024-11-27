@@ -63,12 +63,12 @@ public class Mapa implements Screen {
     private final Texture imgLFlecha = new Texture("LFlecha.png");
     private final Texture imgLSFlecha = new Texture("SelectedLeft.png");
     
-    private Nivel nivel1;
+    /*private Nivel nivel1;
     private Nivel nivel2;
     private Nivel nivel3;
     private Nivel nivel4;
     private Nivel nivel5;
-    private Nivel nivel6;
+    private Nivel nivel6;*/
     
     private HashMap<Integer, Nivel> niveles;
     
@@ -128,7 +128,6 @@ public class Mapa implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                    game.setScreen(new Notificaciones(game, controlador));
-                   //Añadir controlador
                     
             }
         });
@@ -147,9 +146,6 @@ public class Mapa implements Screen {
                     //Por que controlador??
             }
         });
-        
-        
-       //ImageButtons??;
         
        
         ImageButtonStyle LEstilo = new ImageButtonStyle();
@@ -255,6 +251,8 @@ public class Mapa implements Screen {
             else 
                 nivel.setEstado(EstadoNivel.BLOQUEADO);
             nivel.draw(batch);
+            
+            
         }
         
 //        nivel1.setPosition(mapa.getX() + 100, 40);
@@ -288,13 +286,25 @@ public class Mapa implements Screen {
         
         stage.draw();
         
-        // Handle screen transitions or input events (optional)
-        if (Gdx.input.isTouched()) {
-            // Switch to another screen (if desired)
-            // game.setScreen(new AnotherScreen(game));
-            
-         camara.update();
+        for(int i = 1; i<= niveles.size(); i++){
+            Nivel sprite = niveles.get(i);
+            if (Gdx.input.isTouched()) {
+            float mouseX = Gdx.input.getX(); 
+            float mouseY = Gdx.graphics.getHeight()-Gdx.input.getY(); 
+            float spriteX = sprite.getX(); 
+            float spriteY = sprite.getY(); 
+            float anchoSprite = sprite.getWidth(); 
+            float alturaSprite = sprite.getHeight(); 
+  
+            if (mouseX >= spriteX && mouseX <= spriteX + anchoSprite && mouseY >= spriteY && mouseY <= spriteY + alturaSprite) { 
+                if(sprite.getEstado()!= EstadoNivel.BLOQUEADO){
+                    game.setScreen(new PantallaJuego(game, controlador, i) );
+                }
+            }            
+                camara.update();
+            }
         }
+        
     }
     
     

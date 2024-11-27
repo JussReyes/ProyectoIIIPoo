@@ -92,4 +92,10 @@ public class Controlador {
         return true;
     }
     
+    public void subirNivelUsuarioActual(){
+        usuarioActual.aumentarNivel();
+        ManejadorArchivoUsuarios MAU = new ManejadorArchivoUsuarios();
+        MAU.escribirArchivo(usuarios);
+    }
+    
 }

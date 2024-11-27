@@ -26,6 +26,12 @@ public class PantallaJuego implements Screen {
     
     private boolean pausado = false;
     
+    private int nivel;
+    
+    private float mouseX;
+    private float mouseY;
+    private boolean basuraSeleccionada;
+    
     private Controlador controlador;
 
     private Main game;
@@ -113,13 +119,15 @@ public class PantallaJuego implements Screen {
     
     private Random random = new Random();
 
-    public PantallaJuego(Main game, Controlador cont) {
+    public PantallaJuego(Main game, Controlador cont, int nivel) {
+        this.nivel = nivel;
         this.game = game;
         controlador=cont;
     }
 
     @Override
     public void show() {
+        basuraSeleccionada = false;
         camara = game.camara;
         batch = game.batch;
         font = game.font;
@@ -133,26 +141,36 @@ public class PantallaJuego implements Screen {
         
         isla = new Sprite(imgIsla);
         
-        papel = new Sprite(imgPapel);
-        basureros.add(papel);
-        
-        vidrio = new Sprite(imgVidrio);
-        basureros.add(vidrio);
-        
-        plastico = new Sprite(imgPlastico);
-        basureros.add(plastico);
-        
-        organico = new Sprite(imgOrganico);
-        basureros.add(organico);
-        
-        biologico = new Sprite(imgBiologico);
-        basureros.add(biologico);
-        
-        metal = new Sprite(imgMetal);
-        basureros.add(metal);
-        
         general = new Sprite(imgGeneral);
         basureros.add(general);
+        
+        papel = new Sprite(imgPapel);
+        basureros.add(papel);
+      
+        if(nivel>1){
+            vidrio = new Sprite(imgVidrio);
+            basureros.add(vidrio);
+        }
+        
+        if(nivel>2){
+            organico = new Sprite(imgOrganico);
+            basureros.add(organico);
+        }
+         
+        if(nivel>3){
+            plastico = new Sprite(imgPlastico);
+            basureros.add(plastico);
+        }
+        
+        if(nivel>4){
+            biologico = new Sprite(imgBiologico);
+            basureros.add(biologico);
+        }
+
+        if(nivel>5){
+            metal = new Sprite(imgMetal);
+            basureros.add(metal);
+        }
         
         
         if(!pausado){
@@ -294,7 +312,7 @@ public class PantallaJuego implements Screen {
             float yPos = desecho.getY();
             
             if (xPos < 230){
-                game.setScreen(new GameOver(game,controlador, false));
+                //game.setScreen(new GameOver(game,controlador, false));
 
                 
                 yPos = 500;
@@ -316,7 +334,7 @@ public class PantallaJuego implements Screen {
             
             if (xPos < 230){
                 
-                game.setScreen(new GameOver(game,controlador, false));
+                //game.setScreen(new GameOver(game,controlador, false));
 
                 yPos = 500;
                 xPos = 230;
@@ -337,7 +355,7 @@ public class PantallaJuego implements Screen {
             
             if (xPos < 230){
                 
-               game.setScreen(new GameOver(game,controlador, false));
+               //game.setScreen(new GameOver(game,controlador, false));
 
                 yPos = 500;
                 xPos = 230;
@@ -352,7 +370,8 @@ public class PantallaJuego implements Screen {
         isla.draw(batch);
         
         if(desechos.isEmpty()){
-            game.setScreen(new GameOver(game,controlador, true));
+            controlador.subirNivelUsuarioActual();
+            game.setScreen(new GameOver(game, controlador, true));
         }
         else{
             if (lastSpawnTime > spawnTime) {
@@ -386,12 +405,37 @@ public class PantallaJuego implements Screen {
             // game.setScreen(new AnotherScreen(game));
             
          camara.update();
-        }        
+        } 
+        if(Gdx.input.justTouched()){
+            System.out.println("Clic detectado¡¡¡¡¡¡¡¡¡!!!!!!!!!!!!!!!!");
+            mouseX = Gdx.input.getX();
+            mouseY = Gdx.graphics.getHeight()- Gdx.input.getY();
+            
+            for (Sprite sprite: desechos){
+                float spriteX = sprite.getX(); 
+                float spriteY = sprite.getY(); 
+                float anchoSprite = sprite.getWidth(); 
+                float alturaSprite = sprite.getHeight(); 
+            if (mouseX >= spriteX && mouseX <= spriteX + anchoSprite && mouseY >= spriteY && mouseY <= spriteY + alturaSprite) { 
+                System.out.println("Basura tocada¡¡¡¡¡¡¡¡¡!!!!!!!!!!!!!!!!");
+                while(Gdx.input.isTouched()){
+                    System.out.println("Moviendo basurilla¡¡¡¡¡¡¡¡¡!!!!!!!!!!!!!!!!");
+                    sprite.setCenter(Gdx.input.getX(),Gdx.graphics.getHeight()- Gdx.input.getY() ); 
+                    sprite.draw(batch);
+                    camara.update();
+                }
+                         
+            }
+            }
+            
         }
+        
+        
+        
         stage.draw();
         
     }
-    
+    }
     @Override
     public void resize(int width, int height) {
         // Handle resizing if needed

@@ -84,6 +84,14 @@ public class GameOver implements Screen, Fuentes{
         
         jugar = new ImageButton(jugarEstilo);
         jugar.setPosition(567, 84);
+        jugar.addListener(new ClickListener(){
+            
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new PantallaJuego(game,controlador,(controlador.getUsuarioActual()).getNivel()));
+            }
+        });
+        
         
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
