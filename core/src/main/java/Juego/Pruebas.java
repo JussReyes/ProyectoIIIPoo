@@ -4,7 +4,9 @@
  */
 package Juego;
 
+import Juego.Controlador.ManejadorArchivoSugerencias;
 import Juego.Controlador.ManejadorArchivoUsuarios;
+import Juego.Modelo.Recomendacion;
 import Juego.Modelo.Usuario;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,14 +38,23 @@ public class Pruebas {
         System.out.println(lista.toString());
         
     }
-    
+    public static void pr3(){
+        ManejadorArchivoSugerencias MAS = new ManejadorArchivoSugerencias();
+//        Recomendacion sg = new Recomendacion("Huevo", "assets", "Orgánico", "Huevos pa llevar");
+//        ArrayList<Recomendacion> lista=new ArrayList<>();
+//        lista.add(sg);
+//        MAS.escribirArchivo(lista);
+        ArrayList<Recomendacion> lista2=MAS.cargarArchivoSugerencias();
+        System.out.println(lista2.toString());
+        
+    }
     
     
     public static void main(String[] args) {
         // TODO code application logic here
         
         System.out.println("iniciando:");
-        pr1();
+        pr3();
         System.out.println("terminado.");
     }
     

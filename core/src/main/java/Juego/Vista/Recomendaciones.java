@@ -1,9 +1,11 @@
 package Juego.Vista;
 
 import Juego.Controlador.Controlador;
+import Juego.Controlador.SelectorDeImagen;
 import Juego.Modelo.Recomendacion;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -30,6 +32,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class Recomendaciones implements Screen, Fuentes {
     
     private Controlador controlador;
+    private String ruta="";
 
     private Main game;
     
@@ -90,6 +93,24 @@ public class Recomendaciones implements Screen, Fuentes {
         imagen.setPosition(404, 314);
         imagen.setSize(134, 134);
         
+        imagen.addListener(new ChangeListener(){
+            
+            @Override
+            public void changed(ChangeListener.ChangeEvent ce, Actor actor) {
+                SelectorDeImagen fileChooserExample = new SelectorDeImagen();
+                String rutaRelativa = fileChooserExample.copiarImagenAlRepositorio("assets");
+
+                if (rutaRelativa != null) {
+                    System.out.println("Ruta relativa en el proyecto: " + rutaRelativa);
+                    Texture newImagen = new Texture(Gdx.files.internal(rutaRelativa));
+                    imagen.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(newImagen));
+                    ruta=rutaRelativa;
+                }
+
+            }
+            
+        });
+        
         nombre = new TextField("", skin);
         nombre.setMessageText("Nombre");
         nombre.setPosition(130, 420);
@@ -110,24 +131,27 @@ public class Recomendaciones implements Screen, Fuentes {
                 String nom = nombre.getText();
                 String desc = descripcion.getText();
                 
-                String ruta="";////////////////////////////
                 try {
-                   if (nom.isBlank())
-                    throw new IllegalArgumentException("        "+"Ingrese el nombre");
-                
-                if (desc.isBlank())
-                    throw new IllegalArgumentException("      Ingrese la descripción");
-                
-                if (ruta.isBlank())
-                    throw new IllegalArgumentException("      Ingrese la imagen");
-                
-                
-                String basu = selectBox.getSelected();
-                controlador.añadirRecomendacion(nom, ruta, basu, desc);
+                    System.out.println("Probando nombre");
+
+                    if (nom.isBlank())
+                     throw new IllegalArgumentException("        "+"Ingrese el nombre");
+                    System.out.println("Probando desc");
+                    if (desc.isBlank())
+                        throw new IllegalArgumentException("      Ingrese la descripción");
+                    System.out.println("Probando ruta");
+
+                    if (ruta.isBlank())
+                        throw new IllegalArgumentException("      Ingrese la imagen");
+                    System.out.println("Listo");
+
+
+                    String basu = selectBox.getSelected();
+                    controlador.añadirRecomendacion(nom, ruta, basu, desc);
                 }
                 
                 catch (IllegalArgumentException ex) {
-                    System.out.println("AJAAAAAAAAAAAAAAAAA FALTA CODE");
+                    System.out.println("AJAAAAAAA FALTA CODE");
                 }
             }
             

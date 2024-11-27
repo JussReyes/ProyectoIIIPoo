@@ -66,14 +66,14 @@ public class ManejadorArchivoSugerencias {
         
         String nombreArchivo = "sugerencias.dat";
         ObjectInputStream manejadorLectura = null;
-        ArrayList<Recomendacion> lista = new ArrayList<Recomendacion>();
-        
+        ArrayList<Recomendacion> lista = new ArrayList<>();
         try {
             // apertura del archivo
-            manejadorLectura = new ObjectInputStream(new FileInputStream (nombreArchivo));
+            FileInputStream arc = new FileInputStream (nombreArchivo);
+            manejadorLectura = new ObjectInputStream(arc);
             
             //procesamiento
-            lista = new ArrayList<Recomendacion>();
+            lista = new ArrayList<>();
             Object obj = manejadorLectura.readObject() ;          
             while (obj != null){
                 lista.add ( (Recomendacion) obj);
@@ -84,10 +84,13 @@ public class ManejadorArchivoSugerencias {
             return lista;
 
         } catch (ClassNotFoundException ex) {
-            //System.out.println("No se pudo cargar el registro del archivo " + nombreArchivo);
-            return new ArrayList<Recomendacion>();
+            System.out.println("No se pudo cargar el registro del archivo " + nombreArchivo);
+            return new ArrayList<>();
+        } catch (FileNotFoundException ex){
+            System.out.println("No se encontroooo el archivo " + nombreArchivo);
+            return new ArrayList<>();
         } catch (IOException ex) {
-            //System.out.println("fin del archivo" + nombreArchivo);
+            System.out.println("fin del archivo" + nombreArchivo);
             return lista;
         } 
         finally {
