@@ -4,24 +4,32 @@
  */
 package Juego.Modelo;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
 /**
  *
  * @author Diego
  */
-public class Basurero {
+public class Basurero extends Sprite{
     private String tipo;
-    private String rutaImagen;
+    private Texture imagen;
 
     public Basurero(String tipo, String rutaImagen) {
+        super(new Texture(Gdx.files.internal(rutaImagen)));
         this.tipo = tipo;
-        this.rutaImagen = rutaImagen;
     }
 
     public String getTipo() {
         return tipo;
     }
 
-    public String getRutaImagen() {
-        return rutaImagen;
+    public Texture getImagen() {
+        return imagen;
+    }
+    
+    public void dispose(){
+        this.getTexture().dispose();
     }
 }

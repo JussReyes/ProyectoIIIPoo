@@ -4,18 +4,22 @@
  */
 package Juego.Modelo;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import java.io.Serializable;
 
 /**
  *
  * @author xande
  */
-public abstract class Basura implements Serializable {
-    String nombre;
-    String descripcion;
-    String rutaImagen;
-    String recomendaciones;
-    int tiempoDescomposicion;
+public abstract class Basura extends Sprite implements Serializable {
+    protected String nombre;
+    protected String descripcion;
+    protected String rutaImagen;
+    protected String recomendaciones;
+    protected int tiempoDescomposicion;
+    protected Texture imagen;
 
     public Basura(String nombre, String descripcion, String rutaImagen, String recomendaciones, int tiempoDescomposicion) {
         this.nombre = nombre;
@@ -41,12 +45,13 @@ public abstract class Basura implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public String getRutaImagen() {
-        return rutaImagen;
+    public Texture Imagen() {
+        return imagen;
     }
 
     public void setRutaImagen(String rutaImagen) {
         this.rutaImagen = rutaImagen;
+        this.imagen = new Texture(Gdx.files.internal(rutaImagen));
     }
 
     public String getRecomendaciones() {
@@ -66,4 +71,8 @@ public abstract class Basura implements Serializable {
     }
     
     public abstract Enum<?> getTipoBasurero();
+    
+    public void dispose(){
+        this.imagen.dispose();
+    }
 }
