@@ -107,8 +107,6 @@ public class infoTipo implements Screen{
         
         ArrayList<Basura> basuras=controlador.getBasuras();
         
-        
-        
         nombre = new Label("Nombre", Fuentes.titulos);
         
         GlyphLayout glyphLayout = new GlyphLayout();
@@ -148,6 +146,7 @@ public class infoTipo implements Screen{
         recomendaciones.setPosition(477, 275);
         recomendaciones.setSize(539, 156);
         recomendaciones.setTouchable(Touchable.disabled);
+        
         grupo = new VerticalGroup();
         grupo.space(20);
         for (int i=0;i<15;i++) {
@@ -158,15 +157,18 @@ public class infoTipo implements Screen{
             imagen.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                        System.out.println("ya");
+                        recomendaciones.setText("Esta es la recomendación que corresponde");
+                        descripcion.setText("Esta es la descripción que debería aparecer");
                 }   
             });
 
             grupo.addActor(imagen);
         }
+        
         scroll = new ScrollPane(grupo, skin, "notificaciones");
         scroll.setPosition(20, 25);
         scroll.setSize(400, 670);
+        
         stage.addActor(scroll);
         stage.addActor(nombre);
         stage.addActor(lblDescripcion);
