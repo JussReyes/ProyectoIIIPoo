@@ -65,6 +65,11 @@ public class Login implements Screen, Fuentes{
         this.game = game;
         controlador=new Controlador();
     }
+    
+    public Login(Main game, Controlador cont) {
+        this.game = game;
+        controlador=cont;
+    }
 
     @Override
     public void show() {

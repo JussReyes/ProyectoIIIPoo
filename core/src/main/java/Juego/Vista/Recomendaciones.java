@@ -1,6 +1,7 @@
 package Juego.Vista;
 
 import Juego.Controlador.Controlador;
+import Juego.Modelo.Recomendacion;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
@@ -20,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -100,6 +103,35 @@ public class Recomendaciones implements Screen, Fuentes {
         enviar = new ImageTextButton("ENVIAR", skin);
         enviar.setPosition(740, 86);
         enviar.setSize(230, 68);
+        enviar.addListener(new ChangeListener(){
+            
+            @Override
+            public void changed(ChangeListener.ChangeEvent ce, Actor actor) {
+                String nom = nombre.getText();
+                String desc = descripcion.getText();
+                
+                String ruta="";////////////////////////////
+                try {
+                   if (nom.isBlank())
+                    throw new IllegalArgumentException("        "+"Ingrese el nombre");
+                
+                if (desc.isBlank())
+                    throw new IllegalArgumentException("      Ingrese la descripción");
+                
+                if (ruta.isBlank())
+                    throw new IllegalArgumentException("      Ingrese la imagen");
+                
+                
+                String basu = selectBox.getSelected();
+                Recomendacion reco = new Recomendacion(nom, ruta, basu, desc);
+                }
+                
+                catch (IllegalArgumentException ex) {
+                    
+                }
+            }
+            
+        });
         
         volver = new Label("regresar", Fuentes.normales); 
         volver.setPosition(290, 100);

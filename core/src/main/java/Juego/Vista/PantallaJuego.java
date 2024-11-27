@@ -116,17 +116,21 @@ public class PantallaJuego implements Screen {
         
         isla = new Sprite(imgIsla);
         
+
+        general = new Sprite(imgGeneral);
+        basureros.add(general);
+        
         papel = new Sprite(imgPapel);
         basureros.add(papel);
         
         vidrio = new Sprite(imgVidrio);
         basureros.add(vidrio);
         
-        plastico = new Sprite(imgPlastico);
-        basureros.add(plastico);
-        
         organico = new Sprite(imgOrganico);
         basureros.add(organico);
+        
+        plastico = new Sprite(imgPlastico);
+        basureros.add(plastico);
         
         biologico = new Sprite(imgBiologico);
         basureros.add(biologico);
@@ -134,10 +138,10 @@ public class PantallaJuego implements Screen {
         metal = new Sprite(imgMetal);
         basureros.add(metal);
         
-        general = new Sprite(imgGeneral);
-        basureros.add(general);
-        
+
         pausa = new Sprite(imgPausa);
+        pausa.setPosition(110, 573);
+        
         
         texturasDesechos.add(imgBotella);
         texturasDesechos.add(imgBolaPapel);
@@ -176,7 +180,6 @@ public class PantallaJuego implements Screen {
         batch.begin();
         
         
-        pausa.setPosition(110, 573);
         pausa.draw(batch);
         
         if (basureros.size() < 4) {
@@ -212,9 +215,9 @@ public class PantallaJuego implements Screen {
             float yPos = desecho.getY();
             
             if (xPos < 230){
-                /// termina con fail
                 yPos = 500;
                 xPos = 230;
+                //game.setScreen(new GameOver(game, controlador, false));
             }
             yPos = yPos + (float) Math.sin(time * 3);
             xPos -= 3;
@@ -231,9 +234,9 @@ public class PantallaJuego implements Screen {
             float yPos = desecho.getY();
             
             if (xPos < 230){
-                /// termina con fail
                 yPos = 500;
                 xPos = 230;
+                //game.setScreen(new GameOver(game, controlador, false));
             }
             yPos = yPos + (float) Math.sin(time * 3);
             xPos -= 3;
@@ -250,9 +253,9 @@ public class PantallaJuego implements Screen {
             float yPos = desecho.getY();
             
             if (xPos < 230){
-                /// termina con fail
                 yPos = 500;
                 xPos = 230;
+                //game.setScreen(new GameOver(game, controlador, false));
             }
             yPos = yPos + (float) Math.sin(time * 3);
             xPos -= 3;
@@ -264,7 +267,7 @@ public class PantallaJuego implements Screen {
         isla.draw(batch);
         
         if(desechos.isEmpty()){
-            // terminacon win
+            game.setScreen(new GameOver(game, controlador, true));
         }
         else{
             if (lastSpawnTime > spawnTime) {

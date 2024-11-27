@@ -21,6 +21,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Hashtable;
 
@@ -79,6 +81,10 @@ public class Mapa implements Screen {
     public Mapa(Main game, Controlador cont) {
         this.game = game;
         controlador=cont;
+        niveles = new HashMap<>();
+        
+        for (int i=1;i<7;i++)
+            niveles.put(i, new Nivel(String.valueOf(i)));
     }
 
     @Override
@@ -169,20 +175,20 @@ public class Mapa implements Screen {
             }
         });
         
-        niveles = new HashMap<>();
         
-        nivel1 = new Nivel("1");
-        niveles.put(1, nivel1);
-        nivel2 = new Nivel("2");
-        niveles.put(2, nivel2);
-        nivel3 = new Nivel("3");
-        niveles.put(3, nivel3);
-        nivel4 = new Nivel("4");
-        niveles.put(4, nivel4);
-        nivel5 = new Nivel("5");
-        niveles.put(5, nivel5);
-        nivel6 = new Nivel("6");
-        niveles.put(6, nivel6);
+        
+//        nivel1 = new Nivel("1");
+//        
+//        nivel2 = new Nivel("2");
+////        niveles.put(2, nivel2);
+//        nivel3 = new Nivel("3");
+////        niveles.put(3, nivel3);
+//        nivel4 = new Nivel("4");
+////        niveles.put(4, nivel4);
+//        nivel5 = new Nivel("5");
+////        niveles.put(5, nivel5);
+//        nivel6 = new Nivel("6");
+//        niveles.put(6, nivel6);
         
         height = game.height;
         width = game.width;
@@ -226,29 +232,46 @@ public class Mapa implements Screen {
         
         cantidadNotificaciones.setPosition(notificaciones.getX()+27 -(4*(cantidadNotificaciones.getText().length()-1)) , notificaciones.getY()+32);    
         
-        nivel1.setPosition(mapa.getX() + 100, 40);
-        nivel1.setEstado(EstadoNivel.COMPLETADO);
-        nivel1.draw(batch);
+        ArrayList<Integer> xS = new ArrayList<>(Arrays.asList(100, 510, 870, 1172, 1550, 1930));
+        ArrayList<Integer> yS = new ArrayList<>(Arrays.asList(40, 50, 30, 72, 25, 45));
         
-        nivel2.setPosition(mapa.getX() + 510, 50);
-        nivel2.setEstado(EstadoNivel.COMPLETADO);
-        nivel2.draw(batch);
+        int nivelActual=controlador.getUsuarioActual().getNivel();
         
-        nivel3.setPosition(mapa.getX() + 870, 30);
-        nivel3.setEstado(EstadoNivel.ACTUAL);
-        nivel3.draw(batch);
+        for (int i =1; i<=niveles.size();i++) {
+            Nivel nivel = niveles.get(i);
+            nivel.setPosition(mapa.getX() +xS.get(i-1), yS.get(i-1));
+            if (i<nivelActual)
+                nivel.setEstado(EstadoNivel.COMPLETADO);
+            else if (i==nivelActual)
+                nivel.setEstado(EstadoNivel.ACTUAL);
+            else 
+                nivel.setEstado(EstadoNivel.BLOQUEADO);
+            nivel.draw(batch);
+        }
         
-        nivel4.setPosition(mapa.getX() + 1172, 72);
-        nivel4.setEstado(EstadoNivel.BLOQUEADO);
-        nivel4.draw(batch);
-        
-        nivel5.setPosition(mapa.getX() + 1550, 25);
-        nivel5.setEstado(EstadoNivel.BLOQUEADO);
-        nivel5.draw(batch);
-        
-        nivel6.setPosition(mapa.getX() + 1930, 45);
-        nivel6.setEstado(EstadoNivel.BLOQUEADO);
-        nivel6.draw(batch);
+//        nivel1.setPosition(mapa.getX() + 100, 40);
+//        nivel1.setEstado(EstadoNivel.COMPLETADO);
+//        nivel1.draw(batch);
+//        
+//        nivel2.setPosition(mapa.getX() + 510, 50);
+//        nivel2.setEstado(EstadoNivel.COMPLETADO);
+//        nivel2.draw(batch);
+//        
+//        nivel3.setPosition(mapa.getX() + 870, 30);
+//        nivel3.setEstado(EstadoNivel.ACTUAL);
+//        nivel3.draw(batch);
+//        
+//        nivel4.setPosition(mapa.getX() + 1172, 72);
+//        nivel4.setEstado(EstadoNivel.BLOQUEADO);
+//        nivel4.draw(batch);
+//        
+//        nivel5.setPosition(mapa.getX() + 1550, 25);
+//        nivel5.setEstado(EstadoNivel.BLOQUEADO);
+//        nivel5.draw(batch);
+//        
+//        nivel6.setPosition(mapa.getX() + 1930, 45);
+//        nivel6.setEstado(EstadoNivel.BLOQUEADO);
+//        nivel6.draw(batch);
         
         
         batch.end();
@@ -304,9 +327,12 @@ public class Mapa implements Screen {
     public void dispose() {
         batch.dispose();
         font.dispose();
-        nivel1.dispose();
-        nivel2.dispose();
-        nivel3.dispose();
+        for (int i=1;i<7;i++) {
+            (niveles.get(i)).dispose();
+        }
+//        nivel1.dispose();
+//        nivel2.dispose();
+//        nivel3.dispose();
         imgMapa.dispose();
         imgPalmera.dispose();
         imgSugerencias.dispose();
