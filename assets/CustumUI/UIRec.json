@@ -280,6 +280,17 @@ com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 		messageFont: regular
 		messageFontColor: white
 	}
+	noBG: {
+		font: regular
+		fontColor: white
+                                   background: SButton
+		focusedBackground: SelectedText
+		cursor: progress-bar-fill
+		selection: selection
+		messageFont: regular
+		messageFontColor: white
+	}
+        
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 	default: {

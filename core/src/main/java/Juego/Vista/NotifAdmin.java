@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
@@ -38,7 +39,10 @@ public class NotifAdmin implements Screen, Fuentes {
     
     private final Texture fondoSugerencia = new Texture(Gdx.files.internal("AdminRecBG.png"));
     
-    private TextField descripcion;
+    private SelectBox<String> selectBox;
+    private TextField nombre;
+    private TextArea descripcion;
+    private TextField descomposicion;
     
     private ImageButton aceptar;
     private final Texture upAceptar = new Texture(Gdx.files.internal("AcceptBtn.png"));
@@ -108,18 +112,38 @@ public class NotifAdmin implements Screen, Fuentes {
         salir = new ImageButton(cancelarEstilo);
         salir.setPosition(994, 633);
         
-        descripcion = new TextArea("Esto es una prueba de la descripción que el usuario va a poner como la descripción del objeto", skin);
-        descripcion.setSize(290, 90);
-        ScrollPane descripcionScroll = new ScrollPane(descripcion);
-        descripcionScroll.setPosition(708, 146);
-        descripcionScroll.setSize(303, 100);
+        selectBox = new SelectBox<>(skin);
+        selectBox.setItems("Plástico", "Metal", "Papel", "Biológico", "Orgánico", "Vidrio", "General");
+        
+        selectBox.setSize(141, 30);
+        selectBox.setAlignment(1);
+        selectBox.setPosition(710, 296);
+        
+        descomposicion = new TextField("", skin);
+        descomposicion.setPosition(863, 296);
+        descomposicion.setSize(141, 29);
+
+        nombre = new TextField("", skin, "noBG");
+        nombre.setMessageText("Nombre");
+        nombre.setAlignment(1);
+        nombre.setPosition(787, 507);
+        nombre.setSize(141, 30);
+        
+        descripcion = new TextArea("", skin);
+        descripcion.setText("Descripción correspondiente sdfsdjfasdjfajsdkfjasdjfasdjkfjasdkj");
+        descripcion.setPosition(710, 150);
+        descripcion.setSize(293, 91);
         
         stage.addActor(titulo);
         stage.addActor(scroll);
         stage.addActor(aceptar);
         stage.addActor(eliminar);
-        stage.addActor(descripcionScroll);
         stage.addActor(salir);
+        
+        stage.addActor(descripcion);
+        stage.addActor(descomposicion);
+        stage.addActor(nombre);
+        stage.addActor(selectBox);
         
     }
         
