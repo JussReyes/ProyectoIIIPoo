@@ -78,7 +78,7 @@ public class infoTipo implements Screen{
             }
         });
         
-        titulo = new Label("NOTIFICACIONES", Fuentes.titulos);
+        titulo = new Label("INFORMACIÓN", Fuentes.titulos);
         titulo.setPosition(295, 600);
         
         stage = new Stage(new ScreenViewport());
@@ -91,8 +91,6 @@ public class infoTipo implements Screen{
         matriz.space(10);
         for (int i=0;i<15;i++) {
             //Basura basura=basuras.get(i);
-            HorizontalGroup fila = new HorizontalGroup();
-            fila.space(10);
             
             Texture newImagen = new Texture(Gdx.files.internal("assets\\aHuevo.png"));
             ImageButton imagen= new ImageButton(new TextureRegionDrawable(new TextureRegion(newImagen)));
@@ -102,32 +100,28 @@ public class infoTipo implements Screen{
                         System.out.println("ya");
                 }   
             });
-            
-//            Label boton1 = new Label("Huevo "+i,Fuentes.normales);
-            ImageTextButton boton1 = new ImageTextButton("Huevo "+i, skin, "noticia");
-            TextArea boton2 = new TextArea("texto de la descripción.. sadlkcajlcadsl daldksc jaodsc askdclskdcj ldjcslak jdclak jsclcaj lajd",skin);
-//            ImageTextButton boton2 = new ImageTextButton("texto de la descripción.. sadlkcajlcadsl daldksc jaodsc askdclskdcj ldjcslak jdclak jsclcaj lajd", skin);
-            TextArea boton3 = new TextArea("Recomendaciones: dcj ldjcslak jdclak jsclcaj la",skin);
-//            ImageTextButton boton3 = new ImageTextButton("Recomendaciones: dcj ldjcslak jdclak jsclcaj la", skin);
-//            ImageTextButton boton4 = new ImageTextButton("Recomendaciones", skin);
 
-            fila.addActor(imagen);
-            fila.addActor(boton1);
-            fila.addActor(boton2);
-            fila.addActor(boton3);
-            
-            Table filaConBorde = new Table(skin);
-            filaConBorde.setBackground("borde_azul");
-            filaConBorde.pad(10);
-            filaConBorde.add(fila);
-            
-            matriz.addActor(filaConBorde);
+            matriz.addActor(imagen);
         }
         scroll = new ScrollPane(matriz, skin, "notificaciones");
         scroll.setPosition(50, 50);
-        scroll.setSize(1000, 660);
+        scroll.setSize(200, 660);
         
+        
+
+        
+        Label nombre = new Label("Nombre basura", Fuentes.bold);
+        nombre.setPosition(600, 600);
+        TextArea boton2 = new TextArea("texto de la descripción.. sadlkcajlcadsl daldksc jaodsc askdclskdcj ldjcslak jdclak jsclcaj lajd",skin);
+        boton2.setPosition(650, 400);
+        
+        TextArea boton3 = new TextArea("Recomendaciones: dcj ldjcslak jdclak jsclcaj la",skin);
+        boton3.setPosition(650, 300);
+
         stage.addActor(scroll);
+        stage.addActor(nombre);
+        stage.addActor(boton2);
+        stage.addActor(boton3);
     }
     
 
