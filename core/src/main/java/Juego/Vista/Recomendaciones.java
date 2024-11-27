@@ -86,7 +86,7 @@ public class Recomendaciones implements Screen, Fuentes {
         selectBox.setPosition(130, 314);
         
         pintura =  new Texture(Gdx.files.internal("BigPaint.png"));
-        fondo = new Texture (Gdx.files.internal("BGRecomendaciones.png"));
+        fondo = new Texture (Gdx.files.internal("RecomendacionesBG.png"));
         
         Texture image = new Texture(Gdx.files.internal("ImageButton.png"));
         imagen = new ImageButton(new TextureRegionDrawable(new TextureRegion(image)));
@@ -99,11 +99,13 @@ public class Recomendaciones implements Screen, Fuentes {
             public void changed(ChangeListener.ChangeEvent ce, Actor actor) {
                 SelectorDeImagen fileChooserExample = new SelectorDeImagen();
                 String rutas = fileChooserExample.copiarImagenAlRepositorio("assets");
-                String rutaRelativa = rutas.substring(rutas.lastIndexOf("##")+2);
-                String rutaImagen =rutas.substring(0, rutas.lastIndexOf("##"));
-                if (rutaRelativa != null) {
+                
+                if (rutas != null) {
+                    String rutaRelativa = rutas.substring(rutas.lastIndexOf("##")+2);
+                    String rutaImagen =rutas.substring(0, rutas.lastIndexOf("##"));
                     System.out.println("Ruta relativa en el proyecto: " + rutaRelativa);
                     Texture newImagen = new Texture(Gdx.files.internal(rutaImagen));
+                    System.out.println(newImagen.getHeight());
                     imagen.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(newImagen));
                     ruta=rutaRelativa;
                 }

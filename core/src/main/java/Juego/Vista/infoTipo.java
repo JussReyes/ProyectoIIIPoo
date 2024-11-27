@@ -107,9 +107,7 @@ public class infoTipo implements Screen{
         
         ArrayList<Basura> basuras=controlador.getBasuras();
         
-        scroll = new ScrollPane(grupo, skin, "notificaciones");
-        scroll.setPosition(20, 25);
-        scroll.setSize(400, 670);
+        
         
         nombre = new Label("Nombre", Fuentes.titulos);
         
@@ -155,7 +153,7 @@ public class infoTipo implements Screen{
         for (int i=0;i<15;i++) {
             //Basura basura=basuras.get(i);
             
-            Texture newImagen = new Texture(Gdx.files.internal("Bigplate.png"));
+            Texture newImagen = new Texture(Gdx.files.internal("assets\\aHuevo.png"));
             ImageButton imagen= new ImageButton(new TextureRegionDrawable(new TextureRegion(newImagen)));
             imagen.addListener(new ClickListener(){
                 @Override
@@ -166,6 +164,9 @@ public class infoTipo implements Screen{
 
             grupo.addActor(imagen);
         }
+        scroll = new ScrollPane(grupo, skin, "notificaciones");
+        scroll.setPosition(20, 25);
+        scroll.setSize(400, 670);
         stage.addActor(scroll);
         stage.addActor(nombre);
         stage.addActor(lblDescripcion);
