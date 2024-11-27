@@ -99,7 +99,15 @@ public class Mapa implements Screen {
         mapa = new Sprite(imgMapa);
         palmera = new Sprite(imgPalmera);
         
-        String cantNotificaciones = String.valueOf((controlador.getUsuarioActual()).getCantNotificaciones());
+        String cantNotificaciones;
+        if(controlador.getUsuarioActual()== null){
+            cantNotificaciones = "";
+        }
+        else{
+            cantNotificaciones = String.valueOf((controlador.getUsuarioActual()).getCantNotificaciones());
+        }
+        
+       
         if(cantNotificaciones.length()>=2){
             cantNotificaciones = "+9";
         }
