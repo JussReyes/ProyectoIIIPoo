@@ -91,18 +91,19 @@ public class Recomendaciones implements Screen, Fuentes {
         Texture image = new Texture(Gdx.files.internal("ImageButton.png"));
         imagen = new ImageButton(new TextureRegionDrawable(new TextureRegion(image)));
         imagen.setPosition(404, 314);
-        imagen.setSize(134, 134);
+        //imagen.setSize(134, 134);
         
         imagen.addListener(new ChangeListener(){
             
             @Override
             public void changed(ChangeListener.ChangeEvent ce, Actor actor) {
                 SelectorDeImagen fileChooserExample = new SelectorDeImagen();
-                String rutaRelativa = fileChooserExample.copiarImagenAlRepositorio("assets");
-
+                String rutas = fileChooserExample.copiarImagenAlRepositorio("assets");
+                String rutaRelativa = rutas.substring(rutas.lastIndexOf("##")+2);
+                String rutaImagen =rutas.substring(0, rutas.lastIndexOf("##"));
                 if (rutaRelativa != null) {
                     System.out.println("Ruta relativa en el proyecto: " + rutaRelativa);
-                    Texture newImagen = new Texture(Gdx.files.internal(rutaRelativa));
+                    Texture newImagen = new Texture(Gdx.files.internal(rutaImagen));
                     imagen.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(newImagen));
                     ruta=rutaRelativa;
                 }

@@ -5,16 +5,48 @@
 package Juego.Controlador;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import javax.imageio.ImageIO;
 /**
  *
  * @author xande
  */
 public class SelectorDeImagen {
+    
+    private String obtenerFormatoImagen(File archivo) {
+        String nombreArchivo = archivo.getName();
+        return nombreArchivo.substring(nombreArchivo.lastIndexOf(".") + 1).toLowerCase();
+    }
+    public void escalarYCopiar(File archivoSeleccionado, File directorioDestino, int nuevoAncho, int nuevoAlto) throws IOException {
+    // Leer la imagen desde el archivo seleccionado
+    BufferedImage imagenOriginal = ImageIO.read(archivoSeleccionado);
+    if (imagenOriginal == null) {
+        throw new IOException("El archivo no es una imagen válida: " + archivoSeleccionado.getName());
+    }
+
+    // Crear una nueva imagen escalada
+    Image imagenEscalada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
+    BufferedImage imagenResultado = new BufferedImage(nuevoAncho, nuevoAlto, BufferedImage.TYPE_INT_ARGB);
+
+    // Dibujar la imagen escalada en el nuevo BufferedImage
+    Graphics2D g2d = imagenResultado.createGraphics();
+    g2d.drawImage(imagenEscalada, 0, 0, null);
+    g2d.dispose();
+
+    // Guardar la imagen escalada en el archivo destino
+    File archivoDestino = new File(directorioDestino, archivoSeleccionado.getName());
+    if (!archivoDestino.exists()) {
+        ImageIO.write(imagenResultado, obtenerFormatoImagen(archivoSeleccionado), archivoDestino);
+    }
+}
+    
     public String copiarImagenAlRepositorio(String destinoDirectorio) {
         // Crear un JFileChooser para seleccionar archivos
         JFileChooser fileChooser = new JFileChooser();
@@ -41,12 +73,15 @@ public class SelectorDeImagen {
                 // Copiar el archivo al directorio del proyecto
                 File archivoDestino = new File(directorioDestino, archivoSeleccionado.getName());
                 if (!archivoDestino.exists())
-                    Files.copy(archivoSeleccionado.toPath(), archivoDestino.toPath());
+                    escalarYCopiar(archivoSeleccionado, directorioDestino, 80, 80);
 
                 // Retornar la ruta relativa del archivo copiado
                 String rutaRelativa = archivoDestino.getPath();
                 System.out.println("Archivo copiado a: " + rutaRelativa);
-                return rutaRelativa;
+                String rutas = archivoSeleccionado.toPath().toString();
+                rutas+="##";
+                rutas+= rutaRelativa;
+                return rutas;
 
             } catch (IOException e) {
                 e.printStackTrace();
