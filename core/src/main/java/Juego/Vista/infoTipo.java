@@ -13,11 +13,13 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.HorizontalGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
@@ -26,6 +28,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -46,7 +49,23 @@ public class infoTipo implements Screen{
     private SpriteBatch batch;
     private Stage stage; 
     private Skin skin;
+    
     private Label titulo;
+    
+    private TextArea descripcion;
+    private Label lblDescripcion;
+    
+    private Label lblRecomendaciones;
+    private TextArea recomendaciones;
+    
+    private Label lblDescomposicion;
+    private TextField descomposicion;
+    
+    private Label lblBasurero;        
+    private TextField basurero;
+    
+    private Label nombre;
+    
     private Label volver;
     private ShapeRenderer render;
     private VerticalGroup matriz;
@@ -62,6 +81,7 @@ public class infoTipo implements Screen{
     public void show() {
         camara = game.camara;
         batch = game.batch;
+        Fuentes.titulos.fontColor.set(Color.WHITE);
         
         render = new ShapeRenderer();
         
@@ -88,11 +108,11 @@ public class infoTipo implements Screen{
         ArrayList<Basura> basuras=controlador.getBasuras();
         
         matriz = new VerticalGroup();
-        matriz.space(10);
+        matriz.space(20);
         for (int i=0;i<15;i++) {
             //Basura basura=basuras.get(i);
             
-            Texture newImagen = new Texture(Gdx.files.internal("assets\\aHuevo.png"));
+            Texture newImagen = new Texture(Gdx.files.internal("Bigplate.png"));
             ImageButton imagen= new ImageButton(new TextureRegionDrawable(new TextureRegion(newImagen)));
             imagen.addListener(new ClickListener(){
                 @Override
@@ -104,30 +124,69 @@ public class infoTipo implements Screen{
             matriz.addActor(imagen);
         }
         scroll = new ScrollPane(matriz, skin, "notificaciones");
-        scroll.setPosition(50, 50);
-        scroll.setSize(200, 660);
+        scroll.setPosition(20, 25);
+        scroll.setSize(400, 670);
         
         
 
         
-        Label nombre = new Label("Nombre basura", Fuentes.bold);
-        nombre.setPosition(600, 600);
-        TextArea boton2 = new TextArea("texto de la descripción.. sadlkcajlcadsl daldksc jaodsc askdclskdcj ldjcslak jdclak jsclcaj lajd",skin);
-        boton2.setPosition(650, 400);
+        nombre = new Label("Plato", Fuentes.titulos);
         
-        TextArea boton3 = new TextArea("Recomendaciones: dcj ldjcslak jdclak jsclcaj la",skin);
-        boton3.setPosition(650, 300);
+        GlyphLayout glyphLayout = new GlyphLayout();
+        glyphLayout.setText(Fuentes.titulos.font, "Plato");
+        float anchoTexto = glyphLayout.width; 
+        float xPos = 383 + (722 - anchoTexto) / 2;
+        nombre.setPosition(xPos, 600);
+        
+        lblBasurero = new Label("Basurero", Fuentes.bold);
+        lblBasurero.setPosition(477, 551);
+        
+        basurero = new TextField("Plástico", skin);
+        basurero.setPosition(477, 485);
+        basurero.setSize(255, 56);
+        basurero.setTouchable(Touchable.disabled);
+        
+        lblDescomposicion = new Label("Descomposición", Fuentes.bold);
+        lblDescomposicion.setPosition(760, 551);        
+        
+        descomposicion = new TextField("9 años", skin);
+        descomposicion.setPosition(760, 485);
+        descomposicion.setSize(255, 56);
+        descomposicion.setTouchable(Touchable.disabled);
+       
+        lblDescripcion = new Label("Descripción", Fuentes.bold);
+        lblDescripcion.setPosition(477, 236);
+        
+        descripcion = new TextArea("texto de la descripción.. sadlkcajlcadsl daldksc jaodsc askdclskdcj ldjcslak jdclak jsclcaj lajd",skin);
+        descripcion.setPosition(477, 70);
+        descripcion.setSize(539, 156);
+        descripcion.setTouchable(Touchable.disabled);
+        
+        lblRecomendaciones = new Label("Recomendaciones de desecho", Fuentes.bold);
+        lblRecomendaciones.setPosition(477, 441);
+        
+        recomendaciones = new TextArea("Recomendaciones: dcj ldjcslak jdclak jsclcaj la",skin);
+        recomendaciones.setPosition(477, 275);
+        recomendaciones.setSize(539, 156);
+        recomendaciones.setTouchable(Touchable.disabled);
+
 
         stage.addActor(scroll);
         stage.addActor(nombre);
-        stage.addActor(boton2);
-        stage.addActor(boton3);
+        stage.addActor(lblDescripcion);
+        stage.addActor(descripcion);
+        stage.addActor(lblRecomendaciones);
+        stage.addActor(recomendaciones);
+        stage.addActor(lblBasurero);
+        stage.addActor(basurero);
+        stage.addActor(lblDescomposicion);
+        stage.addActor(descomposicion);
     }
     
 
     @Override
     public void render(float f) {
-        Gdx.gl.glClearColor(1, 0.996f, 0.632f, 1);
+        Gdx.gl.glClearColor((float)15/255, (float)93/255, (float)145/255, 1f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
         stage.act(Gdx.graphics.getDeltaTime());
