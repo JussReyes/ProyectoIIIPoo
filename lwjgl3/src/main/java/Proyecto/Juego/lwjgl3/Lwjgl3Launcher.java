@@ -17,7 +17,7 @@ public class Lwjgl3Launcher {
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
         Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
-        configuration.setTitle("Turu");
+        configuration.setTitle("Tortugalo");
         //// Vsync limits the frames per second to what your hardware can display, and helps eliminate
         //// screen tearing. This setting doesn't always work on Linux, so the line after is a safeguard.
         configuration.useVsync(true);
@@ -30,7 +30,7 @@ public class Lwjgl3Launcher {
         configuration.setWindowedMode(1105, 720);
         //// You can change these files; they are in lwjgl3/src/main/resources/ .
         configuration.setResizable(false);
-        configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");
+        configuration.setWindowIcon("iconx128.png", "iconx64.png", "iconx32.png", "iconx16.png");
         return configuration;
     }
 }
