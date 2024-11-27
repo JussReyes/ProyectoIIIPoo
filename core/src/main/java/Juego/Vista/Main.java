@@ -21,7 +21,7 @@ public class Main extends Game {
         width = Gdx.graphics.getWidth();
         height = Gdx.graphics.getHeight();
         camara = new OrthographicCamera(width, height);
-        this.setScreen(new Login(this, new Controlador())); 
+        this.setScreen(new PantallaJuego(this, new Controlador(),3)); 
     }
 
     @Override

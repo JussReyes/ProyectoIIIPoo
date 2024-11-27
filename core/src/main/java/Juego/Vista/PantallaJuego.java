@@ -300,153 +300,151 @@ public class PantallaJuego implements Screen {
             lastSpawnTime += Gdx.graphics.getDeltaTime();     
           
 
-        // Start drawing with SpriteBatch
-        batch.begin();
-        
-        
-        for (int i = 0; i < basureros.size(); i++) {
-            Sprite basurero = basureros.get(i);
-            basurero.draw(batch);
-        }
-        
-        
-        XBOceano =  (XBOceano - 5) % 1540;
-        OceanoBack.setPosition(XBOceano, YBOceano);
-        OceanoBack.draw(batch);
-        
-        for (Sprite desecho : desechosUp){
-            float xPos = desecho.getX();
-            float yPos = desecho.getY();
-            
-            if (xPos < 230){
-                //game.setScreen(new GameOver(game,controlador, false));
+            // Start drawing with SpriteBatch
+            batch.begin();
 
-                
-                yPos = 500;
-                xPos = 230;
+
+            for (int i = 0; i < basureros.size(); i++) {
+                Sprite basurero = basureros.get(i);
+                basurero.draw(batch);
             }
-            yPos = yPos + (float) Math.sin(time * 3);
-            xPos -= 3;
-            desecho.setPosition(xPos, yPos);
-            desecho.draw(batch);
-        }
-        
-        XMOceano =  (XMOceano - 3) % 1573;
-        OceanoMid.setPosition(XMOceano, YMOceano);
-        OceanoMid.draw(batch);
-        
-        for (Sprite desecho : desechosMid){
-            float xPos = desecho.getX();
-            float yPos = desecho.getY();
-            
-            if (xPos < 230){
-                
-                //game.setScreen(new GameOver(game,controlador, false));
 
-                yPos = 500;
-                xPos = 230;
-            }
-            yPos = yPos + (float) Math.sin(time * 3);
-            xPos -= 3;
-            desecho.setPosition(xPos, yPos);
-            desecho.draw(batch);
-        }
-        
-        XFOceano =  (XFOceano - 2) % 1512;
-        OceanoFront.setPosition(XFOceano, YFOceano);
-        OceanoFront.draw(batch);
-        
-        for (Sprite desecho : desechosDown){
-            float xPos = desecho.getX();
-            float yPos = desecho.getY();
-            
-            if (xPos < 230){
-                
-               //game.setScreen(new GameOver(game,controlador, false));
 
-                yPos = 500;
-                xPos = 230;
-            }
-            yPos = yPos + (float) Math.sin(time * 3);
-            xPos -= 3;
-            desecho.setPosition(xPos, yPos);
-            desecho.draw(batch);
-        }   
+            XBOceano =  (XBOceano - 5) % 1540;
+            OceanoBack.setPosition(XBOceano, YBOceano);
+            OceanoBack.draw(batch);
 
-        isla.setPosition(0, 0);
-        isla.draw(batch);
-        
-        if(desechos.isEmpty()){
-            controlador.subirNivelUsuarioActual();
-            game.setScreen(new GameOver(game, controlador, true));
-        }
-        else{
-            if (lastSpawnTime > spawnTime) {
-                Sprite desecho = desechos.removeLast();
+            for (Sprite desecho : desechosUp){
+                float xPos = desecho.getX();
                 float yPos = desecho.getY();
-                
-                switch (Math.round(yPos)) {
-                    case 200:
-                        desechosUp.add(desecho);
-                        break;
-                    case 120:
-                        desechosMid.add(desecho);
-                        break;
-                    default:
-                        desechosDown.add(desecho);
+
+                if (xPos < 230){
+                    //game.setScreen(new GameOver(game,controlador, false));
+
+
+                    yPos = 500;
+                    xPos = 230;
                 }
-                desechosLanzados.add(desecho);
-                lastSpawnTime = 0;
+                yPos = yPos + (float) Math.sin(time * 3);
+                xPos -= 3;
+                desecho.setPosition(xPos, yPos);
+                desecho.draw(batch);
             }
-        }
-        
-        batch.end();
-        
-        stage.act(Gdx.graphics.getDeltaTime());
-        
-        stage.draw();
 
-                
-        // Handle screen transitions or input events (optional)
-        if (Gdx.input.isTouched()) {
-            // Switch to another screen (if desired)
-            // game.setScreen(new AnotherScreen(game));
-            
-         camara.update();
-        } 
-        if(Gdx.input.justTouched()&&!spriteArrastrado){
-            mouseX = Gdx.input.getX();
-            mouseY = Gdx.graphics.getHeight()- Gdx.input.getY();
-            
-            for (Sprite sprite: desechosLanzados){
-                spriteX = sprite.getX(); 
-                spriteY = sprite.getY(); 
-                float anchoSprite = sprite.getWidth(); 
-                float alturaSprite = sprite.getHeight(); 
-                if (mouseX >= spriteX && mouseX <= spriteX + anchoSprite && mouseY >= spriteY && mouseY <= spriteY + alturaSprite) { 
-                    spriteArrastrado = true;
-                    spriteSeleccionado = sprite;
-                    break;
+            XMOceano =  (XMOceano - 3) % 1573;
+            OceanoMid.setPosition(XMOceano, YMOceano);
+            OceanoMid.draw(batch);
 
+            for (Sprite desecho : desechosMid){
+                float xPos = desecho.getX();
+                float yPos = desecho.getY();
+
+                if (xPos < 230){
+
+                    //game.setScreen(new GameOver(game,controlador, false));
+
+                    yPos = 500;
+                    xPos = 230;
+                }
+                yPos = yPos + (float) Math.sin(time * 3);
+                xPos -= 3;
+                desecho.setPosition(xPos, yPos);
+                desecho.draw(batch);
+            }
+
+            XFOceano =  (XFOceano - 2) % 1512;
+            OceanoFront.setPosition(XFOceano, YFOceano);
+            OceanoFront.draw(batch);
+
+            for (Sprite desecho : desechosDown){
+                float xPos = desecho.getX();
+                float yPos = desecho.getY();
+
+                if (xPos < 230){
+
+                   //game.setScreen(new GameOver(game,controlador, false));
+
+                    yPos = 500;
+                    xPos = 230;
+                }
+                yPos = yPos + (float) Math.sin(time * 3);
+                xPos -= 3;
+                desecho.setPosition(xPos, yPos);
+                desecho.draw(batch);
+            }   
+
+            isla.setPosition(0, 0);
+            isla.draw(batch);
+
+            if(desechos.isEmpty()){
+                controlador.subirNivelUsuarioActual();
+                game.setScreen(new GameOver(game, controlador, true));
+            }
+            else{
+                if (lastSpawnTime > spawnTime) {
+                    Sprite desecho = desechos.removeLast();
+                    float yPos = desecho.getY();
+
+                    switch (Math.round(yPos)) {
+                        case 200:
+                            desechosUp.add(desecho);
+                            break;
+                        case 120:
+                            desechosMid.add(desecho);
+                            break;
+                        default:
+                            desechosDown.add(desecho);
+                    }
+                    desechosLanzados.add(desecho);
+                    lastSpawnTime = 0;
                 }
             }
-            
-        }
-        if (Gdx.input.isTouched() && spriteArrastrado && spriteSeleccionado != null) {
-            spriteSeleccionado.setCenter(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
-        }
 
-        if (!Gdx.input.isTouched()&&spriteArrastrado) {
-            spriteArrastrado = false;
-            spriteSeleccionado.setCenter(spriteX, spriteY);
-            spriteSeleccionado = null;
+            batch.end();
+
+            stage.act(Gdx.graphics.getDeltaTime());
+
+            stage.draw();
+
+
+            // Handle screen transitions or input events (optional)
+            if (Gdx.input.isTouched()) {
+                // Switch to another screen (if desired)
+                // game.setScreen(new AnotherScreen(game));
+             camara.update();
+            } 
+            if(Gdx.input.justTouched()&&!spriteArrastrado){
+                mouseX = Gdx.input.getX();
+                mouseY = Gdx.graphics.getHeight()- Gdx.input.getY();
+
+                for (Sprite sprite: desechosLanzados){
+                    spriteX = sprite.getX(); 
+                    spriteY = sprite.getY(); 
+                    float anchoSprite = sprite.getWidth(); 
+                    float alturaSprite = sprite.getHeight(); 
+                    if (mouseX >= spriteX && mouseX <= spriteX + anchoSprite && mouseY >= spriteY && mouseY <= spriteY + alturaSprite) { 
+                        spriteArrastrado = true;
+                        spriteSeleccionado = sprite;
+                        break;
+
+                    }
+                }
+
+            }
+            if (Gdx.input.isTouched() && spriteArrastrado && spriteSeleccionado != null) {
+                spriteSeleccionado.setCenter(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+            }
+
+            if (!Gdx.input.isTouched()&&spriteArrastrado) {
+                
+                //AQUI DEBERÍAMOS DE AGREGAR EL IF DE SI ENTRÓ AL BASURERO CORRECTO, ELIMINARLO DE DESECHOSLANZADOS Y DEL UP/MID/DOWN
+                /* Y SINO: */ spriteSeleccionado.setCenter(spriteX, spriteY);
+                spriteArrastrado = false;
+                spriteSeleccionado = null;
+            }
+            stage.draw();
+
         }
-        
-        
-        
-        stage.draw();
-        
-    }
     }
     @Override
     public void resize(int width, int height) {
