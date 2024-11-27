@@ -138,25 +138,6 @@ public class PantallaJuego implements Screen, Juego {
             public void changed(ChangeListener.ChangeEvent ce, Actor actor) {
                pausar();
             }});
-            
-           
-            stage.addActor(pausa);
-            
-            
-        }else{
-            ImageButton.ImageButtonStyle notificacionesEstilo2 = new ImageButton.ImageButtonStyle();
-            notificacionesEstilo2.up = new TextureRegionDrawable(imgPlay);
-            play = new ImageButton(notificacionesEstilo2);
-            play.setPosition(200, 573);
-            
-            play.addListener(new ChangeListener(){
-            
-            @Override
-            public void changed(ChangeListener.ChangeEvent ce, Actor actor) {
-               pausar();
-            }});
-            stage.addActor(play);            
-        }
         
         tiposDesechos.add(botella);
         tiposDesechos.add(bolaPapel);
@@ -211,6 +192,7 @@ public class PantallaJuego implements Screen, Juego {
             }
         }
         
+    }
     }
     
     private void pausar(){
@@ -407,6 +389,7 @@ public class PantallaJuego implements Screen, Juego {
             stage.draw();
 
         }
+        stage.draw();
     }
     @Override
     public void resize(int width, int height) {
