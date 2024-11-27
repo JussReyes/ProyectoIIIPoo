@@ -57,4 +57,13 @@ public class Recomendacion implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+    @Override
+    public String toString() {
+        return "Recomendacion{" + "nombre=" + nombre + ", basurero=" + basurero + ", descripcion=" + descripcion + ", imagen=" + imagen + '}';
+    }
+    
+    
+    
+    
 }
