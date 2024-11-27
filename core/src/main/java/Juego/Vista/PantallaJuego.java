@@ -25,11 +25,15 @@ import java.util.Random;
 public class PantallaJuego implements Screen {
     
     private boolean pausado = false;
+    boolean spriteArrastrado = false;
+    Sprite spriteSeleccionado = null;
     
     private int nivel;
     
     private float mouseX;
     private float mouseY;
+    private float spriteX; 
+    private float spriteY;
     private boolean basuraSeleccionada;
     
     private Controlador controlador;
@@ -110,6 +114,7 @@ public class PantallaJuego implements Screen {
     private ArrayList<Sprite> desechosUp = new ArrayList<>();
     private ArrayList<Sprite> desechosMid = new ArrayList<>();
     private ArrayList<Sprite> desechosDown = new ArrayList<>();
+    private ArrayList<Sprite> desechosLanzados = new ArrayList<>();
     
     private int dificultad = 25;
     
@@ -231,7 +236,27 @@ public class PantallaJuego implements Screen {
             desechos.add(desecho);
         }
         
-        
+        if (basureros.size() < 4) {
+            widthArriba = 121 * basureros.size() - 10;
+            yArriba = 412;
+        }
+        else{
+            widthArriba = 353;
+            yArriba = 500;
+            
+            widthAbajo = 121  * (basureros.size() - 3) - 10;
+            yAbajo = 325;
+        }
+        for (int i = 0; i < basureros.size(); i++) {
+            Sprite basurero = basureros.get(i);
+            
+            if (i < 3){
+                basurero.setPosition(444 + 121 * i  + (355 -widthArriba) / 2, yArriba);
+            }
+            else{
+                basurero.setPosition(444 + 121*(i -3) + (355 - widthAbajo) / 2, yAbajo);
+            }
+        }
         
     }
     
@@ -279,29 +304,11 @@ public class PantallaJuego implements Screen {
         batch.begin();
         
         
-        if (basureros.size() < 4) {
-            widthArriba = 121 * basureros.size() - 10;
-            yArriba = 412;
-        }
-        else{
-            widthArriba = 353;
-            yArriba = 500;
-            
-            widthAbajo = 121  * (basureros.size() - 3) - 10;
-            yAbajo = 325;
-        }
-        
         for (int i = 0; i < basureros.size(); i++) {
             Sprite basurero = basureros.get(i);
-            
-            if (i < 3){
-                basurero.setPosition(444 + 121 * i  + (355 -widthArriba) / 2, yArriba);
-            }
-            else{
-                basurero.setPosition(444 + 121*(i -3) + (355 - widthAbajo) / 2, yAbajo);
-            }
             basurero.draw(batch);
         }
+        
         
         XBOceano =  (XBOceano - 5) % 1540;
         OceanoBack.setPosition(XBOceano, YBOceano);
@@ -388,6 +395,7 @@ public class PantallaJuego implements Screen {
                     default:
                         desechosDown.add(desecho);
                 }
+                desechosLanzados.add(desecho);
                 lastSpawnTime = 0;
             }
         }
@@ -406,28 +414,32 @@ public class PantallaJuego implements Screen {
             
          camara.update();
         } 
-        if(Gdx.input.justTouched()){
-            System.out.println("Clic detectado¡¡¡¡¡¡¡¡¡!!!!!!!!!!!!!!!!");
+        if(Gdx.input.justTouched()&&!spriteArrastrado){
             mouseX = Gdx.input.getX();
             mouseY = Gdx.graphics.getHeight()- Gdx.input.getY();
             
-            for (Sprite sprite: desechos){
-                float spriteX = sprite.getX(); 
-                float spriteY = sprite.getY(); 
+            for (Sprite sprite: desechosLanzados){
+                spriteX = sprite.getX(); 
+                spriteY = sprite.getY(); 
                 float anchoSprite = sprite.getWidth(); 
                 float alturaSprite = sprite.getHeight(); 
-            if (mouseX >= spriteX && mouseX <= spriteX + anchoSprite && mouseY >= spriteY && mouseY <= spriteY + alturaSprite) { 
-                System.out.println("Basura tocada¡¡¡¡¡¡¡¡¡!!!!!!!!!!!!!!!!");
-                while(Gdx.input.isTouched()){
-                    System.out.println("Moviendo basurilla¡¡¡¡¡¡¡¡¡!!!!!!!!!!!!!!!!");
-                    sprite.setCenter(Gdx.input.getX(),Gdx.graphics.getHeight()- Gdx.input.getY() ); 
-                    sprite.draw(batch);
-                    camara.update();
+                if (mouseX >= spriteX && mouseX <= spriteX + anchoSprite && mouseY >= spriteY && mouseY <= spriteY + alturaSprite) { 
+                    spriteArrastrado = true;
+                    spriteSeleccionado = sprite;
+                    break;
+
                 }
-                         
-            }
             }
             
+        }
+        if (Gdx.input.isTouched() && spriteArrastrado && spriteSeleccionado != null) {
+            spriteSeleccionado.setCenter(Gdx.input.getX(), Gdx.graphics.getHeight() - Gdx.input.getY());
+        }
+
+        if (!Gdx.input.isTouched()&&spriteArrastrado) {
+            spriteArrastrado = false;
+            spriteSeleccionado.setCenter(spriteX, spriteY);
+            spriteSeleccionado = null;
         }
         
         
