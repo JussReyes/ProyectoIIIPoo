@@ -9,16 +9,28 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
 public class PantallaJuego implements Screen {
     
+    private boolean pausado = false;
+    
     private Controlador controlador;
 
     private Main game;
     
+    private Stage stage;
     private Camera camara;
     private SpriteBatch batch;
     private BitmapFont font;
@@ -45,7 +57,9 @@ public class PantallaJuego implements Screen {
     private Sprite isla;
     
     private final Texture imgPausa = new Texture ("pause.png");
-    private Sprite pausa;
+    private final Texture imgPlay = new Texture ("btnPlay.png");
+    private ImageButton pausa;
+    private ImageButton play;
     
     private final Texture imgPlastico = new Texture("PlasticCan.png");
     private Sprite plastico;
@@ -110,15 +124,14 @@ public class PantallaJuego implements Screen {
         batch = game.batch;
         font = game.font;
         
+        stage = new Stage(new ScreenViewport());
+        Gdx.input.setInputProcessor(stage);
+        
         OceanoBack = new Sprite(imgOceanoBack);
         OceanoMid = new Sprite(imgOceanoMid);
         OceanoFront = new Sprite(imgOceanoFront);
         
         isla = new Sprite(imgIsla);
-        
-
-        general = new Sprite(imgGeneral);
-        basureros.add(general);
         
         papel = new Sprite(imgPapel);
         basureros.add(papel);
@@ -126,11 +139,11 @@ public class PantallaJuego implements Screen {
         vidrio = new Sprite(imgVidrio);
         basureros.add(vidrio);
         
-        organico = new Sprite(imgOrganico);
-        basureros.add(organico);
-        
         plastico = new Sprite(imgPlastico);
         basureros.add(plastico);
+        
+        organico = new Sprite(imgOrganico);
+        basureros.add(organico);
         
         biologico = new Sprite(imgBiologico);
         basureros.add(biologico);
@@ -138,9 +151,43 @@ public class PantallaJuego implements Screen {
         metal = new Sprite(imgMetal);
         basureros.add(metal);
         
-
-        pausa = new Sprite(imgPausa);
-        pausa.setPosition(110, 573);
+        general = new Sprite(imgGeneral);
+        basureros.add(general);
+        
+        
+        if(!pausado){
+            ImageButton.ImageButtonStyle notificacionesEstilo = new ImageButton.ImageButtonStyle();
+            notificacionesEstilo.up = new TextureRegionDrawable(imgPausa);
+            pausa = new ImageButton(notificacionesEstilo);
+            pausa.setPosition(110, 573);
+            pausa.addListener(new ChangeListener(){
+            
+            @Override
+            public void changed(ChangeListener.ChangeEvent ce, Actor actor) {
+               pausar();
+            }});
+            
+           
+            stage.addActor(pausa);
+            
+            
+        }else{
+            ImageButton.ImageButtonStyle notificacionesEstilo2 = new ImageButton.ImageButtonStyle();
+            notificacionesEstilo2.up = new TextureRegionDrawable(imgPlay);
+            play = new ImageButton(notificacionesEstilo2);
+            play.setPosition(200, 573);
+            
+            play.addListener(new ChangeListener(){
+            
+            @Override
+            public void changed(ChangeListener.ChangeEvent ce, Actor actor) {
+               pausar();
+            }});
+            stage.addActor(play);            
+        }
+        
+        
+        
         
         
         texturasDesechos.add(imgBotella);
@@ -166,21 +213,53 @@ public class PantallaJuego implements Screen {
             desechos.add(desecho);
         }
         
+        
+        
     }
+    
+    private void pausar(){
+        pausado = !pausado;
+        stage.getActors().removeValue(pausa, true);
+        int x;
+        int y;
+        ImageButton.ImageButtonStyle estiloBoton = new ImageButton.ImageButtonStyle();
+        if (!pausado) {
+            estiloBoton.up = new TextureRegionDrawable(new TextureRegion(imgPausa));
+            x =110;
+            y = 573;
+        } else {
+            estiloBoton.up = new TextureRegionDrawable(new TextureRegion(imgPlay));
+            x =290;
+            y = 100;
+        }
+
+        pausa = new ImageButton(estiloBoton);
+        pausa.setPosition(x, y);
+
+        pausa.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                pausar();
+            }
+        });
+
+        stage.addActor(pausa);
+    }
+    
+    
 
     @Override
     public void render(float delta) {
-        // Clear the screen with a color
         Gdx.gl.glClearColor(1, 0.996f, 0.632f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        time += Gdx.graphics.getDeltaTime();
-        lastSpawnTime += Gdx.graphics.getDeltaTime();
+        if(!pausado){
+            time += Gdx.graphics.getDeltaTime();
+            lastSpawnTime += Gdx.graphics.getDeltaTime();     
+          
 
         // Start drawing with SpriteBatch
         batch.begin();
         
-        
-        pausa.draw(batch);
         
         if (basureros.size() < 4) {
             widthArriba = 121 * basureros.size() - 10;
@@ -215,9 +294,11 @@ public class PantallaJuego implements Screen {
             float yPos = desecho.getY();
             
             if (xPos < 230){
+                game.setScreen(new GameOver(game,controlador, false));
+
+                
                 yPos = 500;
                 xPos = 230;
-                //game.setScreen(new GameOver(game, controlador, false));
             }
             yPos = yPos + (float) Math.sin(time * 3);
             xPos -= 3;
@@ -234,9 +315,11 @@ public class PantallaJuego implements Screen {
             float yPos = desecho.getY();
             
             if (xPos < 230){
+                
+                game.setScreen(new GameOver(game,controlador, false));
+
                 yPos = 500;
                 xPos = 230;
-                //game.setScreen(new GameOver(game, controlador, false));
             }
             yPos = yPos + (float) Math.sin(time * 3);
             xPos -= 3;
@@ -253,9 +336,11 @@ public class PantallaJuego implements Screen {
             float yPos = desecho.getY();
             
             if (xPos < 230){
+                
+               game.setScreen(new GameOver(game,controlador, false));
+
                 yPos = 500;
                 xPos = 230;
-                //game.setScreen(new GameOver(game, controlador, false));
             }
             yPos = yPos + (float) Math.sin(time * 3);
             xPos -= 3;
@@ -267,7 +352,7 @@ public class PantallaJuego implements Screen {
         isla.draw(batch);
         
         if(desechos.isEmpty()){
-            game.setScreen(new GameOver(game, controlador, true));
+            game.setScreen(new GameOver(game,controlador, true));
         }
         else{
             if (lastSpawnTime > spawnTime) {
@@ -290,13 +375,21 @@ public class PantallaJuego implements Screen {
         
         batch.end();
         
+        stage.act(Gdx.graphics.getDeltaTime());
+        
+        stage.draw();
+
+                
         // Handle screen transitions or input events (optional)
         if (Gdx.input.isTouched()) {
             // Switch to another screen (if desired)
             // game.setScreen(new AnotherScreen(game));
             
          camara.update();
+        }        
         }
+        stage.draw();
+        
     }
     
     @Override

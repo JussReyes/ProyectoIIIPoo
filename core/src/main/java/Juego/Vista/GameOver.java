@@ -11,11 +11,13 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -41,7 +43,7 @@ public class GameOver implements Screen, Fuentes{
     
     private ImageButton regresar;
     private final Texture imgRegresar = new Texture(Gdx.files.internal("BackBtn.png"));
-    private final Texture imgSelectoRegresar = new Texture(Gdx.files.internal("SelectedBackBtn.png"));
+    private final Texture imgSelectoRegresar = new Texture(Gdx.files.internal("SelectedBackBtn.png"));   
     
     private ImageButton jugar;
     private final Texture imgJugar = new Texture(Gdx.files.internal("PlayBtn.png"));
@@ -68,6 +70,13 @@ public class GameOver implements Screen, Fuentes{
         
         regresar = new ImageButton(BackEstilo);
         regresar.setPosition(306, 82);
+        regresar.addListener(new ClickListener(){
+            
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new Mapa(game,controlador));
+            }
+        });
         
         ImageButtonStyle jugarEstilo = new ImageButtonStyle();
         jugarEstilo.up = new TextureRegionDrawable(imgJugar);
