@@ -4,11 +4,13 @@
  */
 package Juego.Modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author xande
  */
-public abstract class Basura {
+public abstract class Basura implements Serializable {
     String nombre;
     String descripcion;
     String rutaImagen;

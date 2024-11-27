@@ -4,11 +4,13 @@
  */
 package Juego.Modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author xande
  */
-public class Recomendacion {
+public class Recomendacion implements Serializable {
     private String nombre;
     private String basurero;
     private String descripcion;

@@ -87,8 +87,12 @@ public class ManejadorArchivoUsuarios {
         } catch (ClassNotFoundException ex) {
             //System.out.println("No se pudo cargar el registro del archivo " + nombreArchivo);
             return new ArrayList<Usuario>();
+        } catch (FileNotFoundException ex) {
+            System.out.println("Archivo no encontrado. Creando uno nuevo con datos iniciales.");
+            lista = new ArrayList<>(); // Método para crear contenido inicial
+            lista.add(new Usuario("Admin", "admin123"));
+            escribirArchivo(lista);
         } catch (IOException ex) {
-            //System.out.println("fin del archivo" + nombreArchivo);
             return lista;
         } 
         finally {
@@ -98,6 +102,7 @@ public class ManejadorArchivoUsuarios {
             } catch (IOException ex) {
                 return new ArrayList<Usuario>();
             }
+            return lista;
         }
     } 
 

@@ -130,6 +130,9 @@ public class Login implements Screen, Fuentes{
                     case (2): {
                         throw new IllegalArgumentException("        El usuario ingresado\n                 no existe!");
                     }
+                    case (777): {
+                        game.setScreen(new Mapa(game, controlador));
+                    }
                 }
                }
                catch (IllegalArgumentException ex){

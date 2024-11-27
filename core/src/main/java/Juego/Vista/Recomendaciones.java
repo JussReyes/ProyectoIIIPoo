@@ -123,11 +123,11 @@ public class Recomendaciones implements Screen, Fuentes {
                 
                 
                 String basu = selectBox.getSelected();
-                Recomendacion reco = new Recomendacion(nom, ruta, basu, desc);
+                controlador.añadirRecomendacion(nom, ruta, basu, desc);
                 }
                 
                 catch (IllegalArgumentException ex) {
-                    
+                    System.out.println("AJAAAAAAAAAAAAAAAAA FALTA CODE");
                 }
             }
             
