@@ -68,7 +68,7 @@ public class infoTipo implements Screen{
     
     private Label volver;
     private ShapeRenderer render;
-    private VerticalGroup matriz;
+    private VerticalGroup grupo;
     private ScrollPane scroll;
     
     public infoTipo(Main game, Controlador cont, String tipo) {
@@ -107,33 +107,14 @@ public class infoTipo implements Screen{
         
         ArrayList<Basura> basuras=controlador.getBasuras();
         
-        matriz = new VerticalGroup();
-        matriz.space(20);
-        for (int i=0;i<15;i++) {
-            //Basura basura=basuras.get(i);
-            
-            Texture newImagen = new Texture(Gdx.files.internal("Bigplate.png"));
-            ImageButton imagen= new ImageButton(new TextureRegionDrawable(new TextureRegion(newImagen)));
-            imagen.addListener(new ClickListener(){
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                        System.out.println("ya");
-                }   
-            });
-
-            matriz.addActor(imagen);
-        }
-        scroll = new ScrollPane(matriz, skin, "notificaciones");
+        scroll = new ScrollPane(grupo, skin, "notificaciones");
         scroll.setPosition(20, 25);
         scroll.setSize(400, 670);
         
-        
-
-        
-        nombre = new Label("Plato", Fuentes.titulos);
+        nombre = new Label("Nombre", Fuentes.titulos);
         
         GlyphLayout glyphLayout = new GlyphLayout();
-        glyphLayout.setText(Fuentes.titulos.font, "Plato");
+        glyphLayout.setText(Fuentes.titulos.font, "Nombre");
         float anchoTexto = glyphLayout.width; 
         float xPos = 383 + (722 - anchoTexto) / 2;
         nombre.setPosition(xPos, 600);
@@ -169,8 +150,22 @@ public class infoTipo implements Screen{
         recomendaciones.setPosition(477, 275);
         recomendaciones.setSize(539, 156);
         recomendaciones.setTouchable(Touchable.disabled);
+        grupo = new VerticalGroup();
+        grupo.space(20);
+        for (int i=0;i<15;i++) {
+            //Basura basura=basuras.get(i);
+            
+            Texture newImagen = new Texture(Gdx.files.internal("Bigplate.png"));
+            ImageButton imagen= new ImageButton(new TextureRegionDrawable(new TextureRegion(newImagen)));
+            imagen.addListener(new ClickListener(){
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                        System.out.println("ya");
+                }   
+            });
 
-
+            grupo.addActor(imagen);
+        }
         stage.addActor(scroll);
         stage.addActor(nombre);
         stage.addActor(lblDescripcion);
