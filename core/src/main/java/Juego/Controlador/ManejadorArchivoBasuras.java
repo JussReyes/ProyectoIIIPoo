@@ -120,6 +120,7 @@ public class ManejadorArchivoBasuras {
             for (FileHandle file : directory.list()) {
                 ArrayList<String> caracteristicas = getLineas(file);
                 Basura basura;
+                System.out.println(caracteristicas.size());
                 if (caracteristicas.size() == 6) {
                     
                     switch (caracteristicas.get(1)) {
@@ -135,13 +136,13 @@ public class ManejadorArchivoBasuras {
                         case "Papel":
                             basura = new Papel(caracteristicas.get(2), caracteristicas.get(4), caracteristicas.get(0), caracteristicas.get(5));
                             break;
-                        case "Biológico":
+                        case "Biológicos":
                             basura = new Biologicos(caracteristicas.get(2), caracteristicas.get(4), caracteristicas.get(0), caracteristicas.get(5));
                             break;
                         case "General":
                             basura = new General(caracteristicas.get(2), caracteristicas.get(4), caracteristicas.get(0), caracteristicas.get(5));
                             break;
-                        case "Orgánico":
+                        case "Orgánicos":
                             basura = new Organicos(caracteristicas.get(2), caracteristicas.get(4), caracteristicas.get(0), caracteristicas.get(5));
                             break;
                         default:
@@ -184,13 +185,13 @@ public class ManejadorArchivoBasuras {
                         case "Papel":
                             desecho = new Desecho(caracteristicas.get(0), "Papel");
                             break;
-                        case "Biológico":
+                        case "Biológicos":
                             desecho = new Desecho(caracteristicas.get(0), "Biológico");
                             break;
                         case "General":
                             desecho = new Desecho(caracteristicas.get(0), "General");
                             break;
-                        case "Orgánico":
+                        case "Orgánicos":
                             desecho = new Desecho(caracteristicas.get(0), "Orgánico");
                             break;
                         default:

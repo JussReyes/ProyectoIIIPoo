@@ -1,1 +1,6 @@
-
+assets\Leaf.png
+Orgánicos
+Hoja
+20
+Hoja que acaba de caer de un árbol
+dejar secar al aire libre
