@@ -20,8 +20,8 @@ public interface Juego {
     Basurero plastico = new Basurero("Plástico", "PlasticCan.png");
     Basurero vidrio = new Basurero("Vidrio", "GlassCan.png");
     Basurero metal = new Basurero("Metal", "MetalCan.png");
-    Basurero organico = new Basurero("Orgánico", "OrganicCan.png");
-    Basurero biologico = new Basurero("Biológico", "BiologicCan.png");
+    Basurero organico = new Basurero("Orgánicos", "OrganicCan.png");
+    Basurero biologico = new Basurero("Biológicos", "BiologicCan.png");
     Basurero[] afrrayBasureros = {general, papel, vidrio, organico, plastico, biologico, metal};
     ArrayList<Basurero> basureros = new ArrayList<>(Arrays.asList(afrrayBasureros));
     
