@@ -8,6 +8,7 @@ import Juego.Modelo.Basura;
 import Juego.Modelo.Notificacion;
 import Juego.Modelo.Sugerencia;
 import Juego.Modelo.Usuario;
+import Juego.Vista.Desecho;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
@@ -86,7 +87,7 @@ public class Controlador {
     
     public ArrayList<Basura> getBasuras(){
         ManejadorArchivoBasuras MAB = new ManejadorArchivoBasuras();
-        return MAB.cargarArchivoBasuras();
+        return MAB.getArrayBasuras();
     }
     
     public Notificacion getNoticia(){
@@ -153,6 +154,16 @@ public class Controlador {
     public void actualizarUsuarios(){
         ManejadorArchivoUsuarios MAU = new ManejadorArchivoUsuarios();
         MAU.escribirArchivo(usuarios);
+    }
+    
+    public ArrayList<Desecho> getDesechos(){
+        ManejadorArchivoBasuras MAB = new ManejadorArchivoBasuras();
+        return MAB.getArrayDesechos();
+    }
+    
+    public void NuevaBasura(String ruta, String tipo, String nombre, String dias, String descripcion, String recomendacion){
+        ManejadorArchivoBasuras MAB = new ManejadorArchivoBasuras();
+        MAB.nuevaBasura(ruta, tipo, nombre, dias, descripcion, recomendacion);
     }
     
 }

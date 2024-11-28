@@ -5,6 +5,7 @@
 package Juego.Vista;
 
 import Juego.Controlador.Controlador;
+import Juego.Controlador.ManejadorArchivoBasuras;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -72,6 +73,9 @@ public class Login implements Screen, Fuentes{
 
     @Override
     public void show() {
+        
+        ManejadorArchivoBasuras mm = new ManejadorArchivoBasuras();
+        mm.getArrayBasuras();
         camara = game.camara;
         batch = game.batch;
         font = game.font;

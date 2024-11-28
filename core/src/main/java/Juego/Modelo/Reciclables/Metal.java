@@ -13,6 +13,6 @@ import Juego.Modelo.Reciclable;
  */
 public class Metal extends Reciclable {
     public Metal (String nombre, String descripcion, String rutaImagen, String recomendaciones) {
-        super(BasurerosReciclables.Vidrio, nombre, descripcion, rutaImagen, recomendaciones, 100*365);
+        super(BasurerosReciclables.Metal, nombre, descripcion, rutaImagen, recomendaciones, 100*365);
     }
 }

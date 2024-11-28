@@ -72,7 +72,7 @@ public abstract class Basura extends Sprite implements Serializable {
 
     @Override
     public String toString() {
-        return "Basura{" + "nombre=" + nombre + ", descripcion=" + descripcion + ", rutaImagen=" + rutaImagen + ", recomendaciones=" + recomendaciones + ", tiempoDescomposicion=" + tiempoDescomposicion + '}';
+        return "Basura{" + getTipoBasurero().toString() + " nombre=" + nombre + ", descripcion=" + descripcion + ", rutaImagen=" + rutaImagen + ", recomendaciones=" + recomendaciones + ", tiempoDescomposicion=" + tiempoDescomposicion + '}';
     }
     
     

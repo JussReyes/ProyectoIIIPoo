@@ -5,13 +5,26 @@
 package Juego.Controlador;
 
 import Juego.Modelo.Basura;
+import Juego.Modelo.NoReciclables.Biologicos;
+import Juego.Modelo.NoReciclables.General;
+import Juego.Modelo.NoReciclables.Organicos;
+import Juego.Modelo.Reciclables.Metal;
+import Juego.Modelo.Reciclables.Papel;
+import Juego.Modelo.Reciclables.Plastico;
+import Juego.Modelo.Reciclables.Vidrio;
+import Juego.Vista.Desecho;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -98,4 +111,129 @@ public class ManejadorArchivoBasuras {
         }
     } 
     
+    public ArrayList<Basura> getArrayBasuras(){
+        FileHandle directory = Gdx.files.local("Basuras");
+
+        ArrayList<Basura> basuras = new ArrayList<>();
+        if (directory.isDirectory()) {
+            
+            for (FileHandle file : directory.list()) {
+                ArrayList<String> caracteristicas = getLineas(file);
+                Basura basura;
+                if (caracteristicas.size() == 6) {
+                    
+                    switch (caracteristicas.get(1)) {
+                        case "Plástico":
+                            basura = new Plastico(caracteristicas.get(2), caracteristicas.get(4), caracteristicas.get(0), caracteristicas.get(5));
+                            break;
+                        case "Metal":
+                            basura = new Metal(caracteristicas.get(2), caracteristicas.get(4), caracteristicas.get(0), caracteristicas.get(5));
+                            break;
+                        case "Vidrio":
+                            basura = new Vidrio(caracteristicas.get(2), caracteristicas.get(4), caracteristicas.get(0), caracteristicas.get(5));
+                            break;
+                        case "Papel":
+                            basura = new Papel(caracteristicas.get(2), caracteristicas.get(4), caracteristicas.get(0), caracteristicas.get(5));
+                            break;
+                        case "Biológico":
+                            basura = new Biologicos(caracteristicas.get(2), caracteristicas.get(4), caracteristicas.get(0), caracteristicas.get(5));
+                            break;
+                        case "General":
+                            basura = new General(caracteristicas.get(2), caracteristicas.get(4), caracteristicas.get(0), caracteristicas.get(5));
+                            break;
+                        case "Orgánico":
+                            basura = new Organicos(caracteristicas.get(2), caracteristicas.get(4), caracteristicas.get(0), caracteristicas.get(5));
+                            break;
+                        default:
+                            basura = null;
+                    }
+                if (basura != null)
+                basuras.add(basura);
+                }
+            }
+            return basuras;
+            
+        } else {
+            System.out.println("La ruta especificada no es un directorio.");
+            return basuras;
+        }
+        
+    }
+    
+    public ArrayList<Desecho> getArrayDesechos(){
+        FileHandle directory = Gdx.files.local("Basuras"); 
+
+        ArrayList<Desecho> desechos = new ArrayList<>();
+        if (directory.isDirectory()) {
+            
+            for (FileHandle file : directory.list()) {
+                ArrayList<String> caracteristicas = getLineas(file);
+                Desecho desecho;
+                if(caracteristicas.size() == 6){
+                    
+                    switch (caracteristicas.get(1)) {
+                        case "Plástico":
+                            desecho = new Desecho(caracteristicas.get(0), "Plástico");
+                            break;
+                        case "Metal":
+                            desecho = new Desecho(caracteristicas.get(0), "Metal");
+                            break;
+                        case "Vidrio":
+                            desecho = new Desecho(caracteristicas.get(0), "Vidrio");
+                            break;
+                        case "Papel":
+                            desecho = new Desecho(caracteristicas.get(0), "Papel");
+                            break;
+                        case "Biológico":
+                            desecho = new Desecho(caracteristicas.get(0), "Biológico");
+                            break;
+                        case "General":
+                            desecho = new Desecho(caracteristicas.get(0), "General");
+                            break;
+                        case "Orgánico":
+                            desecho = new Desecho(caracteristicas.get(0), "Orgánico");
+                            break;
+                        default:
+                            desecho = null;
+                    }
+                if (desecho != null)
+                   desechos.add(desecho);
+                }
+            }
+            return desechos;
+            
+        } else {
+            System.out.println("La ruta especificada no es un directorio.");
+            return desechos;
+        }
+    }
+    
+    
+   public ArrayList<String> getLineas(FileHandle archivo) {
+       
+        ArrayList<String> lineas = new ArrayList<>();
+
+        if (!archivo.exists()) { 
+            return null; 
+        }
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(archivo.read()))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                    lineas.add(linea);
+            }
+            return lineas;
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            return null;
+        }
+    }
+   public void nuevaBasura(String ruta, String tipo, String nombre, String dias, String descripcion, String recomendacion){
+        FileHandle file = Gdx.files.local("Basuras/" + nombre + ".txt");
+        if (!file.exists()) {
+            file.writeString(ruta + "\n" + tipo + "\n" + nombre + "\n" + dias + "\n" + descripcion + "\n" + recomendacion, false);
+        }
+   }
 }
