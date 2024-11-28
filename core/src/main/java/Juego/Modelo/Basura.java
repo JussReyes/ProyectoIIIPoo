@@ -27,6 +27,7 @@ public abstract class Basura extends Sprite implements Serializable {
         this.rutaImagen = rutaImagen;
         this.recomendaciones = recomendaciones;
         this.tiempoDescomposicion = tiempoDescomposicion;
+        imagen=new Texture(Gdx.files.internal(rutaImagen));
     }
 
     public String getNombre() {
@@ -52,6 +53,14 @@ public abstract class Basura extends Sprite implements Serializable {
     public void setRutaImagen(String rutaImagen) {
         this.rutaImagen = rutaImagen;
         this.imagen = new Texture(Gdx.files.internal(rutaImagen));
+    }
+
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+
+    public Texture getImagen() {
+        return imagen;
     }
 
     public String getRecomendaciones() {

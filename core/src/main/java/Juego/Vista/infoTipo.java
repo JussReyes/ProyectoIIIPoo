@@ -71,7 +71,7 @@ public class infoTipo implements Screen{
     private VerticalGroup grupo;
     private ScrollPane scroll;
     
-    private ArrayList<Basura> basuras;
+    private ArrayList<Basura> basurasTipo = new ArrayList<>();
     public infoTipo(Main game, Controlador cont, String tipo) {
         this.game=game;
         controlador=cont;
@@ -83,7 +83,6 @@ public class infoTipo implements Screen{
         camara = game.camara;
         batch = game.batch;
         Fuentes.titulos.fontColor.set(Color.WHITE);
-        basuras = controlador.getBasuras();
         render = new ShapeRenderer();
         
         stage = new Stage(new ScreenViewport());
@@ -106,8 +105,7 @@ public class infoTipo implements Screen{
         Gdx.input.setInputProcessor(stage);
         skin = new Skin(Gdx.files.internal("CustumUI/UIRec.json"));
         
-        ArrayList<Basura> basuras=controlador.getBasuras();
-        
+                
         nombre = new Label("Nombre", Fuentes.titulos);
         
         GlyphLayout glyphLayout = new GlyphLayout();
@@ -119,7 +117,7 @@ public class infoTipo implements Screen{
         lblBasurero = new Label("Basurero", Fuentes.bold);
         lblBasurero.setPosition(477, 551);
         
-        basurero = new TextField("Plástico", skin);
+        basurero = new TextField("Tipo de basurero", skin);
         basurero.setPosition(477, 485);
         basurero.setSize(255, 56);
         basurero.setTouchable(Touchable.disabled);
@@ -127,7 +125,7 @@ public class infoTipo implements Screen{
         lblDescomposicion = new Label("Descomposición", Fuentes.bold);
         lblDescomposicion.setPosition(760, 551);        
         
-        descomposicion = new TextField("9 años", skin);
+        descomposicion = new TextField("Días para descomponerse", skin);
         descomposicion.setPosition(760, 485);
         descomposicion.setSize(255, 56);
         descomposicion.setTouchable(Touchable.disabled);
@@ -135,7 +133,7 @@ public class infoTipo implements Screen{
         lblDescripcion = new Label("Descripción", Fuentes.bold);
         lblDescripcion.setPosition(477, 236);
         
-        descripcion = new TextArea("texto de la descripción.. sadlkcajlcadsl daldksc jaodsc askdclskdcj ldjcslak jdclak jsclcaj lajd",skin);
+        descripcion = new TextArea("Texto de descripción..",skin);
         descripcion.setPosition(477, 70);
         descripcion.setSize(539, 156);
         descripcion.setTouchable(Touchable.disabled);
@@ -143,23 +141,35 @@ public class infoTipo implements Screen{
         lblRecomendaciones = new Label("Recomendaciones de desecho", Fuentes.bold);
         lblRecomendaciones.setPosition(477, 441);
         
-        recomendaciones = new TextArea("Recomendaciones: dcj ldjcslak jdclak jsclcaj la",skin);
+        recomendaciones = new TextArea("Texto de las recomendaciones de desecho..",skin);
         recomendaciones.setPosition(477, 275);
         recomendaciones.setSize(539, 156);
         recomendaciones.setTouchable(Touchable.disabled);
         
         grupo = new VerticalGroup();
         grupo.space(20);
-        for (int i=0;i<15;i++) {
-            //Basura basura=basuras.get(i);
-            
-            Texture newImagen = new Texture(Gdx.files.internal("assets\\aHuevo.png"));
-            ImageButton imagen= new ImageButton(new TextureRegionDrawable(new TextureRegion(newImagen)));
+        
+        ArrayList<Basura> basuras = controlador.getBasuras();
+        System.out.println("Total "+basuras.size());
+
+        for (Basura basura:basuras) {
+            System.out.println("Basura: "+basura.getNombre());
+            if (basura.getTipoBasurero().toString().equals(tipo))
+                basurasTipo.add(basura);
+        }
+        System.out.println("Hay "+basurasTipo.size());
+        for (int i=0;i<basurasTipo.size();i++) {
+            Basura basura = basurasTipo.get(i);
+            Texture im = new Texture(Gdx.files.internal(basura.getRutaImagen()));
+            ImageButton imagen= new ImageButton(new TextureRegionDrawable(new TextureRegion(im)));
             imagen.addListener(new ClickListener(){
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                        recomendaciones.setText("Esta es la recomendación que corresponde");
-                        descripcion.setText("Esta es la descripción que debería aparecer");
+                        nombre.setText(basura.getNombre());
+                        basurero.setText(basura.getTipoBasurero().toString());
+                        descomposicion.setText(String.valueOf(basura.getTiempoDescomposicion()));
+                        recomendaciones.setText(basura.getRecomendaciones());
+                        descripcion.setText(basura.getDescripcion());
                 }   
             });
 

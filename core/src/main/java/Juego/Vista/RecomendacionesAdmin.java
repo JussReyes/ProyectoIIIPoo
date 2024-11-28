@@ -31,7 +31,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RecomendacionesAdmin implements Screen, Fuentes {
     
@@ -250,16 +254,24 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
                     }
                     
                     
-                    llenarDatos();
+                    
                     if (!controlador.nuevaBasura(reco))
                         throw new IllegalArgumentException("Este tipo de basura ya existe");
                     else
                         System.out.println("Listo, no existía esa basura y ya se agregó");
+                    SelectorDeImagen SDI = new SelectorDeImagen();
+                    File archivoSeleccionado = new File(reco.getRutaImagen());
+                    File destino = new File("");
+                    SDI.escalarParaJuego(archivoSeleccionado, destino, 95,95);
+                    llenarDatos();
                     
                 }
                 
                 catch (IllegalArgumentException ex) {
+                    llenarDatos();
                     System.out.println("AJAAAAAAA FALTA CODE: "+ex.getMessage());
+                } catch (IOException ex) {
+                    Logger.getLogger(RecomendacionesAdmin.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             

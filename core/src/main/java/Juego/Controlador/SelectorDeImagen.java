@@ -25,71 +25,54 @@ public class SelectorDeImagen {
         String nombreArchivo = archivo.getName();
         return nombreArchivo.substring(nombreArchivo.lastIndexOf(".") + 1).toLowerCase();
     }
-    /*public void escalarYCopiar(File archivoSeleccionado, File directorioDestino, int nuevoAncho, int nuevoAlto) throws IOException {
+    
+    public void escalarYCopiar(File archivoSeleccionado, File directorioDestino, int maxAncho, int maxAlto) throws IOException {
         // Leer la imagen desde el archivo seleccionado
         BufferedImage imagenOriginal = ImageIO.read(archivoSeleccionado);
         if (imagenOriginal == null) {
             throw new IOException("El archivo no es una imagen válida: " + archivoSeleccionado.getName());
         }
 
-        // Crear una nueva imagen escalada
-        Image imagenEscalada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
-        BufferedImage imagenResultado = new BufferedImage(nuevoAncho, nuevoAlto, BufferedImage.TYPE_INT_ARGB);
+        // Obtener las dimensiones originales de la imagen
+        int anchoOriginal = imagenOriginal.getWidth();
+        int altoOriginal = imagenOriginal.getHeight();
 
-        // Dibujar la imagen escalada en el nuevo BufferedImage
-        Graphics2D g2d = imagenResultado.createGraphics();
-        g2d.drawImage(imagenEscalada, 0, 0, null);
+        // Calcular las dimensiones escaladas manteniendo la relación de aspecto
+        double relacionAspecto = (double) anchoOriginal / altoOriginal;
+        int anchoEscalado;
+        int altoEscalado;
+
+        if ((double) maxAncho / maxAlto > relacionAspecto) {
+            // Ajustar por el alto máximo
+            altoEscalado = maxAlto;
+            anchoEscalado = (int) (altoEscalado * relacionAspecto);
+        } else {
+            // Ajustar por el ancho máximo
+            anchoEscalado = maxAncho;
+            altoEscalado = (int) (anchoEscalado / relacionAspecto);
+        }
+
+        // Crear una nueva imagen escalada usando Graphics2D
+        BufferedImage imagenEscalada = new BufferedImage(anchoEscalado, altoEscalado, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = imagenEscalada.createGraphics();
+
+        // Aplicar configuración para mejorar la calidad del escalado
+        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+        // Dibujar la imagen escalada
+        g2d.drawImage(imagenOriginal, 0, 0, anchoEscalado, altoEscalado, null);
         g2d.dispose();
 
         // Guardar la imagen escalada en el archivo destino
-        File archivoDestino = new File(directorioDestino, archivoSeleccionado.getName());
+        File archivoDestino = new File(directorioDestino, "Big"+archivoSeleccionado.getName());
         if (!archivoDestino.exists()) {
-            ImageIO.write(imagenResultado, obtenerFormatoImagen(archivoSeleccionado), archivoDestino);
+            ImageIO.write(imagenEscalada, obtenerFormatoImagen(archivoSeleccionado), archivoDestino);
         }
     }
-    */
-    
-    /*public void escalarYCopiar(File archivoSeleccionado, File directorioDestino, int nuevoAncho, int nuevoAlto) throws IOException {
-    // Leer la imagen desde el archivo seleccionado
-    BufferedImage imagenOriginal = ImageIO.read(archivoSeleccionado);
-    if (imagenOriginal == null) {
-        throw new IOException("El archivo no es una imagen válida: " + archivoSeleccionado.getName());
-    }
 
-    // Obtener las dimensiones originales de la imagen
-    int anchoOriginal = imagenOriginal.getWidth();
-    int altoOriginal = imagenOriginal.getHeight();
-
-    // Mantener la relación de aspecto si es necesario
-    double relacionAspecto = (double) anchoOriginal / altoOriginal;
-    if (nuevoAncho == -1) {
-        // Calcular el ancho manteniendo la relación de aspecto
-        nuevoAncho = (int) (nuevoAlto * relacionAspecto);
-    } else if (nuevoAlto == -1) {
-        // Calcular el alto manteniendo la relación de aspecto
-        nuevoAlto = (int) (nuevoAncho / relacionAspecto);
-    }
-
-    // Crear una nueva imagen escalada usando Graphics2D
-    BufferedImage imagenEscalada = new BufferedImage(nuevoAncho, nuevoAlto, BufferedImage.TYPE_INT_ARGB);
-    Graphics2D g2d = imagenEscalada.createGraphics();
-    
-    // Aplicar configuración para mejorar la calidad del escalado
-    g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-    
-    // Dibujar la imagen escalada
-    g2d.drawImage(imagenOriginal, 0, 0, nuevoAncho, nuevoAlto, null);
-    g2d.dispose();
-
-    // Guardar la imagen escalada en el archivo destino
-    File archivoDestino = new File(directorioDestino, archivoSeleccionado.getName());
-    if (!archivoDestino.exists()) {
-        ImageIO.write(imagenEscalada, obtenerFormatoImagen(archivoSeleccionado), archivoDestino);
-    }
-}*/
-    public void escalarYCopiar(File archivoSeleccionado, File directorioDestino, int maxAncho, int maxAlto) throws IOException {
+    public void escalarParaJuego(File archivoSeleccionado, File directorioDestino, int maxAncho, int maxAlto) throws IOException {
         // Leer la imagen desde el archivo seleccionado
         BufferedImage imagenOriginal = ImageIO.read(archivoSeleccionado);
         if (imagenOriginal == null) {
@@ -136,16 +119,13 @@ public class SelectorDeImagen {
     }
 
 
-
     
     public String copiarImagenAlRepositorio(String destinoDirectorio) {
-        // Crear un JFileChooser para seleccionar archivos
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Seleccionar una imagen");
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileChooser.setAcceptAllFileFilterUsed(false);
 
-        // Filtro para aceptar solo imágenes
         fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter(
                 "Imágenes (JPG, PNG, BMP)", "jpg", "png", "bmp"));
 
