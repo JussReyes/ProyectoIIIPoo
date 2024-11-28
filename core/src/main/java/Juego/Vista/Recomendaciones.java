@@ -168,7 +168,10 @@ public class Recomendaciones implements Screen, Fuentes {
 
                     String basu = selectBox.getSelected();
                     controlador.añadirSugerencia(ruta, nombre.getText(), recomendaciones.getText(), 
-                            descripcion.getText(),selectBox.getSelected(),descomposicion.getText(), controlador.getUsuarioActual());
+                                                                    descripcion.getText(),selectBox.getSelected(),
+                                                                    descomposicion.getText(), controlador.getUsuarioActual());
+                    
+                    controlador.notificarAdmin(controlador.getUsuarioActual().getNombre());
                 }
                 
                 catch (IllegalArgumentException ex) {

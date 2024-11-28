@@ -7,6 +7,7 @@ package Juego.Modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  *
@@ -22,6 +23,10 @@ public class Usuario implements Serializable{
         this.nombre = nombre;
         this.contrasena = contrasena;
         this.nivel = 1;
+    }
+    
+    public Usuario(String nombre){
+        this.nombre = nombre;
     }
 
     public boolean validarContrasena(String contrasena) {
@@ -46,6 +51,35 @@ public class Usuario implements Serializable{
             return 0;
         }
         return notificaciones.size();
+    }
+    
+    public void addNotificacion(Notificacion notificacion){
+        notificaciones.add(notificacion);
+    }
+    
+    public ArrayList<Notificacion> getNotificaciones(){
+        return notificaciones;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Usuario other = (Usuario) obj;
+        return Objects.equals(this.nombre, other.nombre);
     }
     
     
