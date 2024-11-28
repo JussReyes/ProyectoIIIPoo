@@ -5,7 +5,7 @@
 package Juego.Controlador;
 
 import Juego.Modelo.Basura;
-import Juego.Modelo.Recomendacion;
+import Juego.Modelo.Sugerencia;
 import Juego.Modelo.Usuario;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,26 +49,26 @@ public class Controlador {
         return usuarioActual;
     }
     
-    public void añadirRecomendacion(String nombre, String imagen, String basurero, String descripcion) throws IllegalArgumentException {
-        Recomendacion reco= new Recomendacion(nombre, imagen, basurero, descripcion);
+    public void añadirSugerencia(String rutaImagen, String nombre, String recomendaciones, String descripcion, String basurero, String descomposicion, Usuario usuario) throws IllegalArgumentException {
+        Sugerencia reco= new Sugerencia(rutaImagen, nombre, recomendaciones, descripcion, basurero, descomposicion, usuario);
         ManejadorArchivoSugerencias MAS = new ManejadorArchivoSugerencias();
-        ArrayList<Recomendacion> recoms = MAS.cargarArchivoSugerencias();
-        for (Recomendacion recom: recoms) 
+        ArrayList<Sugerencia> recoms = MAS.cargarArchivoSugerencias();
+        for (Sugerencia recom: recoms) 
             if (recom.getNombre().equals(reco.getNombre()))
                     throw new IllegalArgumentException("¡Esta basura ya está disponible!");
         recoms.add(reco);
         MAS.escribirArchivo(recoms);
     }
     
-    public ArrayList<Recomendacion> getRecomendaciones(){
+    public ArrayList<Sugerencia> getSugerenciaes(){
         ManejadorArchivoSugerencias MAS = new ManejadorArchivoSugerencias();
         return MAS.cargarArchivoSugerencias();
     }
     
-    public void eliminarRecomendacion(String nombre) {
+    public void eliminarSugerencia(String nombre) {
         ManejadorArchivoSugerencias MAS = new ManejadorArchivoSugerencias();
-        ArrayList<Recomendacion> recoms = MAS.cargarArchivoSugerencias();
-        for (Recomendacion recom: recoms) 
+        ArrayList<Sugerencia> recoms = MAS.cargarArchivoSugerencias();
+        for (Sugerencia recom: recoms) 
             if (recom.getNombre().equals(nombre)) {
                 recoms.remove(recom);
                 return;

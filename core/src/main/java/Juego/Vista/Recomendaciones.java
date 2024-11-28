@@ -3,6 +3,7 @@ package Juego.Vista;
 import Juego.Controlador.Controlador;
 import Juego.Controlador.SelectorDeImagen;
 import Juego.Modelo.Recomendacion;
+import Juego.Modelo.Usuario;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -48,7 +49,6 @@ public class Recomendaciones implements Screen, Fuentes {
     private TextField descripcion;
     private ImageButton imagen;
     private ImageTextButton enviar;
-    
     private ShapeRenderer render;
     
     private Texture pintura;
@@ -67,7 +67,6 @@ public class Recomendaciones implements Screen, Fuentes {
         camara = game.camara;
         batch = game.batch;
         font = game.font;
-        
         render = new ShapeRenderer();
 
         
@@ -150,7 +149,7 @@ public class Recomendaciones implements Screen, Fuentes {
 
 
                     String basu = selectBox.getSelected();
-                    controlador.añadirRecomendacion(nom, ruta, basu, desc);
+                    controlador.añadirRecomendacion(ruta, nombre.getText(), reco, String descripcion, String basurero, String descomposicion, Usuario usuario);
                 }
                 
                 catch (IllegalArgumentException ex) {
