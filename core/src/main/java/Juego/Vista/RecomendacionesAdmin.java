@@ -348,7 +348,6 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
 
     @Override
     public void dispose() {
-        batch.dispose();
         font.dispose();
     }
 }
