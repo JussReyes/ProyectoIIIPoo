@@ -45,17 +45,20 @@ public class Recomendaciones implements Screen, Fuentes {
     private Skin skin;
     private SelectBox<String> selectBox;
     private TextField nombre;
+    private TextField descomposición;
+    
     private TextField descripcion;
+    private TextField recomendaciones;
     private ImageButton imagen;
     private ImageTextButton enviar;
     
-    private ShapeRenderer render;
+    private ImageButton salir;
+    private final Texture upCancelar = new Texture(Gdx.files.internal("CancelBtn.png"));
+    private final Texture overCancelar = new Texture(Gdx.files.internal("CancelOver.png"));
+
     
     private Texture pintura;
     private Texture fondo;
-    
-    private Label titulo;
-    private Label volver;
 
     public Recomendaciones(Main game, Controlador cont) {
         this.game = game;
@@ -67,30 +70,19 @@ public class Recomendaciones implements Screen, Fuentes {
         camara = game.camara;
         batch = game.batch;
         font = game.font;
-        
-        render = new ShapeRenderer();
 
         
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         skin = new Skin(Gdx.files.internal("CustumUI/UIRec.json"));
         
-        titulo = new Label("Diseño", Fuentes.titulos);
-        titulo.setPosition(437, 600);
-        
-        selectBox = new SelectBox<>(skin);
-        selectBox.setItems("Plástico", "Metal", "Papel", "Biológico", "Orgánico", "Vidrio", "General");
-        
-        selectBox.setSize(215, 30);
-        selectBox.setAlignment(1);
-        selectBox.setPosition(130, 314);
         
         pintura =  new Texture(Gdx.files.internal("BigPaint.png"));
         fondo = new Texture (Gdx.files.internal("RecomendacionesBG.png"));
         
         Texture image = new Texture(Gdx.files.internal("ImageButton.png"));
         imagen = new ImageButton(new TextureRegionDrawable(new TextureRegion(image)));
-        imagen.setPosition(404, 314);
+        imagen.setPosition(387, 385);
         //imagen.setSize(134, 134);
         
         imagen.addListener(new ChangeListener(){
@@ -116,13 +108,31 @@ public class Recomendaciones implements Screen, Fuentes {
         
         nombre = new TextField("", skin);
         nombre.setMessageText("Nombre");
-        nombre.setPosition(130, 420);
+        nombre.setPosition(91, 514);
         nombre.setSize(215, 30);
         
+        selectBox = new SelectBox<>(skin);
+        selectBox.setItems("Plástico", "Metal", "Papel", "Biológico", "Orgánico", "Vidrio", "General");
+        
+        selectBox.setSize(215, 30);
+        selectBox.setAlignment(1);
+        selectBox.setPosition(91, 442);
+        
+        descomposición = new TextField("", skin);
+        descomposición.setMessageText("Tiempo en días");
+        descomposición.setPosition(91, 370);
+        descomposición.setSize(215, 30);
+        
         descripcion = new TextArea("", skin);
-        descripcion.setMessageText("\n           Describe el tipo de desecho");
-        descripcion.setPosition(130, 147);
-        descripcion.setSize(409, 100);
+        descripcion.setMessageText("\n                Describe el tipo de desecho");
+        descripcion.setPosition(91, 215);
+        descripcion.setSize(460, 87);
+        
+        
+        recomendaciones = new TextArea("", skin);
+        recomendaciones.setMessageText("\n     Recomendaciones para el tratamiento");
+        recomendaciones.setPosition(91, 59);
+        recomendaciones.setSize(460, 87);
         
         enviar = new ImageTextButton("ENVIAR", skin);
         enviar.setPosition(740, 86);
@@ -133,36 +143,45 @@ public class Recomendaciones implements Screen, Fuentes {
             public void changed(ChangeListener.ChangeEvent ce, Actor actor) {
                 String nom = nombre.getText();
                 String desc = descripcion.getText();
+                String recom = recomendaciones.getText();
+                int dias;
+                
                 
                 try {
-                    System.out.println("Probando nombre");
+                    if (descomposición.getText().isBlank())
+                        throw new IllegalArgumentException("Ingrese el número de días");
+                    try{
+                        dias = Integer.parseInt(descomposición.getText());
+                    }
+                    catch (NumberFormatException ex) {
+                        throw new IllegalArgumentException("Ingrese un número de días para el tiempo de descomposición");
+                    }
 
                     if (nom.isBlank())
                      throw new IllegalArgumentException("        "+"Ingrese el nombre");
-                    System.out.println("Probando desc");
                     if (desc.isBlank())
                         throw new IllegalArgumentException("      Ingrese la descripción");
-                    System.out.println("Probando ruta");
-
                     if (ruta.isBlank())
                         throw new IllegalArgumentException("      Ingrese la imagen");
-                    System.out.println("Listo");
 
 
                     String basu = selectBox.getSelected();
-                    controlador.añadirRecomendacion(nom, ruta, basu, desc);
+                    controlador.añadirRecomendacion(nom, desc, ruta, basu, recom, dias);
                 }
                 
                 catch (IllegalArgumentException ex) {
-                    System.out.println("AJAAAAAAA FALTA CODE");
+                    System.out.println("AJAAAAAAA FALTA CODE: "+ex.getMessage());
                 }
             }
             
         });
         
-        volver = new Label("regresar", Fuentes.normales); 
-        volver.setPosition(290, 100);
-        volver.addListener(new ClickListener(){
+        ImageButton.ImageButtonStyle cancelarEstilo = new ImageButton.ImageButtonStyle();
+        cancelarEstilo.up = new TextureRegionDrawable (upCancelar);
+        cancelarEstilo.over = new TextureRegionDrawable(overCancelar);
+        salir = new ImageButton(cancelarEstilo);
+        salir.setPosition(994, 633);
+        salir.addListener(new ClickListener(){
             
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -170,13 +189,14 @@ public class Recomendaciones implements Screen, Fuentes {
             }
         });
         
-        stage.addActor(titulo);
+
         stage.addActor(selectBox);
         stage.addActor(imagen);
         stage.addActor(nombre);
+        stage.addActor(descomposición);
         stage.addActor(descripcion);
+        stage.addActor(recomendaciones);
         stage.addActor(enviar);
-        stage.addActor(volver);
         
     }
         
@@ -187,17 +207,12 @@ public class Recomendaciones implements Screen, Fuentes {
 
         // Start drawing with SpriteBatch
         batch.begin();
-        batch.draw(fondo, 72, 66);
+        batch.draw(fondo, 0, 0);
         batch.draw(pintura, 718, 192);
         batch.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
-        
-        render.begin(ShapeRenderer.ShapeType.Filled);
-        render.setColor(Color.WHITE);
-        render.rect(289, 97, 75, 1);
-        
-        render.end();
+
         
         // Handle screen transitions or input events (optional)
         if (Gdx.input.isTouched()) {

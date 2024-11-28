@@ -4,7 +4,7 @@
  */
 package Juego.Controlador;
 
-import Juego.Modelo.Recomendacion;
+import Juego.Modelo.Basura;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -22,7 +22,7 @@ public class ManejadorArchivoSugerencias {
     public ManejadorArchivoSugerencias() {
     }
     
-    public int escribirArchivo(ArrayList<Recomendacion> lista) {
+    public int escribirArchivo(ArrayList<Basura> lista) {
         
         String nombreArchivo = "sugerencias.dat";
         FileOutputStream archivoEscritura = null;
@@ -62,11 +62,11 @@ public class ManejadorArchivoSugerencias {
         }
     }
     
-    public ArrayList<Recomendacion> cargarArchivoSugerencias() {
+    public ArrayList<Basura> cargarArchivoSugerencias() {
         
         String nombreArchivo = "sugerencias.dat";
         ObjectInputStream manejadorLectura = null;
-        ArrayList<Recomendacion> lista = new ArrayList<>();
+        ArrayList<Basura> lista = new ArrayList<>();
         try {
             // apertura del archivo
             FileInputStream arc = new FileInputStream (nombreArchivo);
@@ -76,7 +76,7 @@ public class ManejadorArchivoSugerencias {
             lista = new ArrayList<>();
             Object obj = manejadorLectura.readObject() ;          
             while (obj != null){
-                lista.add ( (Recomendacion) obj);
+                lista.add ( (Basura) obj);
                 obj = manejadorLectura.readObject() ;
             }
             
@@ -98,7 +98,7 @@ public class ManejadorArchivoSugerencias {
                 if (manejadorLectura != null)
                     manejadorLectura.close();
             } catch (IOException ex) {
-                return new ArrayList<Recomendacion>();
+                return new ArrayList<Basura>();
             }
         }
     } 

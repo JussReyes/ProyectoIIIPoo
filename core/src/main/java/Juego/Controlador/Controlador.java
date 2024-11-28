@@ -5,6 +5,12 @@
 package Juego.Controlador;
 
 import Juego.Modelo.Basura;
+import Juego.Modelo.NoReciclables.General;
+import Juego.Modelo.NoReciclables.Organicos;
+import Juego.Modelo.Reciclables.Metal;
+import Juego.Modelo.Reciclables.Papel;
+import Juego.Modelo.Reciclables.Plastico;
+import Juego.Modelo.Reciclables.Vidrio;
 import Juego.Modelo.Recomendacion;
 import Juego.Modelo.Usuario;
 import java.io.IOException;
@@ -49,26 +55,58 @@ public class Controlador {
         return usuarioActual;
     }
     
-    public void añadirRecomendacion(String nombre, String imagen, String basurero, String descripcion) throws IllegalArgumentException {
-        Recomendacion reco= new Recomendacion(nombre, imagen, basurero, descripcion);
+    public void añadirRecomendacion(String nombre, String descripcion, String imagen, String basurero, String recomendaciones, int tiempo) throws IllegalArgumentException {
+        Basura reco;
+        switch (basurero) {
+            case ("Papel"):{
+                reco= new Papel(nombre, descripcion, imagen, recomendaciones);
+                break;
+            }
+            case("Vidrio"):{
+                reco= new Vidrio(nombre, descripcion, imagen, recomendaciones);
+                break;
+            }
+            case("Metal"):{
+                reco= new Metal(nombre, descripcion, imagen, recomendaciones);
+                break;
+            }
+            case("Plástico"):{
+                reco= new Plastico(nombre, descripcion, imagen, recomendaciones);
+                break;
+            }
+            case("Orgánico"):{
+                reco= new Organicos(nombre, descripcion, imagen, recomendaciones);
+                break;
+            }
+            case("Biológico"):{
+                reco= new Vidrio(nombre, descripcion, imagen, recomendaciones);
+                break;
+            }
+            default:{
+                reco= new General(nombre, descripcion, imagen, recomendaciones);
+            }
+        }
+        
+        reco.setTiempoDescomposicion(tiempo);
+        
         ManejadorArchivoSugerencias MAS = new ManejadorArchivoSugerencias();
-        ArrayList<Recomendacion> recoms = MAS.cargarArchivoSugerencias();
-        for (Recomendacion recom: recoms) 
+        ArrayList<Basura> recoms = MAS.cargarArchivoSugerencias();
+        for (Basura recom: recoms) 
             if (recom.getNombre().equals(reco.getNombre()))
                     throw new IllegalArgumentException("¡Esta basura ya está disponible!");
         recoms.add(reco);
         MAS.escribirArchivo(recoms);
     }
     
-    public ArrayList<Recomendacion> getRecomendaciones(){
+    public ArrayList<Basura> getRecomendaciones(){
         ManejadorArchivoSugerencias MAS = new ManejadorArchivoSugerencias();
         return MAS.cargarArchivoSugerencias();
     }
     
     public void eliminarRecomendacion(String nombre) {
         ManejadorArchivoSugerencias MAS = new ManejadorArchivoSugerencias();
-        ArrayList<Recomendacion> recoms = MAS.cargarArchivoSugerencias();
-        for (Recomendacion recom: recoms) 
+        ArrayList<Basura> recoms = MAS.cargarArchivoSugerencias();
+        for (Basura recom: recoms) 
             if (recom.getNombre().equals(nombre)) {
                 recoms.remove(recom);
                 return;

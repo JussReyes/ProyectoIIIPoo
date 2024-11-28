@@ -6,6 +6,7 @@ package Juego;
 
 import Juego.Controlador.ManejadorArchivoSugerencias;
 import Juego.Controlador.ManejadorArchivoUsuarios;
+import Juego.Modelo.Basura;
 import Juego.Modelo.Recomendacion;
 import Juego.Modelo.Usuario;
 import java.io.IOException;
@@ -44,7 +45,7 @@ public class Pruebas {
 //        ArrayList<Recomendacion> lista=new ArrayList<>();
 //        lista.add(sg);
 //        MAS.escribirArchivo(lista);
-        ArrayList<Recomendacion> lista2=MAS.cargarArchivoSugerencias();
+        ArrayList<Basura> lista2=MAS.cargarArchivoSugerencias();
         System.out.println(lista2.toString());
         
     }
