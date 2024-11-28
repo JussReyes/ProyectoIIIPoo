@@ -1,0 +1,70 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
+ */
+package Juego;
+
+import Juego.Controlador.ManejadorArchivoBasuras;
+import Juego.Controlador.ManejadorArchivoSugerencias;
+import Juego.Controlador.ManejadorArchivoUsuarios;
+import Juego.Modelo.Basura;
+import Juego.Modelo.Recomendacion;
+import Juego.Modelo.Usuario;
+import java.io.IOException;
+import java.util.ArrayList;
+
+/**
+ *
+ * @author xande
+ */
+public class Pruebas {
+
+    /**
+     * @param args the command line arguments
+     */
+    
+    public static void pr1(){
+        ManejadorArchivoUsuarios MAU = new ManejadorArchivoUsuarios();
+        ArrayList<Usuario> lista = new ArrayList<>();
+        for (int i=1;i<4;i++) {
+            lista.add(new Usuario("Thomas"+i, "12"+i));
+        }
+        MAU.escribirArchivo(lista);
+    }
+    
+    
+    public static void pr2(){
+        ManejadorArchivoUsuarios MAU = new ManejadorArchivoUsuarios();
+        
+        ArrayList<Usuario> lista=MAU.cargarArchivoUsuarios();
+        System.out.println(lista.toString());
+        
+    }
+    public static void pr3(){
+        ManejadorArchivoSugerencias MAS = new ManejadorArchivoSugerencias();
+//        Recomendacion sg = new Recomendacion("Huevo", "assets", "Orgánico", "Huevos pa llevar");
+//        ArrayList<Recomendacion> lista=new ArrayList<>();
+//        lista.add(sg);
+//        MAS.escribirArchivo(lista);
+//        ArrayList<Recomendacion> lista2=MAS.cargarArchivoSugerencias();
+//        System.out.println(lista2.toString());
+        
+    }
+    
+    public static void pr4(){
+        ManejadorArchivoBasuras MAB = new ManejadorArchivoBasuras();
+        ArrayList<Basura> lista = MAB.cargarArchivoBasuras();
+        System.out.println(lista.toString());
+        
+    }
+    
+    
+    public static void main(String[] args) {
+        // TODO code application logic here
+        
+        System.out.println("iniciando:");
+        pr4();
+        System.out.println("terminado.");
+    }
+    
+}

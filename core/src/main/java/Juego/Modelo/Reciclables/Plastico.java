@@ -13,6 +13,6 @@ import Juego.Modelo.Reciclable;
  */
 public class Plastico extends Reciclable {
     public Plastico (String nombre, String descripcion, String rutaImagen, String recomendaciones) {
-        super(BasurerosReciclables.Plastico, nombre, descripcion, rutaImagen, recomendaciones, 1000*365);
+        super(BasurerosReciclables.Plástico, nombre, descripcion, rutaImagen, recomendaciones, 1000*365);
     }
 }

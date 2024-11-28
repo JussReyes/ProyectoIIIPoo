@@ -9,5 +9,5 @@ package Juego.Modelo.Enumeraciones;
  * @author xande
  */
 public enum BasurerosReciclables {
-    Papel, Vidrio, Plastico, Metal
+    Papel, Vidrio, Plástico, Metal
 }
