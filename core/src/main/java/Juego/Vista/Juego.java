@@ -28,7 +28,7 @@ public interface Juego {
     Desecho lata = new Desecho("Can.png", "metal");
     Desecho hoja = new Desecho("Leaf.png", "organico");
     Desecho copa = new Desecho("Glass.png", "vidrio");
-    Desecho palto = new Desecho("Plate.png", "general");
+    Desecho plato = new Desecho("Plate.png", "general");
     Desecho jeringa = new Desecho("Syringe.png", "biologico");
     Desecho bolaPapel = new Desecho("Paper.png", "papel");
     

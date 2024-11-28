@@ -130,6 +130,7 @@ public class Login implements Screen, Fuentes{
                         throw new IllegalArgumentException("        El usuario ingresado\n                 no existe!");
                     }
                     case (777): {
+                        dispose();
                         game.setScreen(new Mapa(game, controlador));
                     }
                 }
@@ -210,7 +211,6 @@ public class Login implements Screen, Fuentes{
 
     @Override
     public void dispose() {
-        batch.dispose();
         font.dispose();
         render.dispose();
         tortuga.dispose();

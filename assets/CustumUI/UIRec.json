@@ -103,6 +103,15 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 			a: 1
 		}
 	}
+        borde_azul: {
+            name: white
+            color: {
+                r: 0.050980393
+                g: 0.35686275
+                b: 0.5764706
+                a: 1
+            }
+    }
 }
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: {
@@ -271,6 +280,17 @@ com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 		messageFont: regular
 		messageFontColor: white
 	}
+	noBG: {
+		font: regular
+		fontColor: white
+                                   background: SButton
+		focusedBackground: SelectedText
+		cursor: progress-bar-fill
+		selection: selection
+		messageFont: regular
+		messageFontColor: white
+	}
+        
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 	default: {
