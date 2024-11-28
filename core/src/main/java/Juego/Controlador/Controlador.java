@@ -113,6 +113,18 @@ public class Controlador {
         }
     }
     
+    public void notificarUsuario(String nombreUsuario, boolean aceptado){
+        for (Usuario usuario : usuarios) {
+            if (usuario.getNombre().equals(nombreUsuario)) {
+                Notificacion notificacion = new Notificacion("noticia", "Tu solicitud"+(aceptado?"":" no")+ " ha sido aceptada.");
+                usuario.addNotificacion(notificacion);
+                ManejadorArchivoUsuarios MAU = new ManejadorArchivoUsuarios();
+                MAU.escribirArchivo(usuarios);
+                break;
+            }
+        }
+    }
+    
     public boolean nuevaBasura(Basura basura) {
         ArrayList<Basura> basuras = getBasuras();
         for (Basura bas: basuras) 

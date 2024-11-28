@@ -64,6 +64,7 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
     private ImageButton aceptar;
     
     private ImageButton salir;
+    private ImageButton borrar;
     private final Texture upCancelar = new Texture(Gdx.files.internal("CancelBtn.png"));
     private final Texture overCancelar = new Texture(Gdx.files.internal("CancelOver.png"));
     
@@ -198,7 +199,9 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
                 int dias;
                 
                 controlador.NuevaBasura(ruta, selectBox.getSelected(), nom, descomposicion, desc, recom);
+                
                     if (recoActual!=null){
+                            controlador.notificarUsuario(recoActual.getUsuario().getNombre(),true);
                             controlador.eliminarSugerencia(recoActual.getNombre());
                             recoActual=null;
                             System.out.println("Listo, eliminada");
@@ -211,6 +214,10 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
                     llenarDatos();
                 }            
         });
+        
+        
+            
+
         
         
         ImageButton.ImageButtonStyle cancelarEstilo = new ImageButton.ImageButtonStyle();
@@ -226,6 +233,20 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
                 game.setScreen(new Mapa(game, controlador));
             }
         });
+
+        borrar = new ImageButton(cancelarEstilo);
+        borrar.setPosition(850, 86);
+        borrar.setSize(50, 50);
+        borrar.addListener(new ChangeListener(){            @Override
+            public void changed(ChangeListener.ChangeEvent ce, Actor actor) {
+                            controlador.notificarUsuario(recoActual.getUsuario().getNombre(),false);
+                            controlador.eliminarSugerencia(recoActual.getNombre());
+                            recoActual=null;
+                            System.out.println("Listo, eliminada");
+
+                    llenarDatos();
+                }            
+        });
         
 
         stage.addActor(selectBox);
@@ -236,6 +257,7 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
         stage.addActor(recomendaciones);
         stage.addActor(aceptar);
         stage.addActor(salir);
+        stage.addActor(borrar);
         
     }
         
