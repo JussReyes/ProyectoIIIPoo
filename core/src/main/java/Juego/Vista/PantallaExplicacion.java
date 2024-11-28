@@ -106,23 +106,20 @@ public class PantallaExplicacion implements Screen {
     }
     
     public String formatearTexto(String texto){
-        if(texto.length()>=25){
-            int ind=25;
-            
-            while(texto.charAt(ind) != ' '){
-                ind++;
-            }
-            
-            String sub1 = texto.substring(0, ind);
-            String sub2 = texto.substring(ind, texto.length());
-            texto = sub1 +"\n"+sub2;
-            if(sub2.length()>=30){
-                return sub1 +"\n"+ formatearTexto(sub2);
-            }
-            
-            return texto; 
+        
+        if (texto.length() <= 28) { 
+            return texto;
+        }  
+        int ind = texto.lastIndexOf(' ', 28); 
+        if (ind == -1) { 
+            return texto;
         }
-        return texto;
+        String sub1 = texto.substring(0, ind).trim(); 
+        String sub2 = texto.substring(ind + 1).trim(); 
+        if (sub2.length() >= 30) { 
+            sub2 = formatearTexto(sub2); 
+        } 
+        return sub1 + "\n" + sub2;
     }
    
     @Override
@@ -144,7 +141,7 @@ public class PantallaExplicacion implements Screen {
         tortuga = new Sprite(imgTortuga);
         
         mensaje = new Label("Ayúdame a deshacerme de\n estos desechos", Fuentes.error); 
-        mensaje.setPosition(350, 310);
+        mensaje.setPosition(353, 310);
         
         general = new Sprite(imgGeneral);
         basureros.add(general);
@@ -230,14 +227,19 @@ public class PantallaExplicacion implements Screen {
         String[] mensajesTortuga = controlador.procesarTXTortugalo(txtTortuga, nivel);
         try{
         if (Gdx.input.justTouched()) {
+            System.out.println("Nivel: " + nivel);
+            System.out.println("Indice: " + indiceMensaje);
             String textoMensaje = mensajesTortuga[indiceMensaje];
             indiceMensaje++;
 
             if(textoMensaje==null || "".equals(textoMensaje.trim())){
+                System.out.println("Mensaje: "+textoMensaje);
                 game.setScreen(new PantallaJuego(game, controlador,nivel));       
             }
             else{
+                System.out.println("Mensaje: "+textoMensaje);
                 textoMensaje = formatearTexto(textoMensaje);
+                System.out.println("Formateado: "+textoMensaje);
                 mensaje.setText(textoMensaje);
             }          
             camara.update();
