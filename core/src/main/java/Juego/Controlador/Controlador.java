@@ -101,12 +101,12 @@ public class Controlador {
     }
     
     public void notificarAdmin(String nombreUsuario){
-        Usuario admin;
         for (Usuario usuario : usuarios) {
-            if (usuario.equals(new Usuario("Administrador"))) {
-                admin = usuario;
-                Notificacion notificacion = new Notificacion("sugerencia", "Nueva solicitud de diseño de " + nombreUsuario);
-                admin.addNotificacion(notificacion);
+            if (usuario.getNombre().equals("Admin")) {
+                Notificacion notificacion = new Notificacion("solicitud", "Nueva solicitud de diseño de " + nombreUsuario);
+                usuario.addNotificacion(notificacion);
+                ManejadorArchivoUsuarios MAU = new ManejadorArchivoUsuarios();
+                MAU.escribirArchivo(usuarios);
                 break;
             }
         }
@@ -148,6 +148,11 @@ public class Controlador {
         String[]fragmentosPorNivel = TextosTortuga.separarPorDelimitador(niveles);
 
         return fragmentosPorNivel;
+    }
+    
+    public void actualizarUsuarios(){
+        ManejadorArchivoUsuarios MAU = new ManejadorArchivoUsuarios();
+        MAU.escribirArchivo(usuarios);
     }
     
 }

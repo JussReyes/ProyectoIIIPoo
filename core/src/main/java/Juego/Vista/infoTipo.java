@@ -71,6 +71,7 @@ public class infoTipo implements Screen{
     private VerticalGroup grupo;
     private ScrollPane scroll;
     
+    private ArrayList<Basura> basuras;
     public infoTipo(Main game, Controlador cont, String tipo) {
         this.game=game;
         controlador=cont;
@@ -82,7 +83,7 @@ public class infoTipo implements Screen{
         camara = game.camara;
         batch = game.batch;
         Fuentes.titulos.fontColor.set(Color.WHITE);
-        
+        basuras = controlador.getBasuras();
         render = new ShapeRenderer();
         
         stage = new Stage(new ScreenViewport());

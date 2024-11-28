@@ -104,7 +104,7 @@ public class Mapa implements Screen {
             cantNotificaciones = "";
         }
         else{
-            cantNotificaciones = String.valueOf((controlador.getUsuarioActual()).getCantNotificaciones());
+            cantNotificaciones = String.valueOf((controlador.getUsuarioActual()).getNotifNoLeidas());
         }
         
        
@@ -128,7 +128,6 @@ public class Mapa implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                    game.setScreen(new Notificaciones(game, controlador));
-                    
             }
         });
         

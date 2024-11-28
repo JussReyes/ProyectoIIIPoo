@@ -15,13 +15,12 @@ import java.io.Serializable;
  *
  * @author Diego
  */
-public class Notificacion extends ImageTextButton implements Serializable{
+public class Notificacion implements Serializable{
     private String tipo;
     private String texto;
     private boolean leida;
-
+    
     public Notificacion(String tipo, String texto) {
-        super(texto, new Skin(Gdx.files.internal("CustumUI/UIRec.json")), tipo);
         this.tipo = tipo;
         this.texto = texto;
         this.leida = false; 
@@ -45,10 +44,13 @@ public class Notificacion extends ImageTextButton implements Serializable{
     public boolean isLeida() {
         return leida;
     }
-
+    
+    public ImageTextButton getImageButton(){
+        ImageTextButton boton = new ImageTextButton(texto, new Skin(Gdx.files.internal("CustumUI/UIRec.json")), tipo);
+        return boton;
+    }
     public void marcarComoLeida() {
         this.leida = true;
-        this.setChecked(true);
     }
     
     

@@ -72,6 +72,8 @@ public class Notificaciones implements Screen, Fuentes {
             
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                    dispose();
+                    controlador.actualizarUsuarios();
                     game.setScreen(new Mapa(game, controlador));
             }
         });
@@ -82,14 +84,18 @@ public class Notificaciones implements Screen, Fuentes {
         grupo.space(20);
         
         for (Notificacion notificacion : controlador.getUsuarioActual().getNotificaciones()) {
-            notificacion.addListener(new ClickListener(){
-
+            
+            ImageTextButton boton = notificacion.getImageButton();
+            boton.setChecked(notificacion.isLeida());
+            boton.addListener(new ClickListener(){
+                
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                         notificacion.marcarComoLeida();
+                        boton.setChecked(true);
                 }
             });
-            grupo.addActor(notificacion);
+            grupo.addActor(boton);
         }
         
         scroll = new ScrollPane(grupo, skin, "notificaciones");
@@ -99,9 +105,6 @@ public class Notificaciones implements Screen, Fuentes {
         stage.addActor(titulo);
         stage.addActor(scroll);
         stage.addActor(volver);
-
-        
-        
         
     }
         
@@ -153,8 +156,6 @@ public class Notificaciones implements Screen, Fuentes {
 
     @Override
     public void dispose() {
-        batch.dispose();
         campana.dispose();
-        Fuentes.titulos.font.dispose();
     }
 }

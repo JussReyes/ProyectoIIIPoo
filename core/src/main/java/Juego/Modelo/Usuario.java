@@ -53,8 +53,19 @@ public class Usuario implements Serializable{
         return notificaciones.size();
     }
     
+    public int getNotifNoLeidas(){
+        int resultado = 0;
+        for (Notificacion notificacion : notificaciones){
+            if (!notificacion.isLeida()) {
+                resultado++;
+            }
+        }
+        return resultado;
+    }
+    
     public void addNotificacion(Notificacion notificacion){
         notificaciones.add(notificacion);
+        System.out.println("Juego.Modelo.Usuario.addNotificacion()");
     }
     
     public ArrayList<Notificacion> getNotificaciones(){
