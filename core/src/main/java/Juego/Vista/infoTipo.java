@@ -102,7 +102,7 @@ public class infoTipo implements Screen{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 dispose();
-                game.setScreen(new Mapa(game,controlador));
+                game.setScreen(new menuTiposBasura(game, controlador));
             }
         });
         

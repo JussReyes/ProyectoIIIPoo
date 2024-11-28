@@ -192,7 +192,7 @@ public class menuTiposBasura implements Screen, Fuentes {
 
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                dispose();
+                //dispose();
                 game.setScreen(new infoTipo(game,controlador, "Orgánicos"));
             }
         });
@@ -259,6 +259,6 @@ public class menuTiposBasura implements Screen, Fuentes {
 
     @Override
     public void dispose() {
-        fondoTitulo.dispose();
+        //fondoTitulo.dispose();
     }
 }

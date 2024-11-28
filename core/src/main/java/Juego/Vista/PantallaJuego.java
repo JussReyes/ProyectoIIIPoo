@@ -95,7 +95,7 @@ public class PantallaJuego implements Screen, Constantes {
     private ArrayList<Desecho> desechosDown = new ArrayList<>();
     private ArrayList<Desecho> desechosLanzados = new ArrayList<>();
     
-    private int dificultad = 25;
+    private int dificultad;
     
     private double time;
     private double spawnTime = 2;
@@ -107,6 +107,7 @@ public class PantallaJuego implements Screen, Constantes {
         this.nivel = nivel % 7;
         this.game = game;
         controlador=cont;
+        dificultad= 12+nivel*3;
     }
 
     @Override
