@@ -153,7 +153,7 @@ public class infoTipo implements Screen{
         System.out.println("Total "+basuras.size());
 
         for (Basura basura:basuras) {
-            System.out.println("Basura: "+basura.getNombre());
+            System.out.println("Basura: "+basura.getNombre()+" - "+basura.getTipoBasurero().toString());
             if (basura.getTipoBasurero().toString().equals(tipo))
                 basurasTipo.add(basura);
         }
