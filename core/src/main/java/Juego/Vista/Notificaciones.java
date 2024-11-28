@@ -1,6 +1,7 @@
 package Juego.Vista;
 
 import Juego.Controlador.Controlador;
+import Juego.Modelo.Notificacion;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -25,6 +26,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import java.util.ArrayList;
 
 public class Notificaciones implements Screen, Fuentes {
 
@@ -44,6 +46,8 @@ public class Notificaciones implements Screen, Fuentes {
     private VerticalGroup grupo;
     private final Texture campana = new Texture (Gdx.files.internal("NotifBell.png"));
     private ScrollPane scroll;
+    
+    private ArrayList<Notificacion> listaNotificacion = new ArrayList<>();
     
 
     public Notificaciones(Main game, Controlador cont) {
@@ -68,35 +72,32 @@ public class Notificaciones implements Screen, Fuentes {
             
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                    dispose();
+                    controlador.actualizarUsuarios();
                     game.setScreen(new Mapa(game, controlador));
             }
         });
         titulo = new Label("NOTIFICACIONES", Fuentes.titulos);
         titulo.setPosition(295, 600);
         
-        ImageTextButton boton1 = new ImageTextButton("MIT descubre nuevo material que podría destronar\n"
-                                                                                        + "al plástico como material de preferencia por las\n"
-                                                                                        + "grandes compañias...  Seguir leyendo", skin, "noticia");
-        ImageTextButton boton2 = new ImageTextButton("MIT descubre nuevo material que podría destronar\n"
-                                                                                        + "al plástico como material de preferencia por las\n"
-                                                                                        + "grandes compañias...  Seguir leyendo", skin, "noticia");
-        ImageTextButton boton3 = new ImageTextButton("MIT descubre nuevo material que podría destronar\n"
-                                                                                        + "al plástico como material de preferencia por las\n"
-                                                                                        + "grandes compañias...  Seguir leyendo", skin, "noticia");
-        ImageTextButton boton4 = new ImageTextButton("MIT descubre nuevo material que podría destronar\n"
-                                                                                        + "al plástico como material de preferencia por las\n"
-                                                                                        + "grandes compañias...  Seguir leyendo", skin, "noticia");
-        
-        ImageTextButton boton5 = new ImageTextButton("¡Tu diseño ha sido aceptado!", skin, "solicitud");
-        ImageTextButton boton6 = new ImageTextButton("¡Tu diseño ha sido aceptado!", skin, "solicitud");
         grupo = new VerticalGroup();
         grupo.space(20);
-        grupo.addActor(boton1);
-        grupo.addActor(boton2);
-        grupo.addActor(boton3);
-        grupo.addActor(boton4);
-        grupo.addActor(boton5);
-        grupo.addActor(boton6);
+        
+        for (Notificacion notificacion : controlador.getUsuarioActual().getNotificaciones()) {
+            
+            ImageTextButton boton = notificacion.getImageButton();
+            boton.setChecked(notificacion.isLeida());
+            boton.addListener(new ClickListener(){
+                
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                        notificacion.marcarComoLeida();
+                        boton.setChecked(true);
+                }
+            });
+            grupo.addActor(boton);
+        }
+        
         scroll = new ScrollPane(grupo, skin, "notificaciones");
         scroll.setPosition(75, 67);
         scroll.setSize(550, 492);
@@ -104,9 +105,6 @@ public class Notificaciones implements Screen, Fuentes {
         stage.addActor(titulo);
         stage.addActor(scroll);
         stage.addActor(volver);
-
-        
-        
         
     }
         
@@ -158,8 +156,6 @@ public class Notificaciones implements Screen, Fuentes {
 
     @Override
     public void dispose() {
-        batch.dispose();
         campana.dispose();
-        Fuentes.titulos.font.dispose();
     }
 }

@@ -5,10 +5,17 @@
 package Juego.Controlador;
 
 import Juego.Modelo.Basura;
+import Juego.Modelo.Notificacion;
 import Juego.Modelo.Sugerencia;
 import Juego.Modelo.Usuario;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -82,6 +89,29 @@ public class Controlador {
         return MAB.cargarArchivoBasuras();
     }
     
+    public Notificacion getNoticia(){
+        TextosNotificaciones manejador = new TextosNotificaciones();
+        
+        List<String> noticias = manejador.obtenerNoticias();
+        Random random = new Random();
+        
+        String noticia = noticias.get(random.nextInt(noticias.size()));
+        Notificacion notificacion = new Notificacion("noticia", noticia);
+        return notificacion;
+    }
+    
+    public void notificarAdmin(String nombreUsuario){
+        for (Usuario usuario : usuarios) {
+            if (usuario.getNombre().equals("Admin")) {
+                Notificacion notificacion = new Notificacion("solicitud", "Nueva solicitud de diseño de " + nombreUsuario);
+                usuario.addNotificacion(notificacion);
+                ManejadorArchivoUsuarios MAU = new ManejadorArchivoUsuarios();
+                MAU.escribirArchivo(usuarios);
+                break;
+            }
+        }
+    }
+    
     public boolean nuevaBasura(Basura basura) {
         ArrayList<Basura> basuras = getBasuras();
         for (Basura bas: basuras) 
@@ -118,6 +148,11 @@ public class Controlador {
         String[]fragmentosPorNivel = TextosTortuga.separarPorDelimitador(niveles);
 
         return fragmentosPorNivel;
+    }
+    
+    public void actualizarUsuarios(){
+        ManejadorArchivoUsuarios MAU = new ManejadorArchivoUsuarios();
+        MAU.escribirArchivo(usuarios);
     }
     
 }
