@@ -80,6 +80,7 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
     private Texture image;
 
     private void llenarDatos(){
+        stage.getActors().removeValue(imagen, true);
         recos=controlador.getSugerencias();
         if (!recos.isEmpty()&&recos!=null) {
             System.out.println("No estaba vacío");
@@ -91,19 +92,43 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
             descomposición.setText(recoActual.getDescomposicion());
             recomendaciones.setText(recoActual.getRecomendaciones());
         }
-        else{
+        else {
             System.out.println("Estaba vacío");
             if (recos==null) {
                 System.out.println("También era nulo");
             }
             ruta="ImageButton.png";
-            image = new Texture(Gdx.files.internal("ImageButton.png"));
             nombre.setText("");
             selectBox.setSelected("");
             descripcion.setText("");
             descomposición.setText("");
             recomendaciones.setText("");
         }
+        image = new Texture(Gdx.files.internal(ruta));
+        imagen = new ImageButton(new TextureRegionDrawable(new TextureRegion(image)));
+        imagen.setSize(153, 153);
+        imagen.setPosition(380, 385);
+        imagen.addListener(new ChangeListener(){
+            
+            @Override
+            public void changed(ChangeListener.ChangeEvent ce, Actor actor) {
+                SelectorDeImagen fileChooserExample = new SelectorDeImagen();
+                String rutas = fileChooserExample.copiarImagenAlRepositorio("assets");
+                
+                if (rutas != null) {
+                    String rutaRelativa = rutas.substring(rutas.lastIndexOf("##")+2);
+                    String rutaImagen =rutas.substring(0, rutas.lastIndexOf("##"));
+                    System.out.println("Ruta relativa en el proyecto: " + rutaRelativa);
+                    Texture newImagen = new Texture(Gdx.files.internal(rutaImagen));
+                    System.out.println(newImagen.getHeight());
+                    imagen.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(newImagen));
+                    ruta=rutaRelativa;
+                }
+
+            }
+            
+        });
+        stage.addActor(imagen);
     }
     
     @Override
@@ -149,31 +174,6 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
         recomendaciones.setSize(460, 87);
         
         llenarDatos();
-        
-        image = new Texture(Gdx.files.internal(ruta));
-        imagen = new ImageButton(new TextureRegionDrawable(new TextureRegion(image)));
-        imagen.setSize(153, 153);
-        imagen.setPosition(387, 385);
-        imagen.addListener(new ChangeListener(){
-            
-            @Override
-            public void changed(ChangeListener.ChangeEvent ce, Actor actor) {
-                SelectorDeImagen fileChooserExample = new SelectorDeImagen();
-                String rutas = fileChooserExample.copiarImagenAlRepositorio("assets");
-                
-                if (rutas != null) {
-                    String rutaRelativa = rutas.substring(rutas.lastIndexOf("##")+2);
-                    String rutaImagen =rutas.substring(0, rutas.lastIndexOf("##"));
-                    System.out.println("Ruta relativa en el proyecto: " + rutaRelativa);
-                    Texture newImagen = new Texture(Gdx.files.internal(rutaImagen));
-                    System.out.println(newImagen.getHeight());
-                    imagen.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(newImagen));
-                    ruta=rutaRelativa;
-                }
-
-            }
-            
-        });
         
         
         ImageButton.ImageButtonStyle aceptarEstilo = new ImageButton.ImageButtonStyle();
@@ -243,12 +243,18 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
                     }
 
                     reco.setTiempoDescomposicion(dias);
-                    controlador.eliminarSugerencia(recoActual.getNombre());
-                    recoActual=null;
-                    System.out.println("Listo, eliminada");
+                    if (recoActual!=null){
+                            controlador.eliminarSugerencia(recoActual.getNombre());
+                            recoActual=null;
+                            System.out.println("Listo, eliminada");
+                    }
+                    
+                    
                     llenarDatos();
                     if (!controlador.nuevaBasura(reco))
                         throw new IllegalArgumentException("Este tipo de basura ya existe");
+                    else
+                        System.out.println("Listo, no existía esa basura y ya se agregó");
                     
                 }
                 

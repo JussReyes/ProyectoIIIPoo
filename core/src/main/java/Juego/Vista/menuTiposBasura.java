@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -89,7 +91,13 @@ public class menuTiposBasura implements Screen, Fuentes {
         cancelarEstilo.over = new TextureRegionDrawable(overCancelar);
         salir = new ImageButton(cancelarEstilo);
         salir.setPosition(994, 633);
-        
+        salir.addListener(new ClickListener(){
+            
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new Mapa(game,controlador));
+            }
+        });
         ImageButton.ImageButtonStyle papelEstilo = new ImageButton.ImageButtonStyle();
         papelEstilo.up = new TextureRegionDrawable (upPapel);
         papelEstilo.over = new TextureRegionDrawable(overPapel);

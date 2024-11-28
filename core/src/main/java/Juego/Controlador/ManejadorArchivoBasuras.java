@@ -23,7 +23,7 @@ public class ManejadorArchivoBasuras {
     
     public int escribirArchivo(ArrayList<Basura> lista) {
         
-        String nombreArchivo = "basuras.dat";
+        String nombreArchivo = "basuras.txt";
         FileOutputStream archivoEscritura = null;
         ObjectOutputStream manejadorEscritura = null;
         try {
@@ -62,7 +62,7 @@ public class ManejadorArchivoBasuras {
     
     public ArrayList<Basura> cargarArchivoBasuras() {
         
-        String nombreArchivo = "basuras.dat";
+        String nombreArchivo = "basuras.txt";
         ObjectInputStream manejadorLectura = null;
         ArrayList<Basura> lista = new ArrayList<Basura>();
         
