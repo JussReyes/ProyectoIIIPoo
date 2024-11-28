@@ -127,7 +127,8 @@ public class Mapa implements Screen {
             
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                   game.setScreen(new Notificaciones(game, controlador));
+                game.setScreen(new Notificaciones(game, controlador));
+
                     
             }
         });
@@ -142,6 +143,9 @@ public class Mapa implements Screen {
             
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                if (controlador.getUsuarioActual().getNombre().equals("Admin"))
+                   game.setScreen(new RecomendacionesAdmin(game, controlador));
+                else 
                    game.setScreen(new Recomendaciones(game,controlador));
             }
         });
