@@ -2,7 +2,6 @@ package Juego.Vista;
 
 import Juego.Controlador.Controlador;
 import Juego.Modelo.EstadoNivel;
-import Juego.Modelo.Nivel;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;

@@ -14,7 +14,7 @@ import java.util.Arrays;
  *
  * @author reyes
  */
-public interface Juego {
+public interface Constantes {
     Basurero general = new Basurero("general", "GeneralCan.png");;
     Basurero papel = new Basurero("papel", "PaperCan.png");
     Basurero plastico = new Basurero("plastico", "PlasticCan.png");

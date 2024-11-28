@@ -1,6 +1,5 @@
 package Juego.Vista;
 
-import Juego.Controlador.Juego;
 import Juego.Controlador.Controlador;
 import Juego.Modelo.Basura;
 import Juego.Modelo.Basurero;
@@ -27,8 +26,9 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
+import Juego.Controlador.Constantes;
 
-public class PantallaJuego implements Screen, Juego {
+public class PantallaJuego implements Screen, Constantes {
     
     private boolean pausado = false;
     boolean spriteArrastrado = false;
@@ -127,7 +127,7 @@ public class PantallaJuego implements Screen, Juego {
        
         
         for (int i = 0; i < nivel + 1; i++) 
-            inGameBasureros.add(Juego.basureros.get(i));
+            inGameBasureros.add(Constantes.basureros.get(i));
         
         if(!pausado){
             ImageButton.ImageButtonStyle notificacionesEstilo = new ImageButton.ImageButtonStyle();
