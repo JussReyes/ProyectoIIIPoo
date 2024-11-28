@@ -143,12 +143,18 @@ public class PantallaJuego implements Screen, Constantes {
         
         ArrayList<Basura> basuras = controlador.getBasuras();
         
-        for(Basura basura:basuras){
-            Desecho des = new Desecho(basura.getRutaImagen(), basura.getTipoBasurero().toString());
-            System.out.println(basura.getTipoBasurero().toString());
-            tiposDesechos.add(des);
-        }
-        
+//        for(Basura basura:basuras){
+//            Desecho des = new Desecho(basura.getRutaImagen(), basura.getTipoBasurero().toString());
+//            tiposDesechos.add(des);
+//        }
+        tiposDesechos.add(lata);
+        tiposDesechos.add(botella);
+        tiposDesechos.add(copa);
+        tiposDesechos.add(hoja);
+        tiposDesechos.add(jeringa);
+        tiposDesechos.add(plato);
+        tiposDesechos.add(bolaPapel);
+                
         for (int i = 0; i < dificultad; i++) {
             int indice = random.nextInt(tiposDesechos.size());
             Desecho desecho = new Desecho(tiposDesechos.get(indice));

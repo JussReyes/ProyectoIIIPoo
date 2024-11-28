@@ -157,7 +157,7 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
         nombre.setSize(215, 30);
 
         selectBox = new SelectBox<>(skin);
-        selectBox.setItems("Plástico", "Metal", "Papel", "Biológico", "Orgánico", "Vidrio", "General");
+        selectBox.setItems("Plástico", "Metal", "Papel", "Biológicos", "Orgánicos", "Vidrio", "General");
         selectBox.setSize(215, 30);
         selectBox.setAlignment(1);
         selectBox.setPosition(91, 442);
@@ -234,11 +234,11 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
                             reco= new Plastico(nom, desc, ruta, recom);
                             break;
                         }
-                        case("Orgánico"):{
+                        case("Orgánicos"):{
                             reco= new Organicos(nom, desc, ruta, recom);
                             break;
                         }
-                        case("Biológico"):{
+                        case("Biológicos"):{
                             reco= new Biologicos(nom, desc, ruta, recom);
                             break;
                         }
@@ -260,7 +260,6 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
                         throw new IllegalArgumentException("Este tipo de basura ya existe");
                     else
                         System.out.println("Listo, no existía esa basura y ya se agregó");
-                    System.out.println(basu);
                     llenarDatos();
                 }
                 

@@ -82,10 +82,10 @@ public class ManejadorArchivoBasuras {
             return lista;
 
         } catch (ClassNotFoundException ex) {
-            //System.out.println("No se pudo cargar el registro del archivo " + nombreArchivo);
+            System.out.println("No se pudo cargar el registro del archivo " + nombreArchivo);
             return new ArrayList<Basura>();
         } catch (IOException ex) {
-            //System.out.println("fin del archivo" + nombreArchivo);
+            System.out.println("fin del archivo" + nombreArchivo);
             return lista;
         } 
         finally {

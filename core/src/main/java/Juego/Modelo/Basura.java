@@ -69,4 +69,11 @@ public abstract class Basura extends Sprite implements Serializable {
     }
     
     public abstract Enum<?> getTipoBasurero();
+
+    @Override
+    public String toString() {
+        return "Basura{" + "nombre=" + nombre + ", descripcion=" + descripcion + ", rutaImagen=" + rutaImagen + ", recomendaciones=" + recomendaciones + ", tiempoDescomposicion=" + tiempoDescomposicion + '}';
+    }
+    
+    
 }
