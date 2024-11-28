@@ -198,57 +198,6 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
                 int dias;
                 
                 controlador.NuevaBasura(ruta, selectBox.getSelected(), nom, descomposicion, desc, recom);
-                try {
-                    if (descomposición.getText().isBlank())
-                        throw new IllegalArgumentException("Ingrese el número de días");
-                    try{
-                        dias = Integer.parseInt(descomposición.getText());
-                    }
-                    catch (NumberFormatException ex) {
-                        throw new IllegalArgumentException("Ingrese un número de días para el tiempo de descomposición");
-                    }
-
-                    if (nom.isBlank())
-                     throw new IllegalArgumentException("        "+"Ingrese el nombre");
-                    if (desc.isBlank())
-                        throw new IllegalArgumentException("      Ingrese la descripción");
-                    if (ruta.isBlank())
-                        throw new IllegalArgumentException("      Ingrese la imagen");
-
-
-                    String basu = selectBox.getSelected();
-                    Basura reco;
-                    switch (basu) {
-                        case ("Papel"):{
-                            reco= new Papel(nom, desc, ruta, recom);
-                            break;
-                        }
-                        case("Vidrio"):{
-                            reco= new Vidrio(nom, desc, ruta, recom);
-                            break;
-                        }
-                        case("Metal"):{
-                            reco= new Metal(nom, desc, ruta, recom);
-                            break;
-                        }
-                        case("Plástico"):{
-                            reco= new Plastico(nom, desc, ruta, recom);
-                            break;
-                        }
-                        case("Orgánicos"):{
-                            reco= new Organicos(nom, desc, ruta, recom);
-                            break;
-                        }
-                        case("Biológicos"):{
-                            reco= new Biologicos(nom, desc, ruta, recom);
-                            break;
-                        }
-                        default:{
-                            reco= new General(nom, desc, ruta, recom);
-                        }
-                    }
-
-                    reco.setTiempoDescomposicion(dias);
                     if (recoActual!=null){
                             controlador.eliminarSugerencia(recoActual.getNombre());
                             recoActual=null;
@@ -257,19 +206,10 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
                     
                     
                     
-                    if (!controlador.nuevaBasura(reco))
-                        throw new IllegalArgumentException("Este tipo de basura ya existe");
-                    else
-                        System.out.println("Listo, no existía esa basura y ya se agregó");
+                    
+                    System.out.println("Listo, no existía esa basura y ya se agregó");
                     llenarDatos();
-                }
-                
-                catch (IllegalArgumentException ex) {
-                    llenarDatos();
-                    System.out.println("AJAAAAAAA FALTA CODE: "+ex.getMessage());
-                }
-            }
-            
+                }            
         });
         
         

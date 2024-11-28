@@ -113,7 +113,7 @@ public class Recomendaciones implements Screen, Fuentes {
         nombre.setSize(215, 30);
         
         selectBox = new SelectBox<>(skin);
-        selectBox.setItems("Plástico", "Metal", "Papel", "Biológico", "Orgánico", "Vidrio", "General");
+        selectBox.setItems("Plástico", "Metal", "Papel", "Biológicos", "Orgánicos", "Vidrio", "General");
         
         selectBox.setSize(215, 30);
         selectBox.setAlignment(1);
