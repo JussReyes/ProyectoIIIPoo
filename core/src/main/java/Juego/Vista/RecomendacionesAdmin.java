@@ -3,6 +3,7 @@ package Juego.Vista;
 import Juego.Controlador.Controlador;
 import Juego.Controlador.SelectorDeImagen;
 import Juego.Modelo.Basura;
+import Juego.Modelo.NoReciclables.Biologicos;
 import Juego.Modelo.NoReciclables.General;
 import Juego.Modelo.NoReciclables.Organicos;
 import Juego.Modelo.Reciclables.Metal;
@@ -238,7 +239,7 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
                             break;
                         }
                         case("Biológico"):{
-                            reco= new Vidrio(nom, desc, ruta, recom);
+                            reco= new Biologicos(nom, desc, ruta, recom);
                             break;
                         }
                         default:{
@@ -259,6 +260,7 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
                         throw new IllegalArgumentException("Este tipo de basura ya existe");
                     else
                         System.out.println("Listo, no existía esa basura y ya se agregó");
+                    System.out.println(basu);
                     llenarDatos();
                 }
                 

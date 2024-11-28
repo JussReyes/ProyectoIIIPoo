@@ -123,7 +123,7 @@ public class menuTiposBasura implements Screen, Fuentes {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 dispose();
-                game.setScreen(new infoTipo(game,controlador, "Plastico"));
+                game.setScreen(new infoTipo(game,controlador, "Plástico"));
             }
         });
         
@@ -165,7 +165,7 @@ public class menuTiposBasura implements Screen, Fuentes {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 dispose();
-                game.setScreen(new infoTipo(game,controlador, "Biologico"));
+                game.setScreen(new infoTipo(game,controlador, "Biológicos"));
             }
          });
         
@@ -193,7 +193,7 @@ public class menuTiposBasura implements Screen, Fuentes {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 dispose();
-                game.setScreen(new infoTipo(game,controlador, "Organico"));
+                game.setScreen(new infoTipo(game,controlador, "Orgánicos"));
             }
         });
         

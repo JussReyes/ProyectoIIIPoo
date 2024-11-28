@@ -1,0 +1,6 @@
+Bottle.png
+plastico
+Botella
+9000
+Botellas hechas de plástico blablabla
+enjugar
