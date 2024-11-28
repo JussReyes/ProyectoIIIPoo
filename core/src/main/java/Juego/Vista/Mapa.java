@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -53,6 +54,9 @@ public class Mapa implements Screen {
     
     private final Texture imgSugerencias = new Texture("RecomendacionS.png");
     private ImageButton sugerencias;
+    
+    private final Texture imgAlmanaque = new Texture("Almanaque.png");
+    private ImageButton almanaque;
     
     
     private ImageButton RFlecha;
@@ -150,6 +154,23 @@ public class Mapa implements Screen {
                    game.setScreen(new Recomendaciones(game,controlador));
             }
         });
+                
+        //Almanaque
+        ImageButtonStyle almanaqueEstilo = new ImageButtonStyle();
+        almanaqueEstilo.up = new TextureRegionDrawable(imgAlmanaque);
+        almanaque = new ImageButton(almanaqueEstilo);
+        almanaque.setPosition(22, 606);
+        
+        almanaque.addListener(new ClickListener(){
+            
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new menuTiposBasura(game,controlador));
+            }
+        });
+        Image sombra = new Image(new TextureRegionDrawable(new Texture("Shadow.png")));
+        sombra.setSize(62,22);
+        sombra.setPosition(18, 595);
         
        
         ImageButtonStyle LEstilo = new ImageButtonStyle();
@@ -206,6 +227,10 @@ public class Mapa implements Screen {
         stage.addActor(notificaciones);
         stage.addActor(cantidadNotificaciones);
         stage.addActor(sugerencias);
+        stage.addActor(sombra);
+        stage.addActor(almanaque);
+        
+
 
     }
 
