@@ -52,6 +52,10 @@ public class infoTipo implements Screen{
     
     private Label titulo;
     
+    private ImageButton salir;
+    private final Texture upCancelar = new Texture(Gdx.files.internal("CancelBtn.png"));
+    private final Texture overCancelar = new Texture(Gdx.files.internal("CancelOver.png"));
+    
     private TextArea descripcion;
     private Label lblDescripcion;
     
@@ -88,13 +92,17 @@ public class infoTipo implements Screen{
         stage = new Stage(new ScreenViewport());
         skin = new Skin(Gdx.files.internal("CustumUI/UIRec.json"));
 
-        volver = new Label("regresar", Fuentes.normales); 
-        volver.setPosition(300, 100);
-        volver.addListener(new ClickListener(){
+        ImageButton.ImageButtonStyle cancelarEstilo = new ImageButton.ImageButtonStyle();
+        cancelarEstilo.up = new TextureRegionDrawable (upCancelar);
+        cancelarEstilo.over = new TextureRegionDrawable(overCancelar);
+        salir = new ImageButton(cancelarEstilo);
+        salir.setPosition(994, 633);
+        salir.addListener(new ClickListener(){
+            
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //Aquí debo de hacer un nuevo tipo de ventana del que creó Justin                    
-                //game.setScreen(new Mapa(game, controlador));
+                dispose();
+                game.setScreen(new Mapa(game,controlador));
             }
         });
         
@@ -181,6 +189,7 @@ public class infoTipo implements Screen{
         scroll.setSize(400, 670);
         
         stage.addActor(scroll);
+        stage.addActor(salir);
         stage.addActor(nombre);
         stage.addActor(lblDescripcion);
         stage.addActor(descripcion);

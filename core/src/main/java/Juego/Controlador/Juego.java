@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package Juego.Vista;
+package Juego.Controlador;
 
 import Juego.Modelo.Basurero;
+import Juego.Vista.Desecho;
 import com.badlogic.gdx.graphics.Texture;
 import java.util.ArrayList;
 import java.util.Arrays;
