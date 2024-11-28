@@ -149,6 +149,10 @@ public class Recomendaciones implements Screen, Fuentes {
                 
                 
                 try {
+                    
+
+                    if (nom.isBlank())
+                     throw new IllegalArgumentException("        "+"Ingrese el nombre");
                     if (descomposicion.getText().isBlank())
                         throw new IllegalArgumentException("Ingrese el número de días");
                     try{
@@ -157,9 +161,6 @@ public class Recomendaciones implements Screen, Fuentes {
                     catch (NumberFormatException ex) {
                         throw new IllegalArgumentException("Ingrese un número de días para el tiempo de descomposición");
                     }
-
-                    if (nom.isBlank())
-                     throw new IllegalArgumentException("        "+"Ingrese el nombre");
                     if (desc.isBlank())
                         throw new IllegalArgumentException("      Ingrese la descripción");
                     if (ruta.isBlank())
@@ -190,7 +191,8 @@ public class Recomendaciones implements Screen, Fuentes {
             
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                    game.setScreen(new Mapa(game, controlador));
+                dispose();
+                game.setScreen(new Mapa(game, controlador));
             }
         });
         
@@ -202,6 +204,7 @@ public class Recomendaciones implements Screen, Fuentes {
         stage.addActor(descripcion);
         stage.addActor(recomendaciones);
         stage.addActor(enviar);
+        stage.addActor(salir);
         
     }
         

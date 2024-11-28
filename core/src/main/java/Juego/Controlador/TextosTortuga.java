@@ -29,6 +29,7 @@ public class TextosTortuga {
         String linea;
         while ((linea = br.readLine()) != null) {
             if (linea.contains("$")) {
+
                 contadorDeNiveles++;
                 nivelActual += linea.replace("$", "").trim();
                 if (contadorDeNiveles == nivelDeseado) {
@@ -51,12 +52,17 @@ public class TextosTortuga {
         e.printStackTrace();
         return null;
     }
-
+    
     return null;
 }
     
     
     public static String[] separarPorDelimitador(String niveles) {
+        String[] vacio = new String[0];
+        if (niveles == null){
+            return vacio;
+        }
         return niveles.split(">");
     }
 }
+

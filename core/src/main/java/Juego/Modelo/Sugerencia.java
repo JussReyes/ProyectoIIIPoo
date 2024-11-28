@@ -4,8 +4,6 @@
  */
 package Juego.Modelo;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import java.io.Serializable;
 
 /**
@@ -13,7 +11,7 @@ import java.io.Serializable;
  * @author reyes
  */
 public class Sugerencia implements Serializable{
-    Texture  imagen;
+    String ruta;
     String nombre;
     String recomendaciones;
     String descripcion;
@@ -21,18 +19,8 @@ public class Sugerencia implements Serializable{
     String descomposicion;
     Usuario usuario;
 
-    public Sugerencia(Texture imagen, String nombre, String recomendaciones, String descripcion, String basurero, String descomposicion, Usuario usuario) {
-        this.imagen = imagen;
-        this.nombre = nombre;
-        this.recomendaciones = recomendaciones;
-        this.descripcion = descripcion;
-        this.basurero = basurero;
-        this.descomposicion = descomposicion;
-        this.usuario = usuario;
-    }
-    
-    public Sugerencia(String rutaImagen, String nombre, String recomendaciones, String descripcion, String basurero, String descomposicion, Usuario usuario) {
-        this.imagen = new Texture(Gdx.files.internal(rutaImagen));
+    public Sugerencia(String imagen, String nombre, String recomendaciones, String descripcion, String basurero, String descomposicion, Usuario usuario) {
+        ruta=imagen;
         this.nombre = nombre;
         this.recomendaciones = recomendaciones;
         this.descripcion = descripcion;
@@ -41,12 +29,12 @@ public class Sugerencia implements Serializable{
         this.usuario = usuario;
     }
 
-    public Texture getImagen() {
-        return imagen;
+    public String getImagen() {
+        return ruta;
     }
 
-    public void setImagen(Texture imagen) {
-        this.imagen = imagen;
+    public void setImagen(String imagen) {
+        this.ruta = imagen;
     }
 
     public String getRecomendaciones() {

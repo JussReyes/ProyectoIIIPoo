@@ -88,7 +88,7 @@ public class GameOver implements Screen, Fuentes{
             
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new PantallaJuego(game,controlador,(controlador.getUsuarioActual()).getNivel()));
+                game.setScreen(new PantallaExplicacion(game,controlador,(controlador.getUsuarioActual()).getNivel()));
             }
         });
         
