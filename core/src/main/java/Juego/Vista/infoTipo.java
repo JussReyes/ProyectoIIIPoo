@@ -152,7 +152,7 @@ public class infoTipo implements Screen{
         for (int i=0;i<15;i++) {
             //Basura basura=basuras.get(i);
             
-            Texture newImagen = new Texture(Gdx.files.internal("Bigplate.png"));
+            Texture newImagen = new Texture(Gdx.files.internal("assets\\aHuevo.png"));
             ImageButton imagen= new ImageButton(new TextureRegionDrawable(new TextureRegion(newImagen)));
             imagen.addListener(new ClickListener(){
                 @Override
