@@ -60,7 +60,7 @@ public class Controlador {
         MAS.escribirArchivo(recoms);
     }
     
-    public ArrayList<Sugerencia> getSugerenciaes(){
+    public ArrayList<Sugerencia> getSugerencias(){
         ManejadorArchivoSugerencias MAS = new ManejadorArchivoSugerencias();
         return MAS.cargarArchivoSugerencias();
     }
@@ -71,8 +71,10 @@ public class Controlador {
         for (Sugerencia recom: recoms) 
             if (recom.getNombre().equals(nombre)) {
                 recoms.remove(recom);
+                MAS.escribirArchivo(recoms);
                 return;
             }
+        System.out.println("No se encontró :( :"+nombre);
     }
     
     public ArrayList<Basura> getBasuras(){

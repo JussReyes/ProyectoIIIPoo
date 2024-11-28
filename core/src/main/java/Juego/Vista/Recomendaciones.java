@@ -153,7 +153,7 @@ public class Recomendaciones implements Screen, Fuentes {
 
                     if (nom.isBlank())
                      throw new IllegalArgumentException("        "+"Ingrese el nombre");
-                    if (descomposición.getText().isBlank())
+                    if (descomposicion.getText().isBlank())
                         throw new IllegalArgumentException("Ingrese el número de días");
                     try{
                         dias = Integer.parseInt(descomposicion.getText());

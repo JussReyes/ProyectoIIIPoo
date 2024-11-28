@@ -34,6 +34,7 @@ public class ManejadorArchivoSugerencias {
             
             //procesamiento
             for (int i = 0; i < lista.size(); i++) {
+                System.out.println("Escribiendo la sugerencia "+i);
                 manejadorEscritura.writeObject(lista.get(i));
             }
             
