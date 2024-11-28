@@ -1,6 +1,6 @@
-assets\Leaf.png
-Orgánicos
+Leaf.png
 Hoja
-20
-Hoja que acaba de caer de un árbol
-dejar secar al aire libre
+Orgánico
+90
+Hojas de árboles caídas, comúnmente encontradas en jardines o parques.
+Utiliza las hojas para hacer compost o abono natural.Si no haces compost, colócalas en el contenedor de residuos orgánicos.
