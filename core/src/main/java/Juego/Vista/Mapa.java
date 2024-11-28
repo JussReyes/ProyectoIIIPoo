@@ -372,14 +372,9 @@ public class Mapa implements Screen {
 
     @Override
     public void dispose() {
-        batch.dispose();
-        font.dispose();
-        for (int i=1;i<7;i++) {
+      for (int i=1;i<7;i++) {
             (niveles.get(i)).dispose();
         }
-//        nivel1.dispose();
-//        nivel2.dispose();
-//        nivel3.dispose();
         imgMapa.dispose();
         imgPalmera.dispose();
         imgSugerencias.dispose();

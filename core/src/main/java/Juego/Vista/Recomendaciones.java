@@ -252,7 +252,7 @@ public class Recomendaciones implements Screen, Fuentes {
 
     @Override
     public void dispose() {
-        batch.dispose();
+        //batch.dispose();
         font.dispose();
     }
 }
