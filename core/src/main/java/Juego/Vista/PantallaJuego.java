@@ -1,5 +1,6 @@
 package Juego.Vista;
 
+import Juego.Controlador.Juego;
 import Juego.Controlador.Controlador;
 import Juego.Modelo.Basura;
 import Juego.Modelo.Basurero;
