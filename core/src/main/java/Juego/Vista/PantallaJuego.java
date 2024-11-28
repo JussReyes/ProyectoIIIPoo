@@ -103,7 +103,7 @@ public class PantallaJuego implements Screen, Juego {
     private Random random = new Random();
 
     public PantallaJuego(Main game, Controlador cont, int nivel) {
-        this.nivel = nivel;
+        this.nivel = nivel % 7;
         this.game = game;
         controlador=cont;
     }
@@ -123,6 +123,7 @@ public class PantallaJuego implements Screen, Juego {
         OceanoFront = new Sprite(imgOceanoFront);
         
         isla = new Sprite(imgIsla);
+       
         
         for (int i = 0; i < nivel + 1; i++) 
             inGameBasureros.add(Juego.basureros.get(i));
@@ -142,6 +143,10 @@ public class PantallaJuego implements Screen, Juego {
         tiposDesechos.add(botella);
         tiposDesechos.add(bolaPapel);
         tiposDesechos.add(lata);
+        tiposDesechos.add(plato);
+        tiposDesechos.add(hoja);
+        tiposDesechos.add(jeringa);
+        tiposDesechos.add(copa);
         
         for (int i = 0; i < dificultad; i++) {
             int indice = random.nextInt(tiposDesechos.size());
@@ -193,6 +198,7 @@ public class PantallaJuego implements Screen, Juego {
         }
         
     }
+         stage.addActor(pausa);
     }
     
     private void pausar(){
@@ -304,12 +310,12 @@ public class PantallaJuego implements Screen, Juego {
             isla.setPosition(0, 0);
             isla.draw(batch);
 
-            if(desechos.isEmpty()){
+            if(desechosLanzados.isEmpty() && desechos.isEmpty()){
                 controlador.subirNivelUsuarioActual();
                 game.setScreen(new GameOver(game, controlador, true));
             }
             else{
-                if (lastSpawnTime > spawnTime) {
+                if (lastSpawnTime > spawnTime && !desechos.isEmpty()) {
                     Desecho desecho = desechos.removeLast();
                     float yPos = desecho.getY();
 
@@ -413,7 +419,6 @@ public class PantallaJuego implements Screen, Juego {
 
     @Override
     public void dispose() {
-        batch.dispose();
         font.dispose();
         imgOceanoBack.dispose();
         imgOceanoMid.dispose();

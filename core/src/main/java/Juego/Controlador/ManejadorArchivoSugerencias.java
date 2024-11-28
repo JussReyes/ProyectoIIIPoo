@@ -4,7 +4,8 @@
  */
 package Juego.Controlador;
 
-import Juego.Modelo.Basura;
+import Juego.Modelo.Recomendacion;
+import Juego.Modelo.Sugerencia;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -22,7 +23,7 @@ public class ManejadorArchivoSugerencias {
     public ManejadorArchivoSugerencias() {
     }
     
-    public int escribirArchivo(ArrayList<Basura> lista) {
+    public int escribirArchivo(ArrayList<Sugerencia> lista) {
         
         String nombreArchivo = "sugerencias.dat";
         FileOutputStream archivoEscritura = null;
@@ -33,16 +34,14 @@ public class ManejadorArchivoSugerencias {
             
             //procesamiento
             for (int i = 0; i < lista.size(); i++) {
-                System.out.println("Escribiendo la sugerencia número "+i);
                 manejadorEscritura.writeObject(lista.get(i));
             }
             
             //cierre
-            System.out.println("todo bien");
             return 0;//IConstantes.EXITO;
 
         } catch (FileNotFoundException ex) {
-            System.out.println("No se pudo crear el archivo " + nombreArchivo);
+
             return 1;//IConstantes.ERROR_ARCHIVO;
         } catch (IOException ex) {
             System.out.println("Tengo problemas para escribir el archivo " + nombreArchivo);
@@ -62,11 +61,11 @@ public class ManejadorArchivoSugerencias {
         }
     }
     
-    public ArrayList<Basura> cargarArchivoSugerencias() {
+    public ArrayList<Sugerencia> cargarArchivoSugerencias() {
         
         String nombreArchivo = "sugerencias.dat";
         ObjectInputStream manejadorLectura = null;
-        ArrayList<Basura> lista = new ArrayList<>();
+        ArrayList<Sugerencia> lista = new ArrayList<>();
         try {
             // apertura del archivo
             FileInputStream arc = new FileInputStream (nombreArchivo);
@@ -76,7 +75,7 @@ public class ManejadorArchivoSugerencias {
             lista = new ArrayList<>();
             Object obj = manejadorLectura.readObject() ;          
             while (obj != null){
-                lista.add ( (Basura) obj);
+                lista.add ( (Sugerencia) obj);
                 obj = manejadorLectura.readObject() ;
             }
             
@@ -98,7 +97,7 @@ public class ManejadorArchivoSugerencias {
                 if (manejadorLectura != null)
                     manejadorLectura.close();
             } catch (IOException ex) {
-                return new ArrayList<Basura>();
+                return new ArrayList<Sugerencia>();
             }
         }
     } 

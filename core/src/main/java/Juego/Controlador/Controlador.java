@@ -5,13 +5,7 @@
 package Juego.Controlador;
 
 import Juego.Modelo.Basura;
-import Juego.Modelo.NoReciclables.General;
-import Juego.Modelo.NoReciclables.Organicos;
-import Juego.Modelo.Reciclables.Metal;
-import Juego.Modelo.Reciclables.Papel;
-import Juego.Modelo.Reciclables.Plastico;
-import Juego.Modelo.Reciclables.Vidrio;
-import Juego.Modelo.Recomendacion;
+import Juego.Modelo.Sugerencia;
 import Juego.Modelo.Usuario;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,58 +49,26 @@ public class Controlador {
         return usuarioActual;
     }
     
-    public void añadirRecomendacion(String nombre, String descripcion, String imagen, String basurero, String recomendaciones, int tiempo) throws IllegalArgumentException {
-        Basura reco;
-        switch (basurero) {
-            case ("Papel"):{
-                reco= new Papel(nombre, descripcion, imagen, recomendaciones);
-                break;
-            }
-            case("Vidrio"):{
-                reco= new Vidrio(nombre, descripcion, imagen, recomendaciones);
-                break;
-            }
-            case("Metal"):{
-                reco= new Metal(nombre, descripcion, imagen, recomendaciones);
-                break;
-            }
-            case("Plástico"):{
-                reco= new Plastico(nombre, descripcion, imagen, recomendaciones);
-                break;
-            }
-            case("Orgánico"):{
-                reco= new Organicos(nombre, descripcion, imagen, recomendaciones);
-                break;
-            }
-            case("Biológico"):{
-                reco= new Vidrio(nombre, descripcion, imagen, recomendaciones);
-                break;
-            }
-            default:{
-                reco= new General(nombre, descripcion, imagen, recomendaciones);
-            }
-        }
-        
-        reco.setTiempoDescomposicion(tiempo);
-        
+    public void añadirSugerencia(String rutaImagen, String nombre, String recomendaciones, String descripcion, String basurero, String descomposicion, Usuario usuario) throws IllegalArgumentException {
+        Sugerencia reco= new Sugerencia(rutaImagen, nombre, recomendaciones, descripcion, basurero, descomposicion, usuario);
         ManejadorArchivoSugerencias MAS = new ManejadorArchivoSugerencias();
-        ArrayList<Basura> recoms = MAS.cargarArchivoSugerencias();
-        for (Basura recom: recoms) 
+        ArrayList<Sugerencia> recoms = MAS.cargarArchivoSugerencias();
+        for (Sugerencia recom: recoms) 
             if (recom.getNombre().equals(reco.getNombre()))
                     throw new IllegalArgumentException("¡Esta basura ya está disponible!");
         recoms.add(reco);
         MAS.escribirArchivo(recoms);
     }
     
-    public ArrayList<Basura> getRecomendaciones(){
+    public ArrayList<Sugerencia> getSugerenciaes(){
         ManejadorArchivoSugerencias MAS = new ManejadorArchivoSugerencias();
         return MAS.cargarArchivoSugerencias();
     }
     
-    public void eliminarRecomendacion(String nombre) {
+    public void eliminarSugerencia(String nombre) {
         ManejadorArchivoSugerencias MAS = new ManejadorArchivoSugerencias();
-        ArrayList<Basura> recoms = MAS.cargarArchivoSugerencias();
-        for (Basura recom: recoms) 
+        ArrayList<Sugerencia> recoms = MAS.cargarArchivoSugerencias();
+        for (Sugerencia recom: recoms) 
             if (recom.getNombre().equals(nombre)) {
                 recoms.remove(recom);
                 return;
@@ -134,6 +96,26 @@ public class Controlador {
         usuarioActual.aumentarNivel();
         ManejadorArchivoUsuarios MAU = new ManejadorArchivoUsuarios();
         MAU.escribirArchivo(usuarios);
+    }
+    
+    public String siguienteMensaje(String[][] mensajes, int nivel, int indiceMensaje) {
+        System.out.println(mensajes[0][0]);
+        if (indiceMensaje < mensajes[nivel].length - 1) {
+            return mensajes[nivel][indiceMensaje + 1];
+        } else {
+            return null;
+        }
+    }
+
+    public int siguienteIndice (int num){
+        return num++;
+    }
+    
+    public String[] procesarTXTortugalo(String rutaArchivo, int nivel) {
+        String niveles = TextosTortuga.obtenerTextoNiveles(rutaArchivo, nivel);
+        String[]fragmentosPorNivel = TextosTortuga.separarPorDelimitador(niveles);
+
+        return fragmentosPorNivel;
     }
     
 }

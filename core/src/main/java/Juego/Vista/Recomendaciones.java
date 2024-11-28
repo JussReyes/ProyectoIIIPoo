@@ -3,6 +3,7 @@ package Juego.Vista;
 import Juego.Controlador.Controlador;
 import Juego.Controlador.SelectorDeImagen;
 import Juego.Modelo.Recomendacion;
+import Juego.Modelo.Usuario;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -45,7 +46,7 @@ public class Recomendaciones implements Screen, Fuentes {
     private Skin skin;
     private SelectBox<String> selectBox;
     private TextField nombre;
-    private TextField descomposición;
+    private TextField descomposicion;
     
     private TextField descripcion;
     private TextField recomendaciones;
@@ -118,10 +119,10 @@ public class Recomendaciones implements Screen, Fuentes {
         selectBox.setAlignment(1);
         selectBox.setPosition(91, 442);
         
-        descomposición = new TextField("", skin);
-        descomposición.setMessageText("Tiempo en días");
-        descomposición.setPosition(91, 370);
-        descomposición.setSize(215, 30);
+        descomposicion = new TextField("", skin);
+        descomposicion.setMessageText("Tiempo en días");
+        descomposicion.setPosition(91, 370);
+        descomposicion.setSize(215, 30);
         
         descripcion = new TextArea("", skin);
         descripcion.setMessageText("\n                Describe el tipo de desecho");
@@ -155,7 +156,7 @@ public class Recomendaciones implements Screen, Fuentes {
                     if (descomposición.getText().isBlank())
                         throw new IllegalArgumentException("Ingrese el número de días");
                     try{
-                        dias = Integer.parseInt(descomposición.getText());
+                        dias = Integer.parseInt(descomposicion.getText());
                     }
                     catch (NumberFormatException ex) {
                         throw new IllegalArgumentException("Ingrese un número de días para el tiempo de descomposición");
@@ -167,7 +168,8 @@ public class Recomendaciones implements Screen, Fuentes {
 
 
                     String basu = selectBox.getSelected();
-                    controlador.añadirRecomendacion(nom, desc, ruta, basu, recom, dias);
+                    controlador.añadirSugerencia(ruta, nombre.getText(), recomendaciones.getText(), 
+                            descripcion.getText(),selectBox.getSelected(),descomposicion.getText(), controlador.getUsuarioActual());
                 }
                 
                 catch (IllegalArgumentException ex) {
@@ -195,7 +197,7 @@ public class Recomendaciones implements Screen, Fuentes {
         stage.addActor(selectBox);
         stage.addActor(imagen);
         stage.addActor(nombre);
-        stage.addActor(descomposición);
+        stage.addActor(descomposicion);
         stage.addActor(descripcion);
         stage.addActor(recomendaciones);
         stage.addActor(enviar);

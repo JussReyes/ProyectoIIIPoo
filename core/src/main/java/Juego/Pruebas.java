@@ -45,8 +45,8 @@ public class Pruebas {
 //        ArrayList<Recomendacion> lista=new ArrayList<>();
 //        lista.add(sg);
 //        MAS.escribirArchivo(lista);
-        ArrayList<Basura> lista2=MAS.cargarArchivoSugerencias();
-        System.out.println(lista2.toString());
+//        ArrayList<Recomendacion> lista2=MAS.cargarArchivoSugerencias();
+//        System.out.println(lista2.toString());
         
     }
     

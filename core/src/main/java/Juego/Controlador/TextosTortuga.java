@@ -4,6 +4,8 @@
  */
 package Juego.Controlador;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,29 +15,48 @@ import java.util.List;
  */
 public class TextosTortuga {
 
-    public static String[] obtenerTextoNiveles(String rutaArchivo) {
-        List<String> niveles = new ArrayList<>();
-        String nivelActual = "";
-
-        try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
-            String linea;
-            while ((linea = br.readLine()) != null) {
-                if (linea.contains("$")) { 
-                    nivelActual += linea.replace("$", "").trim();
-                    niveles.add(nivelActual);
-                    nivelActual = "";
-                } else {
-                    nivelActual += linea + "\n";
+   public static String obtenerTextoNiveles(String rutaArchivo, int nivelDeseado) {
+    List<String> niveles = new ArrayList<>();
+    String nivelActual = "";
+    int contadorDeNiveles = 0;
+    
+    
+    FileHandle archivo = Gdx.files.internal(rutaArchivo); 
+    if (!archivo.exists()) { 
+        return null; 
+    }
+    try (BufferedReader br = new BufferedReader(new InputStreamReader(archivo.read()))) {
+        String linea;
+        while ((linea = br.readLine()) != null) {
+            if (linea.contains("$")) {
+                contadorDeNiveles++;
+                nivelActual += linea.replace("$", "").trim();
+                if (contadorDeNiveles == nivelDeseado) {
+                    return nivelActual;  
                 }
+                niveles.add(nivelActual);
+                nivelActual = "";
+            } else {
+                nivelActual += linea;
             }
-
-            if (!nivelActual.isEmpty()) {
-                niveles.add(nivelActual.trim());
-            }
-        } catch (IOException e) {
-            
         }
 
-        return niveles.toArray(new String[0]);
+        if (contadorDeNiveles < nivelDeseado) {
+            return null;
+        }
+       
+
+    } catch (IOException e) {
+        
+        e.printStackTrace();
+        return null;
+    }
+
+    return null;
+}
+    
+    
+    public static String[] separarPorDelimitador(String niveles) {
+        return niveles.split(">");
     }
 }
