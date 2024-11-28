@@ -1,0 +1,7 @@
+assets\Syringe.png
+Biológicos
+Jeringa
+365000
+Instrumento médico hecho de plástico y metal utilizado para inyecciones. Clasificado como residuo biológico.
+La parte de plástico toma 1000 años y la aguja toma alrededor de 400 años.
+Nunca deseches jeringas en la basura general. Colócalas en un contenedor biológico o llévalas a un punto de reciclaje médico o farmacias que acepten residuos peligrosos.

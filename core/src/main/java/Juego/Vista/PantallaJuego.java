@@ -141,20 +141,20 @@ public class PantallaJuego implements Screen, Constantes {
                pausar();
             }});
         
-        ArrayList<Basura> basuras = controlador.getBasuras();
-        
+//        ArrayList<Basura> basuras = controlador.getBasuras();
+//        
 //        for(Basura basura:basuras){
 //            Desecho des = new Desecho(basura.getRutaImagen(), basura.getTipoBasurero().toString());
 //            tiposDesechos.add(des);
 //        }
-//        tiposDesechos.add(lata);
-//        tiposDesechos.add(botella);
-//        tiposDesechos.add(copa);
-//        tiposDesechos.add(hoja);
-//        tiposDesechos.add(jeringa);
-//        tiposDesechos.add(plato);
-//        tiposDesechos.add(bolaPapel);
-          tiposDesechos = controlador.getDesechos();
+        tiposDesechos.add(lata);
+        tiposDesechos.add(botella);
+        tiposDesechos.add(copa);
+        tiposDesechos.add(hoja);
+        tiposDesechos.add(jeringa);
+        tiposDesechos.add(plato);
+        tiposDesechos.add(bolaPapel);
+          //tiposDesechos = controlador.getDesechos();
           
         for (int i = 0; i < dificultad; i++) {
             int indice = random.nextInt(tiposDesechos.size());
@@ -248,7 +248,6 @@ public class PantallaJuego implements Screen, Constantes {
             time += Gdx.graphics.getDeltaTime();
             lastSpawnTime += Gdx.graphics.getDeltaTime();     
           
-            // Start drawing with SpriteBatch
             batch.begin();
             
             
