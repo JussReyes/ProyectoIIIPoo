@@ -1,6 +1,6 @@
 Bottle.png
 Plástico
-Botella
-9000
-Botellas hechas de plástico blablabla
-enjugar
+Botella plástica
+264625
+Botellas hechas de plástico PET o HDPE, comúnmente utilizadas para bebidas.
+Enjuágala y colócala en el contenedor de reciclaje de plásticos.Opta por reutilizarla si es posible, pero evita usar plásticos de un solo uso.
