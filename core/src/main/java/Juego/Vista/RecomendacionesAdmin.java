@@ -259,19 +259,12 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
                         throw new IllegalArgumentException("Este tipo de basura ya existe");
                     else
                         System.out.println("Listo, no existía esa basura y ya se agregó");
-                    SelectorDeImagen SDI = new SelectorDeImagen();
-                    File archivoSeleccionado = new File(reco.getRutaImagen());
-                    File destino = new File("");
-                    SDI.escalarParaJuego(archivoSeleccionado, destino, 95,95);
                     llenarDatos();
-                    
                 }
                 
                 catch (IllegalArgumentException ex) {
                     llenarDatos();
                     System.out.println("AJAAAAAAA FALTA CODE: "+ex.getMessage());
-                } catch (IOException ex) {
-                    Logger.getLogger(RecomendacionesAdmin.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             
