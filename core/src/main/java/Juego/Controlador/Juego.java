@@ -15,13 +15,13 @@ import java.util.Arrays;
  * @author reyes
  */
 public interface Juego {
-    Basurero general = new Basurero("general", "GeneralCan.png");;
-    Basurero papel = new Basurero("papel", "PaperCan.png");
-    Basurero plastico = new Basurero("plastico", "PlasticCan.png");
-    Basurero vidrio = new Basurero("vidrio", "GlassCan.png");
-    Basurero metal = new Basurero("metal", "MetalCan.png");
-    Basurero organico = new Basurero("organico", "OrganicCan.png");
-    Basurero biologico = new Basurero("biologico", "BiologicCan.png");
+    Basurero general = new Basurero("General", "GeneralCan.png");;
+    Basurero papel = new Basurero("Papel", "PaperCan.png");
+    Basurero plastico = new Basurero("Plástico", "PlasticCan.png");
+    Basurero vidrio = new Basurero("Vidrio", "GlassCan.png");
+    Basurero metal = new Basurero("Metal", "MetalCan.png");
+    Basurero organico = new Basurero("Orgánico", "OrganicCan.png");
+    Basurero biologico = new Basurero("Biológico", "BiologicCan.png");
     Basurero[] afrrayBasureros = {general, papel, vidrio, organico, plastico, biologico, metal};
     ArrayList<Basurero> basureros = new ArrayList<>(Arrays.asList(afrrayBasureros));
     

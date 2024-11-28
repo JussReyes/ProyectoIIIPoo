@@ -141,13 +141,12 @@ public class PantallaJuego implements Screen, Juego {
                pausar();
             }});
         
-        tiposDesechos.add(botella);
-        tiposDesechos.add(bolaPapel);
-        tiposDesechos.add(lata);
-        tiposDesechos.add(plato);
-        tiposDesechos.add(hoja);
-        tiposDesechos.add(jeringa);
-        tiposDesechos.add(copa);
+        ArrayList<Basura> basuras = controlador.getBasuras();
+        
+        for(Basura basura:basuras){
+            Desecho des = new Desecho(basura.getRutaImagen(), basura.getTipoBasurero().toString());
+            tiposDesechos.add(des);
+        }
         
         for (int i = 0; i < dificultad; i++) {
             int indice = random.nextInt(tiposDesechos.size());

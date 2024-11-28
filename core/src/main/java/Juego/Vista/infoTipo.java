@@ -241,7 +241,6 @@ public class infoTipo implements Screen{
 
     @Override
     public void dispose() {
-        batch.dispose();
         Fuentes.titulos.font.dispose();
     }
     
