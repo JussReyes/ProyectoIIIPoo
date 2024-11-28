@@ -143,7 +143,6 @@ public class Mapa implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                    game.setScreen(new Recomendaciones(game,controlador));
-                    //Por que controlador??
             }
         });
         
@@ -287,7 +286,7 @@ public class Mapa implements Screen {
         stage.draw();
         
         for(int i = 1; i<= niveles.size(); i++){
-            Nivel sprite = niveles.get(i);
+            Nivel sprite = niveles.get(i%7);
             if (Gdx.input.isTouched()) {
             float mouseX = Gdx.input.getX(); 
             float mouseY = Gdx.graphics.getHeight()-Gdx.input.getY(); 
@@ -298,7 +297,7 @@ public class Mapa implements Screen {
   
             if (mouseX >= spriteX && mouseX <= spriteX + anchoSprite && mouseY >= spriteY && mouseY <= spriteY + alturaSprite) { 
                 if(sprite.getEstado()!= EstadoNivel.BLOQUEADO){
-                    game.setScreen(new PantallaJuego(game, controlador, i) );
+                    game.setScreen(new PantallaExplicacion(game, controlador, i) );
                 }
             }            
                 camara.update();

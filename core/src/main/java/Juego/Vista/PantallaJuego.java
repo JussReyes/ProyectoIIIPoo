@@ -123,6 +123,7 @@ public class PantallaJuego implements Screen, Juego {
         OceanoFront = new Sprite(imgOceanoFront);
         
         isla = new Sprite(imgIsla);
+       
         
         for (int i = 0; i < nivel + 1; i++) 
             inGameBasureros.add(Juego.basureros.get(i));
@@ -193,6 +194,7 @@ public class PantallaJuego implements Screen, Juego {
         }
         
     }
+         stage.addActor(pausa);
     }
     
     private void pausar(){

@@ -24,11 +24,6 @@ public class Nivel extends Sprite{
     private BitmapFont fuente =  new BitmapFont(Gdx.files.internal("levelFont.fnt"));
     private String numero;
     
-    /*ImageButton.ImageButtonStyle notificacionesEstilo = new ImageButton.ImageButtonStyle();
-        notificacionesEstilo.up = new TextureRegionDrawable(imgNotificacion);
-        notificaciones = new ImageButton(notificacionesEstilo);
-        notificaciones.setPosition(154, 595);*/
-    
     public Nivel(String numero) {
         super(new Texture("Uncompleted.png"));
         textura = new Texture("Uncompleted.png");

@@ -98,4 +98,24 @@ public class Controlador {
         MAU.escribirArchivo(usuarios);
     }
     
+    public String siguienteMensaje(String[][] mensajes, int nivel, int indiceMensaje) {
+        System.out.println(mensajes[0][0]);
+        if (indiceMensaje < mensajes[nivel].length - 1) {
+            return mensajes[nivel][indiceMensaje + 1];
+        } else {
+            return null;
+        }
+    }
+
+    public int siguienteIndice (int num){
+        return num++;
+    }
+    
+    public String[] procesarTXTortugalo(String rutaArchivo, int nivel) {
+        String niveles = TextosTortuga.obtenerTextoNiveles(rutaArchivo, nivel);
+        String[]fragmentosPorNivel = TextosTortuga.separarPorDelimitador(niveles);
+
+        return fragmentosPorNivel;
+    }
+    
 }

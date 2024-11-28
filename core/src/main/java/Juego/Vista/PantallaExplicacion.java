@@ -31,6 +31,7 @@ public class PantallaExplicacion implements Screen {
     
     private int nivel;
     private ArrayList<Basurero> inGameBasureros = new ArrayList<>();
+    private int indiceMensaje = 0;
     
     private boolean basuraSeleccionada;
     
@@ -103,17 +104,30 @@ public class PantallaExplicacion implements Screen {
         this.game = game;
         controlador=cont;
     }
-    /*
-    public void formatearMensaje(String mensaje){
-        if(mensaje.length()>20){
-        
-        }
     
+    public String formatearTexto(String texto){
+        if(texto.length()>=25){
+            int ind=25;
+            
+            while(texto.charAt(ind) != ' '){
+                ind++;
+            }
+            
+            String sub1 = texto.substring(0, ind);
+            String sub2 = texto.substring(ind, texto.length());
+            texto = sub1 +"\n"+sub2;
+            if(sub2.length()>=30){
+                return sub1 +"\n"+ formatearTexto(sub2);
+            }
+            
+            return texto; 
+        }
+        return texto;
     }
-    */
-
+   
     @Override
     public void show() {
+        
         camara = game.camara;
         batch = game.batch;
         font = game.font;
@@ -129,8 +143,8 @@ public class PantallaExplicacion implements Screen {
         
         tortuga = new Sprite(imgTortuga);
         
-        mensaje = new Label("TORTUGALOOOOOOOO!!!", Fuentes.error); 
-        mensaje.setPosition(360, 340);
+        mensaje = new Label("Ayúdame a deshacerme de\n estos desechos", Fuentes.error); 
+        mensaje.setPosition(350, 310);
         
         general = new Sprite(imgGeneral);
         basureros.add(general);
@@ -174,7 +188,6 @@ public class PantallaExplicacion implements Screen {
 
         stage.addActor(mensaje);
     }
-    
 
     @Override
     public void render(float f) {
@@ -185,19 +198,14 @@ public class PantallaExplicacion implements Screen {
             
         batch.begin();
         
-        
-
-
         for (int i = 0; i < basureros.size(); i++) {
             Sprite basurero = basureros.get(i);
             basurero.draw(batch);
         }
 
-
         XBOceano =  (XBOceano - 5) % 1540;
         OceanoBack.setPosition(XBOceano, YBOceano);
         OceanoBack.draw(batch);
-
 
         XMOceano =  (XMOceano - 3) % 1573;
         OceanoMid.setPosition(XMOceano, YMOceano);
@@ -218,15 +226,27 @@ public class PantallaExplicacion implements Screen {
         
         stage.draw();
         
-        if (Gdx.input.isTouched()) {
-            //Añadir funcion para ir al siguiente mensaje, cuando no quede nada quer leer setScreen pantallaJuego
-            //mensaje = siguienteMensaje();
-            //While text!= null{ mensaje.setText(mensaje);}
-            mensaje.setText("Mensaje 2");
-                //game.setScreen(new PantallaJuego(game, controlador,nivel));
-             camara.update();
-            } 
-        
+        String txtTortuga = "Tortugaloo.txt";
+        String[] mensajesTortuga = controlador.procesarTXTortugalo(txtTortuga, nivel);
+        try{
+        if (Gdx.input.justTouched()) {
+            String textoMensaje = mensajesTortuga[indiceMensaje];
+            indiceMensaje++;
+
+            if(textoMensaje==null || "".equals(textoMensaje.trim())){
+                game.setScreen(new PantallaJuego(game, controlador,nivel));       
+            }
+            else{
+                textoMensaje = formatearTexto(textoMensaje);
+                mensaje.setText(textoMensaje);
+            }          
+            camara.update();
+            }
+        }
+        catch(IndexOutOfBoundsException e){
+
+            game.setScreen(new PantallaJuego(game, controlador,nivel));  
+        }
     }
 
     @Override

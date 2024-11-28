@@ -1,0 +1,19 @@
+
+En el basurero "General" van los desechos que no entran en ninguna otra categoría,>
+
+En el basurero "Papel" van los papeles>
+$
+En el basurero "Vidrio" van los vidrios>
+$
+En el basurero "Orgánicos" van los desechos naturales>
+$
+En el basurero "Plástico" van los plásticos>
+$
+En el basurero "Biológico" van los materiales biológicos>
+$
+En el basurero "metal" van los metales>
+
+
+
+
+

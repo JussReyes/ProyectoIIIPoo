@@ -33,16 +33,14 @@ public class ManejadorArchivoSugerencias {
             
             //procesamiento
             for (int i = 0; i < lista.size(); i++) {
-                System.out.println("Escribiendo la sugerencia número "+i);
                 manejadorEscritura.writeObject(lista.get(i));
             }
             
             //cierre
-            System.out.println("todo bien");
             return 0;//IConstantes.EXITO;
 
         } catch (FileNotFoundException ex) {
-            System.out.println("No se pudo crear el archivo " + nombreArchivo);
+
             return 1;//IConstantes.ERROR_ARCHIVO;
         } catch (IOException ex) {
             System.out.println("Tengo problemas para escribir el archivo " + nombreArchivo);

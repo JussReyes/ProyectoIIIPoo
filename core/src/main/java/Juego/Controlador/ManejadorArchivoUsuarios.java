@@ -21,7 +21,7 @@ import java.util.List;
 public class ManejadorArchivoUsuarios {
 
     public ManejadorArchivoUsuarios() {
-    }
+    }           
   
     public int escribirArchivo(ArrayList<Usuario> lista) {
         
@@ -34,12 +34,9 @@ public class ManejadorArchivoUsuarios {
             
             //procesamiento
             for (int i = 0; i < lista.size(); i++) {
-                System.out.println("Escribiendo al usuario número "+i);
                 manejadorEscritura.writeObject(lista.get(i));
             }
             
-            //cierre
-            System.out.println("todo bien");
             return 0;//IConstantes.EXITO;
 
         } catch (FileNotFoundException ex) {

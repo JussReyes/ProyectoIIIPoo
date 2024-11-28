@@ -40,7 +40,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class Login implements Screen, Fuentes{
     
     private Controlador controlador;
-    
     private Main game;
     
     private Camera camara;
