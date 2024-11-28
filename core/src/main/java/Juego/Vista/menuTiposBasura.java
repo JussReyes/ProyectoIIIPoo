@@ -95,6 +95,7 @@ public class menuTiposBasura implements Screen, Fuentes {
             
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                dispose();
                 game.setScreen(new Mapa(game,controlador));
             }
         });
@@ -103,43 +104,98 @@ public class menuTiposBasura implements Screen, Fuentes {
         papelEstilo.over = new TextureRegionDrawable(overPapel);
         papel = new ImageButton(papelEstilo);
         papel.setPosition(859, 70);
+        papel.addListener(new ClickListener(){
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                dispose();
+                game.setScreen(new infoTipo(game,controlador, "Papel"));
+            }
+        });
         
         ImageButton.ImageButtonStyle plasticoEstilo = new ImageButton.ImageButtonStyle();
         plasticoEstilo.up = new TextureRegionDrawable (upPlastico);
         plasticoEstilo.over = new TextureRegionDrawable(overPlastico);
         plastico = new ImageButton(plasticoEstilo);
         plastico.setPosition(481, 70);
+        plastico.addListener(new ClickListener(){
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                dispose();
+                game.setScreen(new infoTipo(game,controlador, "Plastico"));
+            }
+        });
         
         ImageButton.ImageButtonStyle vidrioEstilo = new ImageButton.ImageButtonStyle();
         vidrioEstilo.up = new TextureRegionDrawable (upVidrio);
         vidrioEstilo.over = new TextureRegionDrawable(overVidrio);
         vidrio = new ImageButton(vidrioEstilo);
         vidrio.setPosition(670, 70);
+        vidrio.addListener(new ClickListener(){
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                dispose();
+                game.setScreen(new infoTipo(game,controlador, "Vidrio"));
+            }
+        });
         
         ImageButton.ImageButtonStyle metalEstilo = new ImageButton.ImageButtonStyle();
         metalEstilo.up = new TextureRegionDrawable (upMetal);
         metalEstilo.over = new TextureRegionDrawable(overMetal);
         metal = new ImageButton(metalEstilo);
         metal.setPosition(670, 391);
+        metal.addListener(new ClickListener(){
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                dispose();
+                game.setScreen(new infoTipo(game,controlador, "Metal"));
+            }
+        });
         
         ImageButton.ImageButtonStyle biologicoEstilo = new ImageButton.ImageButtonStyle();
         biologicoEstilo.up = new TextureRegionDrawable (upBiologico);
         biologicoEstilo.over = new TextureRegionDrawable(overBiologico);
          biologico = new ImageButton(biologicoEstilo);
          biologico.setPosition(102, 70);
+         biologico.addListener(new ClickListener(){
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                dispose();
+                game.setScreen(new infoTipo(game,controlador, "Biologico"));
+            }
+         });
         
         ImageButton.ImageButtonStyle generalEstilo = new ImageButton.ImageButtonStyle();
         generalEstilo.up = new TextureRegionDrawable (upGeneral);
         generalEstilo.over = new TextureRegionDrawable(overGeneral);
         general = new ImageButton(generalEstilo);
         general.setPosition(859, 391);
+        general.addListener(new ClickListener(){
+
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                dispose();
+                game.setScreen(new infoTipo(game,controlador, "General"));
+            }
+        });
         
         ImageButton.ImageButtonStyle organicoEstilo = new ImageButton.ImageButtonStyle();
         organicoEstilo.up = new TextureRegionDrawable (upOrganico);
         organicoEstilo.over = new TextureRegionDrawable(overOrganico);
         organico = new ImageButton(organicoEstilo);
         organico.setPosition(292, 70);
+        organico.addListener(new ClickListener(){
 
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                dispose();
+                game.setScreen(new infoTipo(game,controlador, "Organico"));
+            }
+        });
         
         titulo1 = new Label("TIPOS DE", Fuentes.titulos);
         titulo2 = new Label("BASURA", Fuentes.titulos);
@@ -203,8 +259,6 @@ public class menuTiposBasura implements Screen, Fuentes {
 
     @Override
     public void dispose() {
-        batch.dispose();
         fondoTitulo.dispose();
-        Fuentes.titulos.font.dispose();
     }
 }
