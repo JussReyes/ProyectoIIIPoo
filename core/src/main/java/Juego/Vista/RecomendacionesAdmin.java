@@ -90,7 +90,6 @@ public class RecomendacionesAdmin implements Screen, Fuentes {
         recos=controlador.getSugerencias();
         if (!recos.isEmpty()&&recos!=null) {
             System.out.println("No estaba vacío");
-            recoActual=recos.getLast();
             ruta=recoActual.getImagen();
             nombre.setText(recoActual.getNombre());
             selectBox.setSelected(recoActual.getBasurero());
